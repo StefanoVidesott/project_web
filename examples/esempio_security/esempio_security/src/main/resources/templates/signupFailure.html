@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up failed</title>
+</head>
+<body>
+    A user with username <span th:text="${username}"></span> already exists.
+    <br><br>
+    Please sign up again with another username.
+    <br><br>
+    <a th:href="@{/index}">Back</a>
+</body>
+</html>
