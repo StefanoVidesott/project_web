@@ -1,0 +1,93 @@
+% ============================================================
+%  SEZIONE 2 — Architettura
+% ============================================================
+\section{Architettura}
+
+\subsection{Pattern MVC e organizzazione del progetto}
+
+% Descrivete come avete strutturato il progetto rispetto al pattern Model-View-Controller.
+Il progetto adotta il pattern architetturale \mvc (Model--View--Controller), che garantisce una netta separazione delle responsabilità tra i diversi livelli applicativi. Di seguito viene descritta l'organizzazione di ciascun livello.
+
+\begin{itemize}
+  \item \textbf{Model.} [Descrivere le entità del dominio, la struttura dei dati, l'accesso al database.]
+  \item \textbf{View.} [Descrivere le interfacce utente, i template, le pagine HTML/CSS.]
+  \item \textbf{Controller.} [Descrivere la logica applicativa, la gestione delle richieste HTTP, il routing.]
+\end{itemize}
+
+\subsection{Diagramma dell'architettura}
+
+La Figura~\ref{fig:architettura} illustra la struttura del sistema e la separazione tra i livelli.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+      node distance = 0.9cm and 2cm,
+      every node/.style = {font=\small},
+      layer/.style    = {
+        draw, rounded corners=4pt, minimum width=3.2cm,
+        minimum height=1cm, align=center,
+        fill=primary!12, draw=primary!60, text=black, thick
+      },
+      arrow/.style    = {-Stealth, thick, color=primary!80},
+      dbnode/.style   = {
+        draw, cylinder, shape border rotate=90,
+        aspect=0.35, minimum width=2.2cm, minimum height=0.9cm,
+        fill=secondary!15, draw=secondary!60, align=center, font=\small
+      },
+      client/.style   = {
+        draw, rounded corners=4pt, minimum width=3.2cm,
+        minimum height=1cm, align=center,
+        fill=BrickRed!10, draw=BrickRed!50, thick
+      },
+    ]
+
+    % Nodi
+    \node[client]  (browser) {Browser\\\textit{(Client)}};
+    \node[layer,   right=of browser]  (ctrl)    {Controller\\(Routing \& Logic)};
+    \node[layer,   above=of ctrl]     (view)    {View\\(Template / HTML)};
+    \node[layer,   below=of ctrl]     (model)   {Model\\(Business Logic)};
+    \node[dbnode,  right=of model]    (db)      {Database};
+
+    % Frecce Client <-> Controller
+    \draw[arrow] (browser.east)  -- node[above, font=\tiny]{HTTP Request}  (ctrl.west);
+    \draw[arrow] (ctrl.west)     -- node[below, font=\tiny]{HTTP Response} (browser.east);
+
+    % Frecce Controller <-> View
+    \draw[arrow] (ctrl.north)  -- node[right, font=\tiny]{render}  (view.south);
+    \draw[arrow] (view.south)  -- node[left,  font=\tiny]{template} (ctrl.north);
+
+    % Frecce Controller <-> Model
+    \draw[arrow] (ctrl.south)  -- node[right, font=\tiny]{call}   (model.north);
+    \draw[arrow] (model.north) -- node[left,  font=\tiny]{data}   (ctrl.south);
+
+    % Frecce Model <-> DB
+    \draw[arrow] (model.east) -- node[above, font=\tiny]{query}  (db.west);
+    \draw[arrow] (db.west)    -- node[below, font=\tiny]{result} (model.east);
+
+    % Riquadro server
+    \begin{pgfonlayer}{background}
+      \node[
+        draw=primary!40, dashed, rounded corners=6pt,
+        fill=primary!4,
+        fit=(ctrl)(view)(model),
+        label={[font=\footnotesize\itshape, color=primary!70]above:Server-side},
+      ] {};
+    \end{pgfonlayer}
+
+  \end{tikzpicture}
+  \caption{Diagramma dell'architettura \mvc del sistema.}
+  \label{fig:architettura}
+\end{figure}
+
+\subsection{Struttura delle directory}
+
+% Mostrate come è organizzato il codice sorgente del progetto.
+\begin{lstlisting}[language=bash, caption={Struttura del progetto.}]
+project-root/
+|-- controllers/       # Logica applicativa e routing
+|-- models/            # Entita del dominio e accesso ai dati
+|-- views/             # Template e componenti UI
+|-- public/            # Asset statici (CSS, JS, immagini)
+|-- config/            # Configurazioni (DB, ambiente)
+|-- tests/             # Test unitari e di integrazione
+\end{lstlisting}

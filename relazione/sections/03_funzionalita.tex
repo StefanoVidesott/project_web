@@ -1,0 +1,80 @@
+% ============================================================
+%  SEZIONE 3 — Funzionalità
+% ============================================================
+\section{Funzionalità}
+
+\subsection{Descrizione della funzionalità selezionata}
+
+% Scegliete UNA funzionalità significativa da descrivere nel dettaglio.
+[Descrivere qui la funzionalità scelta, il suo scopo e il contesto d'uso all'interno dell'applicazione.]
+
+\subsection{Interazione utente}
+
+Dal punto di vista dell'utente, la funzionalità si articola nei seguenti passi:
+
+\begin{enumerate}
+  \item Passo 1: descrivere l'azione dell'utente.
+  \item Passo 2: descrivere la risposta del sistema.
+  \item Passo 3: eventuale feedback o esito finale.
+\end{enumerate}
+
+\subsection{Flusso interno al sistema}
+
+La Figura~\ref{fig:sequenza} mostra il diagramma di sequenza relativo all'esecuzione della funzionalità, evidenziando i componenti coinvolti e i messaggi scambiati.
+
+\begin{figure}[H]
+  \centering
+  % --- Diagramma di sequenza con TikZ ---
+  \begin{tikzpicture}[
+      actor/.style  = {draw, thick, fill=primary!10, minimum width=2.2cm,
+                       minimum height=0.7cm, rounded corners=3pt,
+                       font=\small\bfseries, align=center},
+      lifeline/.style = {draw, dashed, thick, color=secondary!60},
+      msg/.style    = {-Stealth, thick, color=primary!80},
+      retmsg/.style = {-Stealth, dashed, thick, color=secondary},
+      lbl/.style    = {font=\scriptsize, fill=white, inner sep=1pt},
+    ]
+
+    % --- Attori (asse X) ---
+    \def\xBrowser{0}
+    \def\xCtrl{3.5}
+    \def\xModel{7}
+    \def\xDB{10.5}
+
+    \node[actor] (A) at (\xBrowser, 0) {Browser};
+    \node[actor] (B) at (\xCtrl,    0) {Controller};
+    \node[actor] (C) at (\xModel,   0) {Model};
+    \node[actor] (D) at (\xDB,      0) {Database};
+
+    % --- Lifelines ---
+    \foreach \x in {\xBrowser, \xCtrl, \xModel, \xDB}{
+      \draw[lifeline] (\x, -0.35) -- (\x, -5.8);
+    }
+
+    % --- Messaggi (asse Y scende) ---
+    % 1. Request
+    \draw[msg] (\xBrowser,-0.8) -- node[lbl,above]{1. HTTP Request} (\xCtrl,-0.8);
+    % 2. validate & fetch
+    \draw[msg] (\xCtrl,-1.4) -- node[lbl,above]{2. [validate] fetch()} (\xModel,-1.4);
+    % 3. query
+    \draw[msg] (\xModel,-2.0) -- node[lbl,above]{3. SQL query} (\xDB,-2.0);
+    % 4. result set
+    \draw[retmsg] (\xDB,-2.6) -- node[lbl,above]{4. result set} (\xModel,-2.6);
+    % 5. domain object
+    \draw[retmsg] (\xModel,-3.2) -- node[lbl,above]{5. domain object} (\xCtrl,-3.2);
+    % 6. render view
+    \draw[msg] (\xCtrl,-3.8) -- node[lbl,above]{6. render(view, data)} (\xBrowser+0.3,-3.8);
+    % piccola freccia interna al controller per indicare passaggio alla view
+    \draw[msg] (\xCtrl,-4.4) -- node[lbl,above]{7. View populated} (\xCtrl+0.01,-4.4);
+    % 8. HTTP Response
+    \draw[retmsg] (\xCtrl,-5.2) -- node[lbl,above]{8. HTTP Response (HTML)} (\xBrowser,-5.2);
+
+  \end{tikzpicture}
+  \caption{Diagramma di sequenza della funzionalità selezionata.}
+  \label{fig:sequenza}
+\end{figure}
+
+\subsection{Funzionalità non implementate}
+
+% Descrivere eventuali funzionalità previste ma non realizzate, con motivazione.
+[Elencare e motivare le funzionalità che non è stato possibile implementare, specificando se si tratta di vincoli temporali, tecnici o di altra natura.]
