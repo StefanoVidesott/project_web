@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>FitApp - Dashboard</title></head>
+<body>
+<h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
+<p>Dashboard ADMIN - da implementare</p>
+<form th:action="@{/perform_logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+</body>
+</html>

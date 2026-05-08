@@ -11,6 +11,7 @@
     <groupId>exam_project</groupId>
     <artifactId>main_webapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>main_webapp</name>
     <description>main_webapp</description>
     <url/>
@@ -55,6 +56,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>5.0.1</version>
         </dependency>
     </dependencies>
 
