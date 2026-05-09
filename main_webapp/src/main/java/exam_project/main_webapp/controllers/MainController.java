@@ -1,14 +1,26 @@
 package exam_project.main_webapp.controllers;
 
+import exam_project.main_webapp.pojos.User;
+import exam_project.main_webapp.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.Date;
 
 @Controller
 public class MainController {
+    private final UserRepository userRepository;
+
+    @Autowired
+    public MainController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     // Home page
     @GetMapping("/index")
@@ -35,13 +47,32 @@ public class MainController {
     }
 
     // Signing up
-    // @GetMapping("/signup")
-    // public String signup() {
-    //     return "signup";
-    // }
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
+    }
 
-    // @PostMapping("/addUser")
-    // TODO
+    @PostMapping("/addUser")
+    public String addUser(@RequestParam String firstName,
+                          @RequestParam String lastName,
+                          @RequestParam String birthDate,
+                          @RequestParam String email,
+                          @RequestParam String username,
+                          @RequestParam String password,
+                          @RequestParam String plan,
+                          Model model) {
+
+        if (userRepository.userExists(username)) {
+            model.addAttribute("username", username);
+            model.addAttribute("error", "Username già esistente, sceglierne un altro.");
+            return "signup";
+        }
+
+        userRepository.addUser(new User(firstName, lastName, email, username, password, plan, Date.valueOf(birthDate), null));
+
+        model.addAttribute("username", username);
+        return "signupSuccess";
+    }
 
     // User's Dashboard Forwarding
     @GetMapping("/dashboard")
