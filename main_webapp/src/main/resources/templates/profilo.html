@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FitApp - Profilo</title>
+</head>
+<body>
+    <h1>Il tuo profilo</h1>
+
+    <p><strong>Nome:</strong> <span th:text="${user.firstName}"></span></p>
+    <p><strong>Cognome:</strong> <span th:text="${user.lastName}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>Data di nascita:</strong> <span th:text="${user.birthDate}"></span></p>
+    <p><strong>Membro dal:</strong> <span th:text="${user.signupDate}"></span></p>
+
+    <p><strong>Ruolo:</strong> <span th:text="${role}"></span></p>
+
+    <br>
+    <a th:href="@{/dashboard}">Torna alla dashboard</a>
+</body>
+</html>

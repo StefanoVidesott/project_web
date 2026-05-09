@@ -43,6 +43,7 @@ public class SecurityConfig {
         // Authorization
         http.authorizeHttpRequests(c -> c
                 .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER_PROVA", "USER_BASIC", "USER_PRO")
+                .requestMatchers("/profilo").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/adminDashboard").hasRole("ADMIN")
                 .requestMatchers("/provaUserDashboard").hasRole("USER_PROVA")
                 .requestMatchers("/basicUserDashboard").hasRole("USER_BASIC")

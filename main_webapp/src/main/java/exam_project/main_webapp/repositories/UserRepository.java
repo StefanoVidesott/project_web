@@ -4,6 +4,7 @@ import exam_project.main_webapp.pojos.SecurityUser;
 import exam_project.main_webapp.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Repository;
@@ -46,4 +47,21 @@ public class UserRepository {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDetailsManager.createUser(new SecurityUser(user));
     }
+
+    public User findUserByUsername(String username) {
+        String sql = "SELECT * FROM USERDATA WHERE username = ?";
+        RowMapper<User> userRowMapper = (r, i) -> {
+            User rowObject = new User();
+            rowObject.setId(r.getInt("id"));
+            rowObject.setUsername(r.getString("username"));
+            rowObject.setFirstName(r.getString("firstName"));
+            rowObject.setLastName(r.getString("lastName"));
+            rowObject.setEmail(r.getString("email"));
+            rowObject.setBirthDate(r.getDate("birthDate"));
+            rowObject.setSignupDate(r.getDate("signupDate"));
+            return rowObject;
+        };
+        return jdbc.queryForObject(sql, userRowMapper, username);
+    }
+
 }
