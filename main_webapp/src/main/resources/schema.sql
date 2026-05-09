@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS USERDATA (
     lastName    VARCHAR(64) NOT NULL,
     email       VARCHAR(256) NOT NULL,
     birthDate   DATE NOT NULL,
-    signupDate  DATE NOT NULL,
+    signupDate  DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS USERS (
