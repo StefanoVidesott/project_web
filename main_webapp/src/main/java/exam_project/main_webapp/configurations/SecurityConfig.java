@@ -44,7 +44,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests(c -> c
                 .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/profilo").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
+                .requestMatchers("/cambioPassword").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
+                .requestMatchers("/upgrade").hasAnyRole("USER_PROVA", "USER_BASIC")
                 .requestMatchers("/adminDashboard").hasRole("ADMIN")
+                .requestMatchers("/adminListaUtenti").hasRole("ADMIN")
+                .requestMatchers("/rimuoviScaduti").hasRole("ADMIN")
                 .requestMatchers("/provaUserDashboard").hasRole("USER_PROVA")
                 .requestMatchers("/basicUserDashboard").hasRole("USER_BASIC")
                 .requestMatchers("/proUserDashboard").hasRole("USER_PRO")

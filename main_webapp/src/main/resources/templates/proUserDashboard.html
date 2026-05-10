@@ -5,6 +5,7 @@
     <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
     <p>Dashboard PRO - da implementare</p>
     <a th:href="@{/profilo}">Visualizza Profilo</a>
+    <a th:href="@{/cambioPassword}">Cambio Password</a>
     <form th:action="@{/perform_logout}" method="post">
         <button type="submit">Logout</button>
     </form>

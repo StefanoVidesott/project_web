@@ -3,7 +3,41 @@
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
-    <p>Dashboard ADMIN - da implementare</p>
+
+    <a th:href="@{/adminListaUtenti}">Visualizza Lista Utenti</a>
+    <br><br>
+
+    <form th:action="@{/rimuoviScaduti}" method="post">
+        <button type="submit">Rimuovi utenti scaduti</button>
+    </form>
+
+    <div th:if="${removed != null}">
+        <p>Utenti rimossi: <strong th:text="${removed}"></strong></p>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(users)}">
+        <h2>Lista Utenti</h2>
+        <table border="1">
+            <tr>
+                <th>Username</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Data registrazione</th>
+                <th>Ruolo</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.signupDate}"></td>
+                <td th:text="${user.authority}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
     <form th:action="@{/perform_logout}" method="post">
         <button type="submit">Logout</button>
     </form>

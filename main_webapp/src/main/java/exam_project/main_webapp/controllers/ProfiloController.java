@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfiloController {
@@ -21,10 +23,7 @@ public class ProfiloController {
     public String profilo(Authentication authentication, Model model) {
         String username = authentication.getName();
         User user = userRepository.findUserByUsername(username);
-        String role = authentication.getAuthorities().iterator().next().getAuthority();
-
         model.addAttribute("user", user);
-        model.addAttribute("role", role);
         return ("profilo");
     }
 }

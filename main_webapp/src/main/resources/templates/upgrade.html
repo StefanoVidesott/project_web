@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FitApp - Upgrade Piano</title>
+</head>
+<body>
+    <h1>Upgrade Piano</h1>
+
+    <div th:if="${success}" style="color:green">
+        <p th:text="${success}"></p>
+        <p>Effettua il logout e accedi nuovamente per attivare il nuovo piano.</p>
+    </div>
+
+    <div th:if="${success == null}">
+        <p>Piano attuale: <strong th:text="${currentAuthority}"></strong></p>
+
+        <form th:action="@{/upgrade}" method="post">
+
+            <div th:if="${currentAuthority == 'ROLE_USER_PROVA'}">
+                <h3>Basic — €9.90/mese</h3>
+                <p>Accesso a tutti i programmi predefiniti e statistiche.</p>
+                <button type="submit" name="newPlan" value="ROLE_USER_BASIC">
+                    Passa a Basic
+                </button>
+
+                <h3>Pro — €19.90/mese</h3>
+                <p>Tutto di Basic + programmi personalizzati.</p>
+                <button type="submit" name="newPlan" value="ROLE_USER_PRO">
+                    Passa a Pro
+                </button>
+            </div>
+
+            <div th:if="${currentAuthority == 'ROLE_USER_BASIC'}">
+                <h3>Pro — €19.90/mese</h3>
+                <p>Tutto di Basic + programmi personalizzati.</p>
+                <button type="submit" name="newPlan" value="ROLE_USER_PRO">
+                    Passa a Pro
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <br>
+    <a th:href="@{/dashboard}">Torna alla dashboard</a>
+</body>
+</html>

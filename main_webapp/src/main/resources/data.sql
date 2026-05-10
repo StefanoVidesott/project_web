@@ -1,4 +1,3 @@
--- Cancella e reinserisce ogni avvio (idempotente)
 DELETE FROM AUTHORITIES;
 DELETE FROM USERS;
 DELETE FROM USERDATA;
@@ -21,19 +20,43 @@ INSERT INTO USERS (username, password, enabled) VALUES
 INSERT INTO AUTHORITIES (username, authority) VALUES
     ('pro#07', 'ROLE_USER_PRO');
 
--- Prova: password = prv_id_07
+-- Utenti PROVA: password = prv_id_07
 INSERT INTO USERS (username, password, enabled) VALUES
     ('prova#1#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 1);
 INSERT INTO AUTHORITIES (username, authority) VALUES
     ('prova#1#07', 'ROLE_USER_PROVA');
 
-INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate) VALUES
-    ('admin#07', 'Admin', 'System', 'admin@fitapp.it', '1990-01-01', '2025-01-01'),
-    ('basic#07', 'Stefano', 'Videsott', 'basic@fitapp.it', '1990-01-01', '2025-01-01'),
-    ('pro#07', 'Alessandro', 'Como', 'pro@fitapp.it', '1990-01-01', '2025-01-01'),
-    ('prova#1#07', 'Giovanna', 'Varni', 'prova@fitapp.it', '1990-01-01', '2025-01-01');
+INSERT INTO USERS (username, password, enabled) VALUES
+    ('prova#2#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 1);
+INSERT INTO AUTHORITIES (username, authority) VALUES
+    ('prova#2#07', 'ROLE_USER_PROVA');
 
--- Per avere il valore hashed delle passwords usare
+INSERT INTO USERS (username, password, enabled) VALUES
+    ('prova#3#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 0);
+INSERT INTO AUTHORITIES (username, authority) VALUES
+    ('prova#3#07', 'ROLE_USER_PROVA');
+
+INSERT INTO USERS (username, password, enabled) VALUES
+    ('prova#4#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 0);
+INSERT INTO AUTHORITIES (username, authority) VALUES
+    ('prova#4#07', 'ROLE_USER_PROVA');
+
+INSERT INTO USERS (username, password, enabled) VALUES
+    ('prova#5#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 1);
+INSERT INTO AUTHORITIES (username, authority) VALUES
+    ('prova#5#07', 'ROLE_USER_PROVA');
+
+INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate) VALUES
+    ('admin#07',   'Admin',     'System',   'admin@fitapp.it',   '1990-01-01', '2025-01-01'),
+    ('basic#07',   'Stefano',   'Videsott', 'basic@fitapp.it',   '1990-01-01', '2025-01-01'),
+    ('pro#07',     'Alessandro','Como',     'pro@fitapp.it',     '1990-01-01', '2025-01-01'),
+    ('prova#1#07', 'Giovanna',  'Varni',    'prova1@fitapp.it',  '1990-01-01', '2025-06-01'),
+    ('prova#2#07', 'Prova',     'Bianchi',  'prova2@fitapp.it',  '1990-01-01', '2025-06-01'),
+    ('prova#3#07', 'Prova',      'Esposito', 'prova3@fitapp.it',  '1990-01-01', '2025-06-01'),
+    ('prova#4#07', 'Prova',      'Ferrari',  'prova4@fitapp.it',  '1990-01-01', '2025-06-01'),
+    ('prova#5#07', 'Prova',      'Romano',   'prova5@fitapp.it',  '1990-01-01', '2025-06-01');
+
+-- Per avere l'hash delle passwords
 -- BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 -- System.out.println("adm: " + encoder.encode("adm_id_07"));
 -- System.out.println("bsc: " + encoder.encode("bsc_id_07"));
