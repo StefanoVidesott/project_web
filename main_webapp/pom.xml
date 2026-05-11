@@ -62,6 +62,12 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>5.0.1</version>
         </dependency>
+
+        <!-- Verificare se permesso dalla professoressa -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

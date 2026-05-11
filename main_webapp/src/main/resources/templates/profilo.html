@@ -2,6 +2,7 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
 <body>
+    <nav th:replace="~{bases/navbar.html}"></nav>
     <h1>Il tuo profilo</h1>
 
     <p><strong>Nome:</strong> <span th:text="${user.firstName}"></span></p>

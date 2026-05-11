@@ -2,6 +2,7 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
 <body>
+    <nav th:replace="~{bases/navbar.html}"></nav>
     <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
     <p>Dashboard PRO - da implementare</p>
     <a th:href="@{/profilo}">Visualizza Profilo</a>

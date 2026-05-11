@@ -2,6 +2,7 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
 <body>
+    <nav th:replace="~{bases/navbar.html}"></nav>
     <h1>Registrazione completata!</h1>
     <p>Utente <strong th:text="${username}"></strong> registrato con successo.</p>
     <a th:href="@{/login}">Vai al login</a>
