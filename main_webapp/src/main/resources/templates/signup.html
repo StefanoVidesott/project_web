@@ -3,50 +3,83 @@
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
-    <h1>Registrazione</h1>
-
-    <!-- Error message -->
-    <div th:if="${error}" style="color:red">
-        <p th:text="${error}"></p>
+    <div class="container p-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h1>GymBros Center</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="box p-4 p-md-5">
+                    <div class="row text-center mb-4">
+                        <h2>Registrati</h2>
+                    </div>
+                    <!-- Error message -->
+                    <div style="color:red">
+                        <p id="errorMsg" th:text="${error}"><p>
+                    </div>
+                    <form class="login-form" th:action="@{/addUser}" method="post" onsubmit="return validateForm()">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Nome" aria-label="Nome" name="firstName" required>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Cognome" aria-label="Cognome" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="text" id="birthDateDisplay" class="form-control" placeholder="Data di nascita (GG/MM/AAAA)" aria-label="Data di nascita (GG/MM/AAAA)" required>
+                                <input type="hidden" id="birthDate" name="birthDate">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="username" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="password" id="password1" class="form-control" placeholder="Password" aria-label="Password" name="password" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="password" id="password2" class="form-control" placeholder="Conferma Password" aria-label="Conferma Password" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <select class="form-select" place name="plan" required>
+                                    <option selected value="">Seleziona</option>
+                                    <option value="ROLE_USER_PROVA">Prova (gratuito, 3 allenamenti)</option>
+                                    <option value="ROLE_USER_BASIC">Basic (€9.99/mese)</option>
+                                    <option value="ROLE_USER_PRO">Pro (€14.90/mese)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <button class="form-control btn btn-primary" type="submit">Registrati</button>
+                            </div>
+                            <div class="col">
+                                <button class="form-control btn btn-danger" type="reset">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <p>Già uno di noi? <a th:href="@{/login}">Accedi</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <form th:action="@{/addUser}" method="post" onsubmit="return validateForm()">
-
-        <label>Nome</label><br>
-        <input type="text" name="firstName" required><br><br>
-
-        <label>Cognome</label><br>
-        <input type="text" name="lastName" required><br><br>
-
-        <label>Data di nascita (GG/MM/AAAA)</label><br>
-        <input type="text" id="birthDateDisplay" placeholder="01/12/1999" required><br>
-        <input type="hidden" id="birthDate" name="birthDate"><br>
-
-        <label>Email</label><br>
-        <input type="text" name="email" required><br><br>
-
-        <label>Username</label><br>
-        <input type="text" name="username" required><br><br>
-
-        <label>Password</label><br>
-        <input type="password" id="password1" name="password" required><br><br>
-
-        <label>Conferma password</label><br>
-        <input type="password" id="password2" required><br><br>
-
-        <label>Piano di allenamento</label><br>
-        <select name="plan" required>
-            <option value="">-- Seleziona --</option>
-            <option value="ROLE_USER_PROVA">Prova (gratuito, 3 allenamenti)</option>
-            <option value="ROLE_USER_BASIC">Basic (€9.90/mese)</option>
-            <option value="ROLE_USER_PRO">Pro (€19.90/mese)</option>
-        </select><br><br>
-
-        <div id="errorMsg" style="color:red"></div>
-
-        <button type="submit">Registrati</button>
-        <button type="reset">Reset</button>
-    </form>
 
 <script>
     function validateForm() {

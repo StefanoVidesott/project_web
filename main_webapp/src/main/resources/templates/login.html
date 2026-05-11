@@ -1,13 +1,49 @@
+<!-- References from
+    https://colorlib.com/wp/template/login-form-11/
+    https://getbootstrap.com/docs/4.0/utilities/spacing/
+    https://getbootstrap.com/docs/5.3/forms/layout/
+    https://www.w3schools.com/bootstrap/bootstrap_forms.asp#gsc.tab=0
+-->
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
-    <h1>Login</h1>
-    <form th:action="@{/login}" method="post">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <button type="submit">Accedi</button>
-    </form>
+    <div class="container p-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h1>GymBros Center</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="box p-4 p-md-5">
+                    <div class="row text-center mb-4">
+                        <h2>Accedi</h2>
+                    </div>
+                    <form class="login-form" th:action="@{/login}" method="post">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="username" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <button class="form-control btn btn-primary" type="submit">Accedi</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <p>Non sei ancora un Gymbro? <a th:href="@{/signup}">Registrati subito</a>!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
