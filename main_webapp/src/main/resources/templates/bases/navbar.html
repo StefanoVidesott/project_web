@@ -6,14 +6,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item" sec:authorize="isAnonymous()">
+            <ul class="navbar-nav me-auto" sec:authorize="isAnonymous()">
+                <li class="nav-item">
                     <a class="nav-link" href="javascript:window.location.href='/'">Home</a>
                 </li>
             </ul>
-
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+            <ul class="navbar-nav me-auto" sec:authorize="isAuthenticated()">
+                <li class="nav-item">
                     <a class="nav-link" href="javascript:window.location.href='/dashboard'">Dashboard</a>
                 </li>
             </ul>
