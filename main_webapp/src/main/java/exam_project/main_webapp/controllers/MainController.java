@@ -34,14 +34,11 @@ public class MainController {
 
     // Login Page
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(value = "loginError", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "#07: That user is not authenticated!");
+        }
         return "login"; // Spring Security Login (lezione 06/05)
-    }
-
-    // Forward failureForwardUrl (POST)
-    @PostMapping("/loginFailure")
-    public String loginFailure() {
-        return "loginFailure";
     }
 
     // Logout Page

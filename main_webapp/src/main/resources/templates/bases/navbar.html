@@ -1,4 +1,6 @@
-<!-- using reference @ https://www.w3schools.com/bootstrap5/bootstrap_navbar.php -->
+<!--
+    using reference @ https://www.w3schools.com/bootstrap5/bootstrap_navbar.php
+-->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Logo</a>
@@ -11,16 +13,19 @@
                     <a class="nav-link" th:href="@{/}" sec:authorize="isAnonymous()">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contatti}" sec:authorize="isAnonymous()">Contattaci</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/dashboard}" sec:authorize="isAuthenticated()">Dashboard</a>
                 </li>
             </ul>
 
             <ul class="navbar-nav d-flex">
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/login}">Login</a>
+                    <a class="nav-link" th:href="@{/login}">Inizia allenamento</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/signup}">SignUp</a>
+                    <a class="nav-link" th:href="@{/signup}">Registrati</a>
                 </li>
                 <form class="nav-item" th:action="@{/perform_logout}" method="post" sec:authorize="isAuthenticated()">
                     <button type="submit" class="btn btn-danger">Logout</button>

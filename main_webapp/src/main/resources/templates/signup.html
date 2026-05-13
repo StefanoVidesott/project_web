@@ -1,6 +1,7 @@
 <!--
     Same template as login just edited to match the required fields (same references)
     + https://getbootstrap.com/docs/4.0/components/alerts/
+    + https://getbootstrap.com/docs/5.3/forms/checks-radios/#radio-toggle-buttons
 -->
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
@@ -10,7 +11,7 @@
     <div class="container p-5">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h1>GymBros Center</h1>
+                <h1>GymBros Centre</h1>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -58,13 +59,33 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
-                                <select class="form-select" place name="plan" required>
-                                    <option selected value="">Seleziona</option>
-                                    <option value="ROLE_USER_PROVA">Prova (gratuito, 3 allenamenti)</option>
-                                    <option value="ROLE_USER_BASIC">Basic (€9.99/mese)</option>
-                                    <option value="ROLE_USER_PRO">Pro (€14.90/mese)</option>
-                                </select>
+                            <div class="col-12 mb-2">
+                                <label class="form-label"><strong>Seleziona il tuo piano</strong></label>
+                            </div>
+                            <div class="col-12">
+                                <input type="radio" class="btn-check" name="plan" id="planProva" value="ROLE_USER_PROVA" autocomplete="off" required>
+                                <label class="btn btn-outline-dark text-start mb-2 w-100 p-3" for="planProva">
+                                    <div>
+                                        <p><strong>Prova</strong> - Gratuito</p>
+                                    </div>
+                                    <p class="mb-0">3 allenamenti gratuiti dai programmi predefiniti.</p>
+                                </label>
+
+                                <input type="radio" class="btn-check" name="plan" id="planBasic" value="ROLE_USER_BASIC" autocomplete="off">
+                                <label class="btn btn-outline-dark text-start w-100 mb-2 p-3" for="planBasic">
+                                    <div>
+                                        <p><strong>Basic</strong> - €9.99/mese · €99/anno</p>
+                                    </div>
+                                    <p class="mb-0">Accesso illimitato ai programmi predefiniti e statistiche.</p>
+                                </label>
+
+                                <input type="radio" class="btn-check" name="plan" id="planPro" value="ROLE_USER_PRO" autocomplete="off">
+                                <label class="btn btn-outline-dark text-start w-100 mb-2 p-3" for="planPro">
+                                    <div>
+                                        <p><strong>Pro</strong> - €14.99/mese · €149/anno</p>
+                                    </div>
+                                    <p class="mb-0">Tutto di Basic più programmi personalizzati</p>
+                                    </label>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -85,5 +106,6 @@
     </div>
 
     <div th:replace="~{bases/scripts.html}"></div>
+    <script th:src="@{/js/signup_script.js}"></script>
 </body>
 </html>

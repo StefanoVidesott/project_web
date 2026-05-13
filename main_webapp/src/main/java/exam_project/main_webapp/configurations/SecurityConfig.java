@@ -37,7 +37,7 @@ public class SecurityConfig {
         http.formLogin(c -> c
                 .loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
-                .failureForwardUrl("/loginFailure")
+                .failureUrl("/login?loginError")
         );
 
         // Authorization
