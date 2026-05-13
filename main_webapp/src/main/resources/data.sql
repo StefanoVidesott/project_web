@@ -27,14 +27,14 @@ INSERT INTO AUTHORITIES (username, authority) VALUES
     ('prova#5#07', 'ROLE_USER_PROVA');
 
 INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate) VALUES
-    ('admin#07',   'Admin',     'System',   'admin@fitapp.it',   '1990-01-01', '2025-01-01'),
-    ('basic#07',   'Stefano',   'Videsott', 'basic@fitapp.it',   '1990-01-01', '2025-01-01'),
-    ('pro#07',     'Alessandro','Como',     'pro@fitapp.it',     '1990-01-01', '2025-01-01'),
-    ('prova#1#07', 'Giovanna',  'Varni',    'prova1@fitapp.it',  '1990-01-01', '2025-06-01'),
-    ('prova#2#07', 'Prova',     'Bianchi',  'prova2@fitapp.it',  '1990-01-01', '2025-06-01'),
-    ('prova#3#07', 'Prova',      'Esposito', 'prova3@fitapp.it',  '1990-01-01', '2025-06-01'),
-    ('prova#4#07', 'Prova',      'Ferrari',  'prova4@fitapp.it',  '1990-01-01', '2025-06-01'),
-    ('prova#5#07', 'Prova',      'Romano',   'prova5@fitapp.it',  '1990-01-01', '2025-06-01');
+    ('admin#07', 'Admin', 'System', 'admin@fitapp.it', '1990-01-01', '2025-01-01'),
+    ('basic#07', 'Stefano', 'Videsott', 'basic@fitapp.it', '1990-01-01', '2025-01-02'),
+    ('pro#07', 'Alessandro', 'Como', 'pro@fitapp.it', '1990-01-01', '2025-01-03'),
+    ('prova#1#07', 'Giovanna', 'Varni', 'prova1@fitapp.it', '1990-01-01', '2025-06-07'),
+    ('prova#2#07', 'Prova', 'Bianchi', 'prova2@fitapp.it', '1990-01-01', '2025-06-09'),
+    ('prova#3#07', 'Prova',  'Esposito', 'prova3@fitapp.it', '1990-01-01', '2025-06-21'),
+    ('prova#4#07', 'Prova', 'Ferrari', 'prova4@fitapp.it', '1990-01-01', '2025-06-23'),
+    ('prova#5#07', 'Prova', 'Romano', 'prova5@fitapp.it', '1990-01-01', '2025-06-08');
 
 -- Per avere l'hash delle passwords
 -- BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
