@@ -1,4 +1,7 @@
-<!-- Same template as login just edited to match the required fields (same references) -->
+<!--
+    Same template as login just edited to match the required fields (same references)
+    + https://getbootstrap.com/docs/4.0/components/alerts/
+-->
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
@@ -17,8 +20,7 @@
                         <h2>Registrati</h2>
                     </div>
                     <!-- Error message -->
-                    <div style="color:red">
-                        <p id="errorMsg" th:text="${error}"><p>
+                    <div id="errorContainer" class="alert alert-danger" role="alert" th:style="${error} ? 'display:block' : 'display:none'" th:text="${error}">
                     </div>
                     <form class="login-form" th:action="@{/addUser}" method="post" onsubmit="return validateSignUpForm()">
                         <div class="row mb-3">

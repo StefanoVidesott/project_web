@@ -1,5 +1,5 @@
 function validateSignUpForm() {
-    const errorDiv = document.getElementById("errorMsg");
+    const errorDiv = document.getElementById("errorContainer");
     errorDiv.textContent = "";
 
     // BirthDate validation GG/MM/AAAA
@@ -8,6 +8,7 @@ function validateSignUpForm() {
     const match = dateInput.match(dateRegex);
     if (!match) {
         errorDiv.textContent = "Formato data non valido. Usa GG/MM/AAAA.";
+        errorDiv.style.display = "block"
         return false;
     }
 
@@ -20,6 +21,7 @@ function validateSignUpForm() {
         birthDate.getMonth() !== month - 1 ||
         birthDate.getDate() !== day) {
         errorDiv.textContent = "Data di nascita non valida.";
+        errorDiv.style.display = "block"
         return false;
     }
 
@@ -28,6 +30,7 @@ function validateSignUpForm() {
     age18.setFullYear(age18.getFullYear() + 18);
     if (age18 > today) {
         errorDiv.textContent = "Devi essere maggiorenne per registrarti.";
+        errorDiv.style.display = "block"
         return false;
     }
 
@@ -41,16 +44,19 @@ function validateSignUpForm() {
     const pwd1 = document.getElementById("password1").value;
     if (pwd1.length < 8) {
         errorDiv.textContent = "La password deve essere lunga almeno 8 caratteri.";
+        errorDiv.style.display = "block"
         return false;
     }
     if (!pwd1.includes("id_07")) {
         errorDiv.textContent = "La password deve contenere 'id_07'.";
+        errorDiv.style.display = "block"
         return false;
     }
 
     const pwd2 = document.getElementById("password2").value;
     if (pwd1 !== pwd2) {
         errorDiv.textContent = "Le due password non coincidono.";
+        errorDiv.style.display = "block"
         return false;
     }
 
