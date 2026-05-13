@@ -1,5 +1,6 @@
 function validateSignUpForm() {
     const errorDiv = document.getElementById("errorContainer");
+    errorDiv.style.display = "none"
     errorDiv.textContent = "";
 
     // BirthDate validation GG/MM/AAAA
@@ -41,20 +42,20 @@ function validateSignUpForm() {
     document.getElementById("birthDate").value = yyyy + "-" + mm + "-" + dd;
 
     // Password validation
-    const pwd1 = document.getElementById("password1").value;
-    if (pwd1.length < 8) {
+    const pwd = document.getElementById("password").value;
+    if (pwd.length < 8) {
         errorDiv.textContent = "La password deve essere lunga almeno 8 caratteri.";
         errorDiv.style.display = "block"
         return false;
     }
-    if (!pwd1.includes("id_07")) {
+    if (!pwd.includes("id_07")) {
         errorDiv.textContent = "La password deve contenere 'id_07'.";
         errorDiv.style.display = "block"
         return false;
     }
 
-    const pwd2 = document.getElementById("password2").value;
-    if (pwd1 !== pwd2) {
+    const pwdConfirm = document.getElementById("confirmPassword").value;
+    if (pwd !== pwdConfirm) {
         errorDiv.textContent = "Le due password non coincidono.";
         errorDiv.style.display = "block"
         return false;

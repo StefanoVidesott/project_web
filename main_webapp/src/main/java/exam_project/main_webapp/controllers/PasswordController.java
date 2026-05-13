@@ -28,15 +28,9 @@ public class PasswordController {
     public String cambioPassword(Authentication authentication,
                                  @RequestParam String oldPassword,
                                  @RequestParam String newPassword,
-                                 @RequestParam String confirmPassword,
                                  Model model) {
 
-        // TODO Verificare se queste verifiche lato backend sono richieste
-        if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("error", "Le due password non coincidono.");
-            return "cambioPassword";
-        }
-
+        // Verifiche aggiuntive lato backend sul formato della password e legittimità del cambio
         if (newPassword.length() < 8 || !newPassword.contains("id_07")) {
             model.addAttribute("error", "La password deve essere lunga almeno 8 caratteri e contenere 'id_07'.");
             return "cambioPassword";
