@@ -67,7 +67,7 @@ public class UserRepository {
     }
 
     public List<User> findAllUsers() {
-        String sql = "SELECT u.*, a.authority FROM USERDATA u JOIN AUTHORITIES a ON u.username = a.username ORDER BY a.authority";
+        String sql = "SELECT u.*, a.authority FROM USERDATA u JOIN AUTHORITIES a ON u.username = a.username ORDER BY a.authority, u.signupDate";
         RowMapper<User> userMapper = (rs, rowNum) -> {
             User ui = new User();
             ui.setUsername(rs.getString("username"));
