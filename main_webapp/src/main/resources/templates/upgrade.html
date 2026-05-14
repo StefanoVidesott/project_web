@@ -3,45 +3,57 @@
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
-    <h1>Upgrade Piano</h1>
-
-    <div th:if="${success}" style="color:green">
-        <p th:text="${success}"></p>
-        <p>Effettua il logout e accedi nuovamente per attivare il nuovo piano.</p>
-    </div>
-
-    <div th:if="${success == null}">
-        <p>Piano attuale: <strong th:text="${currentAuthority}"></strong></p>
-
-        <form th:action="@{/upgrade}" method="post">
-
-            <div th:if="${currentAuthority == 'ROLE_USER_PROVA'}">
-                <h3>Basic — €9.90/mese</h3>
-                <p>Accesso a tutti i programmi predefiniti e statistiche.</p>
-                <button type="submit" name="newPlan" value="ROLE_USER_BASIC">
-                    Passa a Basic
-                </button>
-
-                <h3>Pro — €19.90/mese</h3>
-                <p>Tutto di Basic + programmi personalizzati.</p>
-                <button type="submit" name="newPlan" value="ROLE_USER_PRO">
-                    Passa a Pro
-                </button>
+    <div class="container p-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h1>Fai un Upgrade and Grow your Muscles!</h1>
+                <p class="text-muted">Attualmente sei un gymbro con piano <strong th:text="${currentPlan}"></strong></p>
             </div>
-
-            <div th:if="${currentAuthority == 'ROLE_USER_BASIC'}">
-                <h3>Pro — €19.90/mese</h3>
-                <p>Tutto di Basic + programmi personalizzati.</p>
-                <button type="submit" name="newPlan" value="ROLE_USER_PRO">
-                    Passa a Pro
-                </button>
+        </div>
+        <div class="row mb-2" th:if="${error != null || success != null}">
+            <div class="col">
+                <div class="alert alert-danger" role="alert" th:if="${error}">
+                    <p class="mb-0" th:text="${error}"></p>
+                </div>
+                <div class="alert alert-success" role="alert" th:if="${success}">
+                    <p class="mb-0">Upgrade effettuato con successo a <strong th:text="${currentPlan}"></strong>!</p>
+                    <p>Effettua il logout e accedi nuovamente per attivare il nuovo piano.</p>
+                    <form class="nav-item" th:action="@{/perform_logout}" method="post">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                </div>
             </div>
+        </div>
+        <div class="row mb-5" th:if="${success == null}">
+            <div class="col">
 
-        </form>
+                <div class="box mb-5" th:if="${currentAuthority == 'ROLE_USER_PROVA'}">
+                    <form class="p-5" th:action="@{/upgrade}" method="post">
+                        <div>
+                            <h3>Basic - €9.99/mese o €99/anno</h3>
+                            <p>Accesso a tutti i programmi predefiniti e statistiche.</p>
+                            <button type="submit" class="btn btn-primary" name="newPlan" value="ROLE_USER_BASIC">
+                                Passa a Basic
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="box mb-5" th:if="${currentAuthority == 'ROLE_USER_PROVA' || currentAuthority == 'ROLE_USER_BASIC'}">
+                    <form class="p-5" th:action="@{/upgrade}" method="post">
+                        <div>
+                            <h3>Pro — €19.90/mese</h3>
+                            <p>Tutto di Basic + programmi personalizzati.</p>
+                            <button type="submit" class="btn btn-primary" name="newPlan" value="ROLE_USER_PRO">
+                                Passa a Pro
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-    <br>
-    <a th:href="@{/dashboard}">Torna alla dashboard</a>
-    <div th:replace="~{bases/scripts.html}"></div>
+    <nav th:replace="~{bases/scripts.html}"></nav>
 </body>
 </html>

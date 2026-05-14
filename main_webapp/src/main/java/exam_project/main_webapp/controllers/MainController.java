@@ -75,8 +75,6 @@ public class MainController {
             return "signup";
         }
 
-        // TODO Verificare se fare verifiche lato backend sono richieste (eg. password valida)
-
         userRepository.addUser(new User(firstName, lastName, email, username, password, plan, Date.valueOf(birthDate), null));
 
         model.addAttribute("username", username);
