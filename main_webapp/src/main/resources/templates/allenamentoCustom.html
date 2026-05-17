@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GymBros Center</title>
+</head>
+<body>
+
+<h1>Inserimento esercizi nel tuo nuovo programma!</h1>
+
+<form th:action="@{/allenamentoCustomSend}" method="post">
+
+    <label>Nome programma</label> <br>
+    <input type="text" name="nomeProgramma" required> <br><br>
+
+
+    <div id="listaEsercizi">
+
+        <div class="blocco-esercizi">
+            <label>Nome esercizio</label>
+            <input type="text" name="esercizi[0].nome_esercizio" placeholder="Nome esercizio..." required>
+
+            <label>Numero ripetizioni</label>
+            <input type="number" name="esercizi[0].numero_ripetizioni" placeholder="Numero ripetizioni..." required>
+
+            <label>Numero serie</label>
+            <input type="number" name="esercizi[0].numero_serie" placeholder="Numero serie..." required>
+        </div>
+
+    </div>
+
+    <br>
+    <button type="button" onclick="aggiungiEsercizio()">Aggiungi un esercizio</button>
+    <button type="submit">Salva scheda</button>
+
+</form>
+
+<script th:src="@{/js/allenamentoCustom_script.js}"></script>
+
+</body>
+</html>
