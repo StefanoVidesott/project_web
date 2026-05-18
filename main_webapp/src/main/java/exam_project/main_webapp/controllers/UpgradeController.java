@@ -1,6 +1,7 @@
 package exam_project.main_webapp.controllers;
 
 import exam_project.main_webapp.repositories.UserRepository;
+import exam_project.main_webapp.services.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,24 +16,19 @@ import java.util.Objects;
 @Controller
 public class UpgradeController {
     private final UserRepository userRepository;
+    private final PlanService planService;
 
     @Autowired
-    public UpgradeController(UserRepository userRepository) {
+    public UpgradeController(UserRepository userRepository, PlanService planService) {
         this.userRepository = userRepository;
+        this.planService = planService;
     }
 
     @GetMapping("/upgrade")
     public String upgradePage(Authentication authentication, Model model) {
         String currentAuthority = authentication.getAuthorities().iterator().next().getAuthority();
-        String currentPlan = switch (currentAuthority) {
-            case "ROLE_USER_PROVA" -> "Prova";
-            case "ROLE_USER_BASIC" -> "Basic";
-            case "ROLE_USER_PRO" -> "Pro";
-            case null, default -> "Error";
-        };
-
         model.addAttribute("currentAuthority", currentAuthority);
-        model.addAttribute("currentPlan", currentPlan);
+        model.addAttribute("currentPlan", planService.getPlanName(currentAuthority));
         return "upgrade";
     }
 
@@ -40,35 +36,19 @@ public class UpgradeController {
     public String upgrade(Authentication authentication,
                           @RequestParam String newPlan,
                           Model model) {
-        List<String> allowedPlans = List.of("ROLE_USER_BASIC", "ROLE_USER_PRO");
-
         String currentAuthority = authentication.getAuthorities().iterator().next().getAuthority();
-        String currentPlan = switch (currentAuthority) {
-            case "ROLE_USER_PROVA" -> "Prova";
-            case "ROLE_USER_BASIC" -> "Basic";
-            case "ROLE_USER_PRO" -> "Pro";
-            case null, default -> "Error";
-        };
-
         model.addAttribute("currentAuthority", currentAuthority);
-        model.addAttribute("currentPlan", currentPlan);
+        model.addAttribute("currentPlan", planService.getPlanName(currentAuthority));
 
-        if (!allowedPlans.contains(newPlan)) {
+        if (!planService.isValidUpgrade(newPlan)) {
             model.addAttribute("error", "Piano non valido.");
             return "upgrade";
         }
 
-        String username = authentication.getName();
-        userRepository.upgradeUser(username, newPlan);
-        currentPlan = switch (newPlan) {
-            case "ROLE_USER_PROVA" -> "Prova";
-            case "ROLE_USER_BASIC" -> "Basic";
-            case "ROLE_USER_PRO" -> "Pro";
-            case null, default -> "Error";
-        };
+        userRepository.upgradeUser(authentication.getName(), newPlan);
         model.addAttribute("success", true);
         model.addAttribute("currentAuthority", newPlan);
-        model.addAttribute("currentPlan", currentPlan);
+        model.addAttribute("currentPlan", planService.getPlanName(newPlan));
         return "upgrade";
     }
 }

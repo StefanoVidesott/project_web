@@ -2,6 +2,7 @@ package exam_project.main_webapp.controllers;
 
 import exam_project.main_webapp.pojos.User;
 import exam_project.main_webapp.repositories.UserRepository;
+import exam_project.main_webapp.services.PasswordValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PasswordController {
     private final UserRepository userRepository;
+    private final PasswordValidationService passwordValidationService;
 
     @Autowired
-    public PasswordController(UserRepository userRepository) {
+    public PasswordController(UserRepository userRepository, PasswordValidationService passwordValidationService) {
         this.userRepository = userRepository;
+        this.passwordValidationService = passwordValidationService;
     }
 
     @GetMapping("/cambioPassword")
@@ -31,7 +34,7 @@ public class PasswordController {
                                  Model model) {
 
         // Verifiche aggiuntive lato backend sul formato della password e legittimità del cambio
-        if (newPassword.length() < 8 || !newPassword.contains("id_07")) {
+        if (!passwordValidationService.isValid(newPassword)) {
             model.addAttribute("error", "La password deve essere lunga almeno 8 caratteri e contenere 'id_07'.");
             return "cambioPassword";
         }

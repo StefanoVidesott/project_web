@@ -3,6 +3,7 @@ package exam_project.main_webapp.controllers;
 import exam_project.main_webapp.pojos.User;
 import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.CheckUserService;
+import exam_project.main_webapp.services.PasswordValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,12 +19,15 @@ import java.sql.Date;
 public class MainController {
     private final UserRepository userRepository;
     private final CheckUserService checkUserService;
+    private final PasswordValidationService passwordValidationService;
 
     @Autowired
     public MainController(UserRepository userRepository,
-                          CheckUserService checkUserService) {
+                          CheckUserService checkUserService,
+                          PasswordValidationService passwordValidationService) {
         this.userRepository = userRepository;
         this.checkUserService = checkUserService;
+        this.passwordValidationService = passwordValidationService;
     }
 
     // Home page
@@ -70,8 +74,12 @@ public class MainController {
                           Model model) {
 
         if (checkUserService.userExists(username)) {
-            model.addAttribute("username", username);
-            model.addAttribute("error", "Username già esistente, sceglierne un altro.");
+            model.addAttribute("error", String.format("Username %s già esistente, sceglierne un altro.", username));
+            return "signup";
+        }
+
+        if (!passwordValidationService.isValid(password)) {
+            model.addAttribute("error", "La password deve essere lunga almeno 8 caratteri e contenere 'id_07'.");
             return "signup";
         }
 
