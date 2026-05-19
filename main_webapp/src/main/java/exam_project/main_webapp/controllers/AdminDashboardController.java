@@ -1,5 +1,6 @@
 package exam_project.main_webapp.controllers;
 
+import exam_project.main_webapp.repositories.TrainingRepository;
 import exam_project.main_webapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AdminDashboardController {
     private final UserRepository userRepository;
+    private final TrainingRepository trainingRepository;
 
     @Autowired
-    public AdminDashboardController(UserRepository userRepository) {
+    public AdminDashboardController(UserRepository userRepository, TrainingRepository trainingRepository) {
         this.userRepository = userRepository;
+        this.trainingRepository = trainingRepository;
     }
 
     @GetMapping("/adminListaUtenti")
@@ -30,5 +33,12 @@ public class AdminDashboardController {
         model.addAttribute("name", authentication.getName());
         model.addAttribute("removed", removed);
         return "adminDashboard";
+    }
+
+    @GetMapping("/adminStatistiche")
+    public String statistiche(Authentication authentication, Model model) {
+        model.addAttribute("name", authentication.getName());
+        model.addAttribute("statistiche", trainingRepository.getStatisticsGroupedByTraining());
+        return "adminStatistiche";
     }
 }

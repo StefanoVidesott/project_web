@@ -90,6 +90,7 @@ public class UserRepository {
 
         for (String username : usersToRemove) {
             jdbc.update("DELETE FROM AUTHORITIES WHERE username = ?", username);
+            jdbc.update("DELETE FROM COMPLETED_TRAININGS WHERE username = ?", username);
             jdbc.update("DELETE FROM USERDATA WHERE username = ?", username);
             jdbc.update("DELETE FROM USERS WHERE username = ?", username);
         }
