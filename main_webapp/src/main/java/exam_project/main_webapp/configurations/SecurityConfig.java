@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .requestMatchers("/cambioPassword").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/upgrade").hasAnyRole("USER_PROVA", "USER_BASIC")
                 .requestMatchers("/adminDashboard").hasRole("ADMIN")
+                .requestMatchers("/adminStatistiche").hasRole("ADMIN")
                 .requestMatchers("/adminListaUtenti").hasRole("ADMIN")
                 .requestMatchers("/rimuoviScaduti").hasRole("ADMIN")
                 .requestMatchers("/provaUserDashboard").hasRole("USER_PROVA")

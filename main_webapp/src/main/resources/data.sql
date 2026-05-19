@@ -1,6 +1,7 @@
+DELETE FROM USERDATA;
+DELETE FROM COMPLETED_TRAININGS;
 DELETE FROM AUTHORITIES;
 DELETE FROM USERS;
-DELETE FROM USERDATA;
 
 INSERT INTO USERS (username, password, enabled) VALUES
     ('admin#07', '$2a$10$Yw2oRKktnyJPPSdBCJ3slOg/AzoXjNHmkIATa3n21YxVRfXBpuuku', 1),
@@ -31,6 +32,21 @@ INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDat
     ('prova#3#07', 'Prova',  'Esposito', 'prova3@fitapp.it', '1990-01-01', '2025-06-21'),
     ('prova#4#07', 'Prova', 'Ferrari', 'prova4@fitapp.it', '1990-01-01', '2025-06-23'),
     ('prova#5#07', 'Prova', 'Romano', 'prova5@fitapp.it', '1990-01-01', '2025-06-08');
+
+INSERT INTO COMPLETED_TRAININGS (username, trainingId, trainingDate) VALUES
+    ('basic#07', 0, '2025-03-01 10:00:00'),
+    ('basic#07', 0, '2025-03-05 11:00:00'),
+    ('basic#07', 1, '2025-03-10 09:00:00'),
+    ('basic#07', 2, '2025-03-15 10:30:00'),
+    ('pro#07', 0, '2025-03-02 08:00:00'),
+    ('pro#07', 3, '2025-03-07 09:00:00'),
+    ('pro#07', 3, '2025-03-12 08:30:00'),
+    ('pro#07', 1, '2025-03-17 07:00:00'),
+    ('prova#1#07', 0, '2025-03-01 10:00:00'),
+    ('prova#2#07', 1, '2025-03-02 11:00:00'),
+    ('prova#3#07', 0, '2025-03-01 10:00:00'),
+    ('prova#3#07', 1, '2025-03-03 11:00:00'),
+    ('prova#3#07', 2, '2025-03-05 09:00:00');
 
 -- Per avere l'hash delle passwords
 -- BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
