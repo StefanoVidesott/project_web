@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GymBros Center</title>
+</head>
+<body>
+
+<table class="table">
+    <thead>
+
+    <tr>
+        <th>Esercizi</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+    <tr th:each="esercizio : ${composizioneCustom}">
+
+        <td th:text="${esercizio.nome_esercizio}"> P </td>
+        <td th:text="${esercizio.numero_serie}"> P </td>
+        <td th:text="${esercizio.numero_ripetizioni}"> P </td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>
