@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:h2:../databases/main_webapp-DB;AUTO_SERVER=TRUE</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="RestLike-DB" uuid="387518e7-b2da-4d01-b324-1abf611f223c">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:~/databases/RestLike-DB;AUTO_SERVER=TRUE</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
