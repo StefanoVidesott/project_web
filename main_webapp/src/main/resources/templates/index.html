@@ -3,8 +3,22 @@
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
-    <h1>Benvenuto sulla Webapp di Gym Bros Centre!</h1>
-    <a th:href="@{/contatti}">Contatti</a>
+    <div style="text-align:center">
+        <br>
+        <h1 class="fw-light">Benvenuto sulla Webapp di Gym Bros Center!</h1>
+        <br>
+        <img  th:src="@{/images/Gymbro.jpg}" alt="gymbroFoto" width="400" height="400">
+    </div>
+
+    <p style="margin-top: 40px;" class="fs-5 fw-light"> <b> La nostra webApp è una piattaforma pensata sia per le persone che vogliono iniziare
+    un percorso nel mondo del fitness da cui potranno ottenere un cambio estetico e mentale favoloso, ma anche per i più esperti che adesso potranno gestire al meglio i propri
+    allenamenti grazie al nostro servizio, con la possibilità di selezionare schede predefinite o personalizzarle a proprio piacimento, di tenere traccia degli allenamenti completati e molto altro!
+        Registrati se non sei ancora iscritto e scegli l'abbonamento più adatto per te </b> </p>
+
+    <div>
+        <a th:href="@{/contatti}">Contatti</a>
+    </div>
+
     <div th:replace="~{bases/footer.html}"></div>
     <div th:replace="~{bases/scripts.html}"></div>
 </body>
