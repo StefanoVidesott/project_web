@@ -2,29 +2,82 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
 <body>
-    <nav th:replace="~{bases/navbar.html}"></nav>
+<nav th:replace="~{bases/navbar.html}"></nav>
 
-    <div style="text-align:center">
-        <br>
-        <h1 class="fw-light">Benvenuto sulla Webapp di Gym Bros Center!</h1>
+<div style="text-align:center">
+    <br>
+    <h1 class="fw-light">Benvenuto sulla Webapp di Gym Bros Center!</h1>
 
-        <br>
-        <img  th:src="@{/images/Gymbro.jpg}" alt="gymbroFoto" width="400" height="400">
-
+    <!--Carosello di Bootstrap -->
+    <br>
+    <div id="carousel-homepage" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img th:src="@{/images/palestra.jpg}" class="d-block w-100" alt="palestra" style="height: 500px; object-fit: cover;">
+            </div>
+            <div class="carousel-item">
+                <img th:src="@{/images/genteCorrente.jpg}" class="d-block w-100" alt="Gente" style="height: 500px; object-fit: cover;">
+            </div>
+            <div class="carousel-item">
+                <img th:src="@{/images/manubri.jpg}" class="d-block w-100" alt="Manubri" style="height: 500px; object-fit: cover;">
+            </div>
+            <div class="carousel-item">
+                <img th:src="@{/images/bilanciere.jpg}" class="d-block w-100" alt="Bilanciere" style="height: 500px; object-fit: cover;">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-homepage" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-homepage" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
-    <p style="margin-top: 40px;" class="fs-5 fw-light"> <b> La nostra webApp è una piattaforma pensata sia per le persone che vogliono iniziare
+
+</div>
+
+<p style="margin-top: 40px;" class="fs-5 fw-light"> <b> La nostra webApp è una piattaforma pensata sia per le persone che vogliono iniziare
     un percorso nel mondo del fitness da cui potranno ottenere un cambio estetico e mentale favoloso, ma anche per i più esperti che adesso potranno gestire al meglio i propri
     allenamenti grazie al nostro servizio, con la possibilità di selezionare schede predefinite o personalizzarle a proprio piacimento, di tenere traccia degli allenamenti completati e molto altro!
-        Registrati se non sei ancora iscritto e scegli l'abbonamento più adatto per te </b> </p>
-
-    <div>
-        <a th:href="@{/contatti}">Contatti</a>
+    Registrati se non sei ancora iscritto e scegli l'abbonamento più adatto per te </b> </p>
 
 
+<!--Card delle interazioni dell'utente-->
+
+<div class="d-flex flex-wrap justify-content-center gap-5 my-5">
+
+    <div class="card shadow-sm" style="width: 18rem;">
+        <img th:src="@{/images/registrazione.jpg}" class="card-img-top" alt="Registrazione" style="height: 250px; object-fit: cover;">
+        <div class="card-body d-flex flex-column">
+            <h4 class="card-title">Registrati</h4>
+            <p class="card-text">Iscriviti da subito per poter iniziare il tuo percorso!</p>
+            <a th:href="@{/signup}" class="btn btn-dark mt-auto">Registrati</a>
+        </div>
     </div>
 
-    <div th:replace="~{bases/scripts.html}"></div>
-    <div th:replace="~{bases/footer.html}"></div>
+    <div class="card shadow-sm" style="width: 18rem;">
+        <img th:src="@{/images/Gymbro.jpg}" class="card-img-top" alt="Allenati" style="height: 250px; object-fit: cover;">
+        <div class="card-body d-flex flex-column">
+            <h4 class="card-title">Inizia allenamento</h4>
+            <p class="card-text">Se hai già effettuato la registrazione, inizia ad allenarti con noi!</p>
+            <a th:href="@{/login}" class="btn btn-dark mt-auto">Inizia Allenamento</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm" style="width: 18rem;">
+        <img th:src="@{/images/contatti.jpg}" class="card-img-top" alt="Contattaci" style="height: 250px; object-fit: cover;">
+        <div class="card-body d-flex flex-column">
+            <h4 class="card-title">Contattaci</h4>
+            <p class="card-text">Se stai riscontrando qualunque genere di problema, contattaci pure!</p>
+            <a th:href="@{/contatti}" class="btn btn-dark mt-auto">Vai su contatti</a>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{bases/scripts.html}"></div>
+<div th:replace="~{bases/footer.html}"></div>
 </body>
 </html>
