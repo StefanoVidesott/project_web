@@ -38,7 +38,7 @@ public class AdminDashboardController {
     @GetMapping("/adminStatistiche")
     public String statistiche(Authentication authentication, Model model) {
         model.addAttribute("name", authentication.getName());
-        model.addAttribute("statistiche", trainingRepository.getStatisticsGroupedByTraining());
-        return "adminStatistiche";
+        model.addAttribute("statistics", trainingRepository.getStatisticsGroupedByTraining());
+        return "adminDashboard";
     }
 }

@@ -9,7 +9,7 @@ function getData(){
                 return response.text();
             })
             .then(text => {
-                document.getElementById("sequence").innerHTML = text;
+                document.getElementById("sequence").textContent = text;
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation: ', error);
@@ -29,7 +29,7 @@ function getTime(){
                 return response.text();
             })
             .then(text => {
-                document.getElementById("atime").innerHTML = text;
+                document.getElementById("atime").textContent = text;
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation: ', error);
