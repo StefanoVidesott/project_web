@@ -23,6 +23,7 @@ public class ProfiloController {
     public String profilo(Authentication authentication, Model model) {
         String username = authentication.getName();
         User user = userRepository.findUserByUsername(username);
+        model.addAttribute("name", authentication.getName());
         model.addAttribute("user", user);
         return ("profilo");
     }
