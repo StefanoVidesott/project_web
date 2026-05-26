@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS PROGRAMMICUSTOM(
     -- user_id BIGINT NOT NULL,
     -- NON USARE USERID MA USA: username VARCHAR(64) NOT NULL,
     nome varchar(32) NOT NULL,
-    kcal double NOT NUL
+    kcal double NOT NULL
     -- FOREIGN KEY (user_id) REFERENCES USERS (id)
 );
 
