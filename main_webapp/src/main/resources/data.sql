@@ -1,3 +1,4 @@
+DELETE FROM REVIEWS;
 DELETE FROM USERDATA;
 DELETE FROM COMPLETED_TRAININGS;
 DELETE FROM AUTHORITIES;
@@ -48,6 +49,11 @@ INSERT INTO COMPLETED_TRAININGS (username, trainingId, trainingDate) VALUES
     ('prova#3#07', 0, '2025-03-01 10:00:00'),
     ('prova#3#07', 1, '2025-03-03 11:00:00'),
     ('prova#3#07', 2, '2025-03-05 09:00:00');
+
+INSERT INTO REVIEWS (username, content, created_at) VALUES
+    ('basic#07', 'Fantastica, la consiglio a tutti i nerd pompati li fuori', '2025-03-10 09:00:00'),
+    ('basic#07', 'Mai provato nulla del genere, adoro fare Branch press', '2025-03-15 10:30:00'),
+    ('pro#07', 'Perfetta per iniziare a sviluppare muscoli', '2025-03-02 08:00:00');
 
 -- Per avere l'hash delle passwords
 -- BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

@@ -9,6 +9,7 @@ function aggiungiEsercizio() {
     newForm.style.marginTop = "15px";
 
     // ATTENZIONE QUI: Sto usando i backtick ( ` ) all'inizio e alla fine!
+    // Verifica se utilizzare text content invece di innerHTML
     newForm.innerHTML = `
         <hr>
         <label>Nome esercizio</label>

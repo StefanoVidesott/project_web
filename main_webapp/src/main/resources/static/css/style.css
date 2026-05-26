@@ -6,11 +6,17 @@ body {
     background: #f5f6ff;
     color: gray;
 }
+
 h1 {
     color: #1c1c1c;
 }
+
 .box {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+}
+
+.carousel-item {
+    background: #a4a3a7;
 }

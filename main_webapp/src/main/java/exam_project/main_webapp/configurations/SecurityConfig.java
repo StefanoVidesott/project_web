@@ -13,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 @Configuration
 @ComponentScan("exam_project.main_webapp")
 public class SecurityConfig {
@@ -45,6 +48,7 @@ public class SecurityConfig {
                 .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/profilo").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/cambioPassword").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
+                .requestMatchers(POST, "/recensioni").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/upgrade").hasAnyRole("USER_PROVA", "USER_BASIC")
                 .requestMatchers("/adminDashboard").hasRole("ADMIN")
                 .requestMatchers("/adminStatistiche").hasRole("ADMIN")
@@ -53,6 +57,7 @@ public class SecurityConfig {
                 .requestMatchers("/provaUserDashboard").hasRole("USER_PROVA")
                 .requestMatchers("/basicUserDashboard").hasRole("USER_BASIC")
                 .requestMatchers("/proUserDashboard").hasRole("USER_PRO")
+                .requestMatchers(GET, "/recensioni").permitAll()
                 .anyRequest().permitAll()
         );
 
