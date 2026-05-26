@@ -4,6 +4,7 @@ import exam_project.main_webapp.pojos.User;
 import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.CheckUserService;
 import exam_project.main_webapp.services.PasswordValidationService;
+import exam_project.main_webapp.services.TrainingCountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,14 +21,17 @@ public class MainController {
     private final UserRepository userRepository;
     private final CheckUserService checkUserService;
     private final PasswordValidationService passwordValidationService;
+    private final TrainingCountService trainingCountService;
 
     @Autowired
     public MainController(UserRepository userRepository,
                           CheckUserService checkUserService,
-                          PasswordValidationService passwordValidationService) {
+                          PasswordValidationService passwordValidationService,
+                          TrainingCountService trainingCountService) {
         this.userRepository = userRepository;
         this.checkUserService = checkUserService;
         this.passwordValidationService = passwordValidationService;
+        this.trainingCountService = trainingCountService;
     }
 
     // Home page
@@ -113,7 +117,9 @@ public class MainController {
     // Prova User Dashboard
     @GetMapping("/provaUserDashboard")
     public String provaUserDashboard(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
+        String name = authentication.getName();
+        model.addAttribute("name", name);
+        model.addAttribute("trainingsCount", trainingCountService.countTrainingsByUsername(name));
         return "provaUserDashboard";
     }
 

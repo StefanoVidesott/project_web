@@ -5,6 +5,8 @@
     <nav th:replace="~{bases/navbar.html}"></nav>
     <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
     <p>Dashboard PROVA - da implementare</p>
+    <br>
+    <p>allenamenti effettuati: <span th:text="${trainingsCount}"></span>/3</p>
     <a th:href="@{/profilo}">Visualizza Profilo</a>
     <a th:href="@{/cambioPassword}">Cambio Password</a>
     <a th:href="@{/upgrade}">Upgrade</a>

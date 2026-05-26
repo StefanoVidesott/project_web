@@ -3,13 +3,29 @@
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
-    <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
-    <p>Dashboard PRO - da implementare</p>
-    <a th:href="@{/profilo}">Visualizza Profilo</a>
-    <a th:href="@{/cambioPassword}">Cambio Password</a>
-    <form th:action="@{/perform_logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+
+    <div class="container p-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
+                <p class="text-muted">Dashboard PRO</p>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-auto">
+                <a th:href="@{/profilo}" class="btn btn-primary">
+                    Visualizza Profilo
+                </a>
+            </div>
+            <div class="col-auto">
+                <a th:href="@{/cambioPassword}" class="btn btn-warning">
+                    Cambia cambioPassword
+                </a>
+            </div>
+        </div>
+
+    </div>
     <div th:replace="~{bases/footer.html}"></div>
     <div th:replace="~{bases/scripts.html}"></div>
 </body>
