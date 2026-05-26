@@ -43,8 +43,8 @@ function validateSignUpForm() {
 
     // Password validation
     const pwd = document.getElementById("password").value;
-    if (pwd.length < 8) {
-        errorDiv.textContent = "La password deve essere lunga almeno 8 caratteri.";
+    if (pwd.length != 8) {
+        errorDiv.textContent = "La password deve essere lunga 8 caratteri.";
         errorDiv.style.display = "block"
         return false;
     }

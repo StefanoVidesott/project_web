@@ -6,8 +6,8 @@ function validateChangePasswordForm() {
     const newPwd = document.getElementById("newPassword").value;
     const confirmPwd = document.getElementById("confirmPassword").value;
 
-    if (newPwd.length < 8) {
-        errorDiv.textContent = "La password deve essere lunga almeno 8 caratteri.";
+    if (newPwd.length != 8) {
+        errorDiv.textContent = "La password deve essere lunga 8 caratteri.";
         errorDiv.style.display = "block"
         return false;
     }
