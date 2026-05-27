@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
+<body>
+    <nav th:replace="~{bases/navbar.html}"></nav>
+
+    <div class="container p-5">
+        <div class="row mb-3">
+            <div class="col">
+                <h1>Visualizzazione statistiche</h1>
+                <!-- <p class="text-muted"></p> -->
+            </div>
+        </div>
+
+        <div class="box mb-3 p-4">
+            <canvas id="statisticsChart"></canvas>
+        </div>
+
+        <div class="row mb">
+            <div class="col-auto">
+                <a th:href="@{/dashboard}" class="btn btn-primary">
+                    Torna alla Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{bases/footer.html}"></div>
+    <div th:replace="~{bases/scripts.html}"></div>
+    <script th:inline="javascript">
+        const ctx = document.getElementById('statisticsChart');
+
+        const statisticsData = /*[[${statistics}]]*/ [];
+        const labels = statisticsData.map(s => s.TRAININGID);
+        const counts  = statisticsData.map(s => s.COUNT);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Numero di sessioni',
+                    data: counts,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

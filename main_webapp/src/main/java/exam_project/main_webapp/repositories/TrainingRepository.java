@@ -46,7 +46,7 @@ public class TrainingRepository {
     public List<Map<String, Object>> getStatisticsByUsername(String username) {
         String sql = """
                 SELECT trainingID, COUNT(*) AS count
-                FROM ALLENAMENTI_COMPLETATI
+                FROM COMPLETED_TRAININGS
                 WHERE username = ?
                 GROUP BY trainingID
                 ORDER BY trainingID

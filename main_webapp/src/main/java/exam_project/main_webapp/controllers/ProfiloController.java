@@ -21,9 +21,7 @@ public class ProfiloController {
 
     @GetMapping("/profilo")
     public String profilo(Authentication authentication, Model model) {
-        String username = authentication.getName();
-        User user = userRepository.findUserByUsername(username);
-        model.addAttribute("name", authentication.getName());
+        User user = userRepository.findUserByUsername(authentication.getName());
         model.addAttribute("user", user);
         return ("profilo");
     }

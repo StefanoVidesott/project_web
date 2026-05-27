@@ -6,8 +6,7 @@ import java.util.List;
 @Service
 public class PlanService {
 
-    private static final List<String> ALLOWED_UPGRADES =
-            List.of("ROLE_USER_BASIC", "ROLE_USER_PRO");
+    private static final List<String> ALLOWED_UPGRADES = List.of("ROLE_USER_BASIC", "ROLE_USER_PRO");
 
     public boolean isValidUpgrade(String newPlan) {
         return ALLOWED_UPGRADES.contains(newPlan);

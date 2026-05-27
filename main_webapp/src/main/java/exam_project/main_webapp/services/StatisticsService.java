@@ -1,19 +1,22 @@
 package exam_project.main_webapp.services;
 
 import exam_project.main_webapp.repositories.TrainingRepository;
-import exam_project.main_webapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
 @Service
-public class TrainingCountService {
+public class StatisticsService {
     private final TrainingRepository trainingRepository;
 
     @Autowired
-    public TrainingCountService(TrainingRepository trainingRepository) {
+    public StatisticsService(TrainingRepository trainingRepository) {
         this.trainingRepository = trainingRepository;
     }
 
-    public int countTrainingsByUsername(String username) {
-        return trainingRepository.countTrainingsByUsername(username);
+    public List<Map<String, Object>> getStatisticsByUsername(String username) {
+        return trainingRepository.getStatisticsByUsername(username);
     }
 }
