@@ -22,6 +22,9 @@ public class MainController {
     @GetMapping("/esercizi")
     public List<Composizione> getEsercizi(@RequestParam String code){return programmiRepository.getEsercizi(code); }
 
+    @GetMapping("/soloNomi")
+    public List<String> getSoloNomi(){ return this.programmiRepository.getSoloNomi(); }
+
     @PostMapping("/kcal")
     public double getKcal(@RequestBody List<Composizione> composizioni){
 

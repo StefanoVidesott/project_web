@@ -1,7 +1,6 @@
---DROP TABLE IF EXISTS Programmi;
---DROP TABLE IF EXISTS Esercizi;
---DROP TABLE IF EXISTS Composizioni;
-
+DELETE FROM Composizioni;
+DELETE FROM Programmi;
+DELETE FROM Esercizi;
 
 -- Inserimento dei nomi dei programmi predefiniti
 INSERT INTO Programmi (nome) VALUES ('Full Body');

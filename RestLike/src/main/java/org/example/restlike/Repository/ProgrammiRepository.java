@@ -20,11 +20,6 @@ public class ProgrammiRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    /* private List<KcalUnit> getKcalUnit(){
-        String sql = "SELECT * FROM KCAL";
-        return jdbcTemplate.query(sql,new KcalUnitRowMapper() );
-    }*/
-
     public List<Programma> getProgrammi(){
         String sql = "SELECT * FROM Programmi";
         return jdbcTemplate.query(sql,new ProgrammaRowMapper());
@@ -49,4 +44,8 @@ public class ProgrammiRepository {
         return totKcal;
     }
 
+    public List<String> getSoloNomi(){
+        String sql = "SELECT nome FROM Esercizi";
+        return jdbcTemplate.queryForList(sql,String.class);
+    }
 }

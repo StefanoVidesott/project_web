@@ -24,11 +24,17 @@ public class AllenamentoRepository {
         this.programmiProxy = programmiProxy;
     }
 
-    @Transactional
-    public void addAllenamento(String pC, List<Composizione> esercizi){
+    public void addKcalPredefinit(List<Programma> programmi){
+        for(Programma p:programmi){
+           p.setKcal(this.programmiProxy.getKcal(this.programmiProxy.getEsercizi(p.getNome())));
+        }
+    }
 
-        String sqlProgrammi ="INSERT INTO PROGRAMMICUSTOM (nome,kcal) VALUES ( ?, ?)";
-        jdbc.update(sqlProgrammi,pC,programmiProxy.getKcal(esercizi));
+    @Transactional
+    public void addAllenamento(String username, String pC, List<Composizione> esercizi){
+
+        String sqlProgrammi ="INSERT INTO PROGRAMMICUSTOM (nome,kcal,username) VALUES ( ?, ?, ?)";
+        jdbc.update(sqlProgrammi,pC,programmiProxy.getKcal(esercizi),username);
 
         String sqlId = "SELECT MAX(id) FROM PROGRAMMICUSTOM WHERE nome = ?";
        // Programma idObject = jdbc.queryForObject(sqlId,new ProgrammaMapper(),pC.getNome());

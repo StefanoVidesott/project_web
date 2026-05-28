@@ -6,6 +6,7 @@ import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.ComposizioneCustom;
 import exam_project.main_webapp.pojos.Programma;
 import exam_project.main_webapp.repositories.AllenamentoRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,11 +54,12 @@ public class AllenamentoController {
     }
 
     @PostMapping("allenamentoCustomSend")
-    public String allenamentoCustomSend(String nomeProgramma,EserciziDTO esercizi, Model model){
+    public String allenamentoCustomSend(Authentication authentication, String nomeProgramma, EserciziDTO esercizi, Model model){
        // Programma pC = new Programma();
        // pC.setNome(nomeProgramma);
+        String username = authentication.getName();
         List<Composizione> es = esercizi.getEsercizi();
-        allenamentoRepository.addAllenamento(nomeProgramma,es);
+        allenamentoRepository.addAllenamento(username, nomeProgramma,es);
 
         return "allenamentoCustomSend";
     }

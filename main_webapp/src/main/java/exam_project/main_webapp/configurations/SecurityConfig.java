@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .requestMatchers("/cambioPassword").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers(POST, "/recensioni").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/upgrade").hasAnyRole("USER_PROVA", "USER_BASIC")
+                .requestMatchers("/allenamenti").hasAnyRole("USER_PROVA", "USER_BASIC")
                 .requestMatchers("/statistiche").hasAnyRole("USER_BASIC", "USER_PRO")
                 .requestMatchers("/adminDashboard").hasRole("ADMIN")
                 .requestMatchers("/adminStatistiche").hasRole("ADMIN")
