@@ -18,7 +18,12 @@
 
         <div class="blocco-esercizi">
             <label>Nome esercizio</label>
-            <input type="text" name="esercizi[0].nome_esercizio" placeholder="Nome esercizio..." required>
+            <select class="form-select" aria-label="Default select example" name="esercizi[0].nome_esercizio" required>
+                <option value="" disabled selected>Scegli un esercizio</option>
+                    <option th:each="nomeEsercizio : ${nomiEsercizi}" th:value="${nomeEsercizio}" th:text="${nomeEsercizio}">
+
+                    </option>
+            </select>
 
             <label>Numero ripetizioni</label>
             <input type="number" name="esercizi[0].numero_ripetizioni" placeholder="Numero ripetizioni..." required>

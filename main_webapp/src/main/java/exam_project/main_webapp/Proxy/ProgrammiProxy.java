@@ -21,4 +21,8 @@ public interface ProgrammiProxy {
 
     @PostMapping("/kcal")
     public double getKcal(@RequestBody List<Composizione> esercizi);
+
+    // Endpoint aggiunta per facilitare il menu a tendina degli esercizi
+    @GetMapping("/soloNomi")
+    public List<String> getSoloNomi();
 }

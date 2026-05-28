@@ -4,6 +4,36 @@
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
     <h1>Contatti</h1>
-    <div th:replace="~{bases/scripts.html}"></div>
+
+    <!-- TODO: cambiare il feedback dell'invio come invio review -->
+    <form>
+
+        <div class="mb-3">
+            <label for="nomeUtente" class="form-label">Email address</label>
+            <input type="text" class="form-control" id="nomeUtente" placeholder="Nome">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Indirizzo email</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="@qualcosa.com">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Digita qui la tua problematica</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+
+        <div class="col">
+            <button class="form-control btn btn-dark" type="submit" onclick="invioFittizio()">Invia</button>
+        </div>
+
+    </form>
+
+    <script>
+        function invioFittizio(){
+            alert("Form inviato con successo!")
+            return;
+        }
+    </script>
 </body>
+
 </html>
