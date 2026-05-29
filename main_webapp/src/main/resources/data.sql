@@ -44,10 +44,10 @@ INSERT INTO CUSTOM_TRAININGS_COUNTER (username, trainingId, count) VALUES
     ('pro#07', 1, 7),
     ('pro#07', 2, 2);
 
-INSERT INTO REVIEWS (username, content, created_at) VALUES
-    ('basic#07', 'Fantastica, la consiglio a tutti i nerd pompati li fuori', '2025-03-10 09:00:00'),
-    ('basic#07', 'Mai provato nulla del genere, adoro fare Branch press', '2025-03-15 10:30:00'),
-    ('pro#07', 'Perfetta per iniziare a sviluppare muscoli', '2025-03-02 08:00:00');
+INSERT INTO REVIEWS (username, content) VALUES
+    ('basic#07', 'Fantastica, la consiglio a tutti i nerd pompati li fuori'),
+    ('basic#07', 'Mai provato nulla del genere, adoro fare Branch press'),
+    ('pro#07', 'Perfetta per iniziare a sviluppare muscoli');
 
 -- Per avere l'hash delle passwords
 -- BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

@@ -3,15 +3,37 @@
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
-    <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
-    <p>Dashboard BASIC - da implementare</p>
-    <a th:href="@{/profilo}">Visualizza Profilo</a>
-    <a th:href="@{/cambioPassword}">Cambio Password</a>
-    <a th:href="@{/upgrade}">Upgrade</a>
-    <form th:action="@{/perform_logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
-    <div th:replace="~{bases/footer.html}"></div>
-    <div th:replace="~{bases/scripts.html}"></div>
+
+    <div class="container p-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h1>Benvenuto/a, <span th:text="${name}"></span>!</h1>
+                <p class="text-muted">Dashboard BASIC</p>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-auto">
+                <a th:href="@{/profilo}" class="btn btn-primary">
+                    Visualizza Profilo
+                </a>
+            </div>
+            <div class="col-auto">
+                <a th:href="@{/cambioPassword}" class="btn btn-warning">
+                    Cambia cambioPassword
+                </a>
+            </div>
+            <div class="col-auto">
+                <a th:href="@{/statistiche}" class="btn btn-secondary">
+                    Visualizza Statistiche
+                </a>
+            </div>
+        </div>
+
+        <div th:replace="~{bases/review.html}"></div>
+    </div>
+
+    <footer th:replace="~{bases/footer.html}"></footer>
+    <script th:replace="~{bases/scripts.html}"></script>
 </body>
 </html>

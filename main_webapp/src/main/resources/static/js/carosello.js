@@ -28,7 +28,7 @@ async function loadReviews() {
             slide.innerHTML = `
                 <div class="p-4 text-center mx-5">
                     <p class="mb-2">"${rec.content}"</p>
-                    <small class="text-muted">— ${rec.username}</small>
+                    <small class="text-muted">${rec.username}</small>
                 </div>`;
             container.appendChild(slide);
         });
@@ -51,7 +51,7 @@ function addCarouselSlide(review) {
     slide.innerHTML = `
         <div class="p-4 text-center mx-5">
             <p class="mb-2">"${review.content}"</p>
-            <small class="text-muted">— ${review.username}</small>
+            <small class="text-muted">${review.username}</small>
         </div>`;
     container.appendChild(slide);
 
