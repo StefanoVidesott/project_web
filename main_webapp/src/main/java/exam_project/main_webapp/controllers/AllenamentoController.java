@@ -1,11 +1,13 @@
 package exam_project.main_webapp.controllers;
 
-import exam_project.main_webapp.EserciziDTO;
+import exam_project.main_webapp.pojos.EserciziDTO;
 import exam_project.main_webapp.Proxy.ProgrammiProxy;
 import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.ComposizioneCustom;
 import exam_project.main_webapp.pojos.Programma;
 import exam_project.main_webapp.repositories.AllenamentoRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +27,28 @@ public class AllenamentoController {
     }
 
     @GetMapping("/allenamenti")
-    public String allenamenti(Model model){
+    public String allenamenti(Authentication authentication){
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_PRO"))) {
+            return "forward:allenamentiPro";
+        } else return "forward:allenamentiStandard";
+    }
+
+    @GetMapping("/allenamentiPro")
+    public String getAllenamentiPro(Model model,Authentication authentication){
         List<Programma> programmi = this.programmiProxy.getProgrammi();
-        List<Programma> programmiCustom = this.allenamentoRepository.getProgrammiCustom();
+        this.allenamentoRepository.addKcalPredefinit(programmi);
+        List<Programma> programmiCustom = this.allenamentoRepository.getProgrammiCustom(authentication.getName());
         model.addAttribute("allenamenti",programmi);
         model.addAttribute("allenamentiCustom",programmiCustom);
-        return "allenamento";
+        return "allenamentiPro";
+    }
+
+    @GetMapping("/allenamentiStandard")
+    public String getAllenamentiStandard(Model model){
+        List<Programma> programmi = this.programmiProxy.getProgrammi();
+        this.allenamentoRepository.addKcalPredefinit(programmi);
+        model.addAttribute("allenamenti",programmi);
+        return "allenamentiStandard";
     }
 
     @GetMapping("/composizione")
@@ -47,17 +65,19 @@ public class AllenamentoController {
         return "composizioneCustom";
     }
 
-    @GetMapping("allenamentoCustom")
-    public String allenamentoCustom(){
+    @GetMapping("/allenamentoCustom")
+    public String allenamentoCustom(Model model){
+        List<String> nomi = this.programmiProxy.getSoloNomi();
+        model.addAttribute("nomiEsercizi",nomi);
         return "allenamentoCustom";
     }
 
-    @PostMapping("allenamentoCustomSend")
-    public String allenamentoCustomSend(String nomeProgramma,EserciziDTO esercizi, Model model){
+    @PostMapping("/allenamentoCustomSend")
+    public String allenamentoCustomSend(Authentication authentication,String nomeProgramma, EserciziDTO esercizi){
        // Programma pC = new Programma();
        // pC.setNome(nomeProgramma);
         List<Composizione> es = esercizi.getEsercizi();
-        allenamentoRepository.addAllenamento(nomeProgramma,es);
+        allenamentoRepository.addAllenamento(authentication.getName(),nomeProgramma,es);
 
         return "allenamentoCustomSend";
     }
