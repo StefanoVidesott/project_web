@@ -1,7 +1,7 @@
 package exam_project.main_webapp.controllers;
 
-import exam_project.main_webapp.repositories.TrainingRepository;
 import exam_project.main_webapp.repositories.UserRepository;
+import exam_project.main_webapp.services.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AdminDashboardController {
     private final UserRepository userRepository;
-    private final TrainingRepository trainingRepository;
+    private final StatisticsService statisticsService;
 
     @Autowired
-    public AdminDashboardController(UserRepository userRepository, TrainingRepository trainingRepository) {
+    public AdminDashboardController(UserRepository userRepository, StatisticsService statisticsService) {
         this.userRepository = userRepository;
-        this.trainingRepository = trainingRepository;
+        this.statisticsService = statisticsService;
     }
 
     @GetMapping("/adminListaUtenti")
@@ -38,7 +38,7 @@ public class AdminDashboardController {
     @GetMapping("/adminStatistiche")
     public String statistiche(Authentication authentication, Model model) {
         model.addAttribute("name", authentication.getName());
-        model.addAttribute("statistics", trainingRepository.getStatisticsGroupedByTraining());
+        model.addAttribute("statistics", statisticsService.getAdminStatistics());
         return "adminDashboard";
     }
 }

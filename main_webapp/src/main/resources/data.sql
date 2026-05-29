@@ -1,6 +1,8 @@
+DELETE FROM ESERCIZI;
+DELETE FROM PROGRAMMICUSTOM;
+DELETE FROM CUSTOM_TRAININGS_COUNTER;
 DELETE FROM REVIEWS;
 DELETE FROM USERDATA;
-DELETE FROM COMPLETED_TRAININGS;
 DELETE FROM AUTHORITIES;
 DELETE FROM USERS;
 
@@ -24,31 +26,23 @@ INSERT INTO AUTHORITIES (username, authority) VALUES
     ('prova#4#07', 'ROLE_USER_PROVA'),
     ('prova#5#07', 'ROLE_USER_PROVA');
 
-INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate) VALUES
-    ('admin#07', 'Admin', 'System', 'admin@fitapp.it', '1990-01-01', '2025-01-01'),
-    ('basic#07', 'Stefano', 'Videsott', 'basic@fitapp.it', '1990-01-01', '2025-01-02'),
-    ('pro#07', 'Alessandro', 'Como', 'pro@fitapp.it', '1990-01-01', '2025-01-03'),
-    ('prova#1#07', 'Giovanna', 'Varni', 'prova1@fitapp.it', '1990-01-01', '2025-06-07'),
-    ('prova#2#07', 'Prova', 'Bianchi', 'prova2@fitapp.it', '1990-01-01', '2025-06-09'),
-    ('prova#3#07', 'Prova',  'Esposito', 'prova3@fitapp.it', '1990-01-01', '2025-06-21'),
-    ('prova#4#07', 'Prova', 'Ferrari', 'prova4@fitapp.it', '1990-01-01', '2025-06-23'),
-    ('prova#5#07', 'Prova', 'Romano', 'prova5@fitapp.it', '1990-01-01', '2025-06-08');
+INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate, count_training0, count_training1, count_training2, count_training3) VALUES
+    ('admin#07', 'Admin', 'System', 'admin@fitapp.it', '1990-01-01', '2025-01-01', 0, 0, 0, 0),
+    ('basic#07', 'Stefano', 'Videsott', 'basic@fitapp.it', '1990-01-01', '2025-01-02', 0, 0, 0, 0),
+    ('pro#07', 'Alessandro', 'Como', 'pro@fitapp.it', '1990-01-01', '2025-01-03', 6, 10, 3, 3),
+    ('prova#1#07', 'Giovanna', 'Varni', 'prova1@fitapp.it', '1990-01-01', '2025-06-07', 2, 2, 2, 2),
+    ('prova#2#07', 'Prova', 'Bianchi', 'prova2@fitapp.it', '1990-01-01', '2025-06-09', 0, 1, 3, 3),
+    ('prova#3#07', 'Prova',  'Esposito', 'prova3@fitapp.it', '1990-01-01', '2025-06-21', 6, 3, 6, 1),
+    ('prova#4#07', 'Prova', 'Ferrari', 'prova4@fitapp.it', '1990-01-01', '2025-06-23', 0, 0, 0, 0),
+    ('prova#5#07', 'Prova', 'Romano', 'prova5@fitapp.it', '1990-01-01', '2025-06-08', 0, 0, 0, 0);
 
-INSERT INTO COMPLETED_TRAININGS (username, trainingId, trainingDate) VALUES
-    ('basic#07', 0, '2025-03-01 10:00:00'),
-    ('basic#07', 0, '2025-03-05 11:00:00'),
-    ('basic#07', 1, '2025-03-10 09:00:00'),
-    ('basic#07', 2, '2025-03-15 10:30:00'),
-    ('pro#07', 0, '2025-03-02 08:00:00'),
-    ('pro#07', 3, '2025-03-07 09:00:00'),
-    ('pro#07', 3, '2025-03-12 08:30:00'),
-    ('pro#07', 1, '2025-03-17 07:00:00'),
-    ('prova#1#07', 0, '2025-03-01 10:00:00'),
-    ('prova#1#07', 0, '2025-03-01 11:00:00'),
-    ('prova#2#07', 1, '2025-03-02 11:00:00'),
-    ('prova#3#07', 0, '2025-03-01 10:00:00'),
-    ('prova#3#07', 1, '2025-03-03 11:00:00'),
-    ('prova#3#07', 2, '2025-03-05 09:00:00');
+INSERT INTO PROGRAMMICUSTOM (username, nome, kcal) VALUES
+    ('pro#07', 'programma_custom_1', 0),
+    ('pro#07', 'programma_custom_2', 0);
+
+INSERT INTO CUSTOM_TRAININGS_COUNTER (username, trainingId, count) VALUES
+    ('pro#07', 1, 7),
+    ('pro#07', 2, 2);
 
 INSERT INTO REVIEWS (username, content, created_at) VALUES
     ('basic#07', 'Fantastica, la consiglio a tutti i nerd pompati li fuori', '2025-03-10 09:00:00'),

@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserRepository {
@@ -35,7 +37,7 @@ public class UserRepository {
 
     @Transactional
     public void addUser(User user) {
-        String sql = "INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate, count_training0, count_training1, count_training2, count_training3) VALUES (?, ?, ?, ?, ?, ?, 0, 0, 0, 0)";
         jdbc.update(sql,
                 user.getUsername(),
                 user.getFirstName(),
@@ -61,6 +63,10 @@ public class UserRepository {
             rowObject.setBirthDate(r.getDate("birthDate"));
             rowObject.setSignupDate(r.getDate("signupDate"));
             rowObject.setAuthority(r.getString("authority"));
+            rowObject.setCountTraining0(r.getInt("count_training0"));
+            rowObject.setCountTraining1(r.getInt("count_training1"));
+            rowObject.setCountTraining2(r.getInt("count_training2"));
+            rowObject.setCountTraining3(r.getInt("count_training3"));
             return rowObject;
         };
         return jdbc.queryForObject(sql, userRowMapper, username);
@@ -90,7 +96,6 @@ public class UserRepository {
 
         for (String username : usersToRemove) {
             jdbc.update("DELETE FROM AUTHORITIES WHERE username = ?", username);
-            jdbc.update("DELETE FROM COMPLETED_TRAININGS WHERE username = ?", username);
             jdbc.update("DELETE FROM USERDATA WHERE username = ?", username);
             jdbc.update("DELETE FROM USERS WHERE username = ?", username);
         }
@@ -116,4 +121,64 @@ public class UserRepository {
         jdbc.update(sql, newAuthority, username);
     }
 
+    public void incrementTrainingCounter(String username, int trainingId, boolean isDefault) {
+        if (isDefault) {
+            String col = "count_training" + trainingId;
+            String sql = "UPDATE USERDATA SET " + col + " = " + col + " + 1 WHERE username = ?";
+            jdbc.update(sql, username);
+        }
+        else {
+            String sql = "UPDATE CUSTOM_TRAININGS_COUNTER SET counter  = counter + 1 WHERE username = ? AND trainingID = ?";
+            jdbc.update(sql, username, trainingId);
+        }
+    }
+
+    public int getDefaultTrainingsCount(String username) {
+        String sql = """
+            SELECT count_training0 + count_training1 + count_training2 + count_training3
+            FROM USERDATA WHERE username = ?
+            """;
+        Integer total = jdbc.queryForObject(sql, Integer.class, username);
+        return total != null ? total : 0;
+    }
+
+    public Map<String, Integer> getTrainingsCountersByUsername(String username) {
+        Map<String, Integer> result = new LinkedHashMap<>();
+
+        // Default programs
+        String sqlDefaultCounters = """
+            SELECT count_training0, count_training1, count_training2, count_training3
+            FROM USERDATA WHERE username = ?
+            """;
+        Map<String, Integer> defaultCounters = jdbc.queryForObject(sqlDefaultCounters, (rs, rowNum) -> {
+            Map<String, Integer> m = new LinkedHashMap<>();
+            m.put("Full Body",      rs.getInt("count_training0"));
+            m.put("Push/Pull/Legs", rs.getInt("count_training1"));
+            m.put("Cardio",         rs.getInt("count_training2"));
+            m.put("Strength",       rs.getInt("count_training3"));
+            return m;
+        }, username);
+
+        if (defaultCounters != null) {
+            result.putAll(defaultCounters);
+        }
+
+        // Custom programs
+        String sqlCustomCounters = """
+            SELECT pc.nome, cts.count
+            FROM CUSTOM_TRAININGS_COUNTER cts
+            JOIN PROGRAMMICUSTOM pc ON cts.trainingId = pc.id
+            WHERE cts.username = ?
+            """;
+        jdbc.query(sqlCustomCounters, (rs) -> {
+            result.put(rs.getString("nome"), rs.getInt("count"));
+        }, username);
+
+        return result;
+    }
+
+    public void disableUser(String username) {
+        String sql = "UPDATE USERS SET enabled = 0 WHERE username = ?";
+        jdbc.update(sql, username);
+    }
 }

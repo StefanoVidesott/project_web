@@ -30,8 +30,8 @@
         const ctx = document.getElementById('statisticsChart');
 
         const statisticsData = /*[[${statistics}]]*/ [];
-        const labels = statisticsData.map(s => s.TRAININGID);
-        const counts  = statisticsData.map(s => s.COUNT);
+        const labels = Object.keys(statisticsData);
+        const counts  = Object.values(statisticsData);
 
         new Chart(ctx, {
             type: 'bar',

@@ -12,6 +12,10 @@ public class User {
     private String authority;
     private Date birthDate;
     private Date signupDate;
+    private int countTraining0;
+    private int countTraining1;
+    private int countTraining2;
+    private int countTraining3;
 
     public User() {
         this.id = 0;
@@ -48,6 +52,10 @@ public class User {
     public String getAuthority()     { return authority; }
     public Date getBirthDate()       { return birthDate; }
     public Date getSignupDate()      { return signupDate; }
+    public int getCountTraining0() { return countTraining0; }
+    public int getCountTraining1() { return countTraining1; }
+    public int getCountTraining2() { return countTraining2; }
+    public int getCountTraining3() { return countTraining3; }
 
     public void setId(int id)                    { this.id = id; }
     public void setFirstName(String firstName)   { this.firstName = firstName; }
@@ -58,4 +66,8 @@ public class User {
     public void setAuthority(String authority)   { this.authority = authority; }
     public void setBirthDate(Date birthDate)     { this.birthDate = birthDate; }
     public void setSignupDate(Date signupDate)   { this.signupDate = signupDate; }
+    public void setCountTraining0(int c)         { this.countTraining0 = c; }
+    public void setCountTraining1(int c) { this.countTraining1 = c; }
+    public void setCountTraining2(int c) { this.countTraining2 = c; }
+    public void setCountTraining3(int c) { this.countTraining3 = c; }
 }

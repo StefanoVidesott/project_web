@@ -48,6 +48,7 @@ public class SecurityConfig {
                 .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/profilo").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/cambioPassword").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
+                .requestMatchers("/completato").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers(POST, "/recensioni").hasAnyRole("USER_PROVA", "USER_BASIC", "USER_PRO")
                 .requestMatchers("/upgrade").hasAnyRole("USER_PROVA", "USER_BASIC")
                 .requestMatchers("/allenamenti").hasAnyRole("USER_PROVA", "USER_BASIC")

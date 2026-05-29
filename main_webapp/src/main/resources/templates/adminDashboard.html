@@ -1,5 +1,6 @@
 <!-- REFERENCES:
     https://getbootstrap.com/docs/4.0/content/tables/
+    https://stackoverflow.com/questions/52132580/how-to-format-decimals-in-thymeleaf-without-unnecessary-zeros
 -->
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
@@ -75,7 +76,7 @@
             </div>
         </div>
 
-        <div class="row" th:if="${not#lists.isEmpty(statistics)}">
+        <div class="row" th:if="${not #lists.isEmpty(statistics)}">
             <div class="box p-4">
                 <div class="row mb-4">
                     <div class="col">
@@ -87,18 +88,22 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Programma</th>
                                 <th>Ruolo</th>
-                                <th>Media allenamenti</th>
+                                <th>Full Body</th>
+                                <th>Push/Pull/Legs</th>
+                                <th>Cardio</th>
+                                <th>Strength</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="stat : ${statistics}">
-                                <td th:text="${stat.TRAININGID}"></td>
                                 <td>
-                                    <span class="badge bg-secondary" th:classappend="${stat.AUTHORITY == 'ROLE_USER_PRO'} ? 'bg-success' : 'bg-primary'" th:text="${stat.AUTHORITY}"></span>
+                                    <span class="badge bg-primary" th:text="${stat['AUTHORITY']}"></span>
                                 </td>
-                                <td th:text="${#numbers.formatDecimal(stat.AVERAGE, 1, 2)}"></td>
+                                <td th:text="${#numbers.formatDecimal(stat['FULL_BODY'], 1, 2)}"></td>
+                                <td th:text="${#numbers.formatDecimal(stat['PUSH_PULL_LEGS'], 1, 2)}"></td>
+                                <td th:text="${#numbers.formatDecimal(stat['CARDIO'], 1, 2)}"></td>
+                                <td th:text="${#numbers.formatDecimal(stat['STRENGTH'], 1, 2)}"></td>
                             </tr>
                         </tbody>
                     </table>

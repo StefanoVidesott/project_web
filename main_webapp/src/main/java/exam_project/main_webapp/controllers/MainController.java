@@ -4,7 +4,7 @@ import exam_project.main_webapp.pojos.User;
 import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.CheckUserService;
 import exam_project.main_webapp.services.PasswordValidationService;
-import exam_project.main_webapp.services.TrainingCountService;
+import exam_project.main_webapp.services.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,17 +21,17 @@ public class MainController {
     private final UserRepository userRepository;
     private final CheckUserService checkUserService;
     private final PasswordValidationService passwordValidationService;
-    private final TrainingCountService trainingCountService;
+    private final TrainingService trainingService;
 
     @Autowired
     public MainController(UserRepository userRepository,
                           CheckUserService checkUserService,
                           PasswordValidationService passwordValidationService,
-                          TrainingCountService trainingCountService) {
+                          TrainingService trainingService) {
         this.userRepository = userRepository;
         this.checkUserService = checkUserService;
         this.passwordValidationService = passwordValidationService;
-        this.trainingCountService = trainingCountService;
+        this.trainingService = trainingService;
     }
 
     // Home page
@@ -119,7 +119,7 @@ public class MainController {
     public String provaUserDashboard(Authentication authentication, Model model) {
         String name = authentication.getName();
         model.addAttribute("name", name);
-        model.addAttribute("trainingsCount", trainingCountService.countTrainingsByUsername(name));
+        model.addAttribute("trainingsCount", trainingService.getDefaultTrainingsCount(name));
         return "provaUserDashboard";
     }
 

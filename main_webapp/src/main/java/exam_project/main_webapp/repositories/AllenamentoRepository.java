@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AllenamentoRepository {
@@ -40,6 +41,9 @@ public class AllenamentoRepository {
        // Programma idObject = jdbc.queryForObject(sqlId,new ProgrammaMapper(),pC.getNome());
         Long idProgrammaNuovo = jdbc.queryForObject(sqlId, Long.class, pC);
 
+        String sqlCounter = "INSERT INTO CUSTOM_TRAININGS_COUNTER (username, trainingId, count) VALUES ( ?, ?, 0)";
+        jdbc.update(sqlCounter, username, idProgrammaNuovo);
+
         for (Composizione e: esercizi){
 
             String sqlEsercizi = "INSERT INTO ESERCIZI (nome_esercizio,numero_serie,numero_ripetizioni,programmaType) VALUES (? ,? ,? ,?) ";
@@ -57,5 +61,22 @@ public class AllenamentoRepository {
     public List<ComposizioneCustom> getEserciziCustom(int id){
         String sql = "SELECT * FROM ESERCIZI WHERE programmaType = ? ";
         return jdbc.query(sql,new EsercizioMapper(),id);
+    }
+
+    public List<Map<String, Object>> getAdminStatistics() {
+        String sql = """
+            SELECT
+                a.authority,
+                AVG(u.count_training0) AS full_body,
+                AVG(u.count_training1) AS push_pull_legs,
+                AVG(u.count_training2) AS cardio,
+                AVG(u.count_training3) AS strength
+            FROM USERDATA u
+            JOIN AUTHORITIES a ON u.username = a.username
+            WHERE a.authority IN ('ROLE_USER_BASIC', 'ROLE_USER_PRO')
+            GROUP BY a.authority
+            ORDER BY a.authority
+            """;
+        return jdbc.queryForList(sql);
     }
 }
