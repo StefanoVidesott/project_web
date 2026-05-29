@@ -21,6 +21,7 @@
     <tr th:each="allenamento : ${allenamenti}">
 
         <td th:text="${allenamento.nome}"> P </td>
+        <td th:text="${allenamento.kcal}"> P </td>
 
         <td>
                 <form th:action="@{/composizione}" method="get" >
@@ -30,8 +31,12 @@
 
     </tr>
     </tbody>
+</table>
 
-    <tbody>
+    <div th:if="${not#lists.isEmpty(allenamentiCustom)}">
+
+        <table>
+            <tbody>
     <tr th:each="allenamentoCustom : ${allenamentiCustom}">
 
         <td th:text="${allenamentoCustom.nome}"> P </td>
@@ -43,11 +48,11 @@
             </form>
         </td>
 
-    </tr>
-    </tbody>
+                </tr>
+            </tbody>
+       </table>
+    </div>
 
-
-</table>
 
 </body>
 </html>
