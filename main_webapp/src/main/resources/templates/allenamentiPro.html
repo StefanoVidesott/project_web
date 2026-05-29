@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{bases/head.html}"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>GymBros Center</title>
+</head>
 <body>
 
     <h1>Programmi di allenamento!</h1>
@@ -18,6 +21,7 @@
     <tr th:each="allenamento : ${allenamenti}">
 
         <td th:text="${allenamento.nome}"> P </td>
+        <td th:text="${allenamento.kcal}"> P </td>
 
         <td>
                 <form th:action="@{/composizione}" method="get" >
@@ -27,8 +31,12 @@
 
     </tr>
     </tbody>
+</table>
 
-    <tbody>
+    <div th:if="${not#lists.isEmpty(allenamentiCustom)}">
+
+        <table>
+            <tbody>
     <tr th:each="allenamentoCustom : ${allenamentiCustom}">
 
         <td th:text="${allenamentoCustom.nome}"> P </td>
@@ -40,12 +48,11 @@
             </form>
         </td>
 
-    </tr>
-    </tbody>
+                </tr>
+            </tbody>
+       </table>
+    </div>
 
 
-</table>
-    <div th:replace="~{bases/footer.html}"></div>
-    <div th:replace="~{bases/scripts.html}"></div>
 </body>
 </html>

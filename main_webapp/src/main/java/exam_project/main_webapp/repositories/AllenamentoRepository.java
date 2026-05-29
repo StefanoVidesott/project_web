@@ -37,11 +37,9 @@ public class AllenamentoRepository {
         jdbc.update(sqlProgrammi,pC,programmiProxy.getKcal(esercizi),username);
 
         String sqlId = "SELECT MAX(id) FROM PROGRAMMICUSTOM WHERE nome = ?";
-       // Programma idObject = jdbc.queryForObject(sqlId,new ProgrammaMapper(),pC.getNome());
         Long idProgrammaNuovo = jdbc.queryForObject(sqlId, Long.class, pC);
 
         for (Composizione e: esercizi){
-
             String sqlEsercizi = "INSERT INTO ESERCIZI (nome_esercizio,numero_serie,numero_ripetizioni,programmaType) VALUES (? ,? ,? ,?) ";
             jdbc.update(sqlEsercizi,e.getNome_esercizio(),e.getNumero_serie(),e.getNumero_ripetizioni(),idProgrammaNuovo);
 
@@ -49,9 +47,9 @@ public class AllenamentoRepository {
 
     }
 
-    public List<Programma> getProgrammiCustom(){
-        String sql = "SELECT * FROM PROGRAMMICUSTOM";
-        return jdbc.query(sql,new ProgrammaMapper());
+    public List<Programma> getProgrammiCustom(String username){
+        String sql = "SELECT * FROM PROGRAMMICUSTOM WHERE username = ?";
+        return jdbc.query(sql,new ProgrammaMapper(),username);
     }
 
     public List<ComposizioneCustom> getEserciziCustom(int id){
