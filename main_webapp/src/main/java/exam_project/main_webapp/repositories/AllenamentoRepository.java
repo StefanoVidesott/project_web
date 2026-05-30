@@ -2,7 +2,7 @@ package exam_project.main_webapp.repositories;
 
 import exam_project.main_webapp.mappers.EsercizioMapper;
 import exam_project.main_webapp.mappers.ProgrammaMapper;
-import exam_project.main_webapp.Proxy.ProgrammiProxy;
+import exam_project.main_webapp.proxies.ProgrammiProxy;
 import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.ComposizioneCustom;
 import exam_project.main_webapp.pojos.Programma;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AllenamentoRepository {
@@ -39,6 +40,9 @@ public class AllenamentoRepository {
         String sqlId = "SELECT MAX(id) FROM PROGRAMMICUSTOM WHERE nome = ?";
         Long idProgrammaNuovo = jdbc.queryForObject(sqlId, Long.class, pC);
 
+        String sqlCounter = "INSERT INTO CUSTOM_TRAININGS_COUNTER (username, trainingId, count) VALUES ( ?, ?, 0)";
+        jdbc.update(sqlCounter, username, idProgrammaNuovo);
+
         for (Composizione e: esercizi){
             String sqlEsercizi = "INSERT INTO ESERCIZI (nome_esercizio,numero_serie,numero_ripetizioni,programmaType) VALUES (? ,? ,? ,?) ";
             jdbc.update(sqlEsercizi,e.getNome_esercizio(),e.getNumero_serie(),e.getNumero_ripetizioni(),idProgrammaNuovo);
@@ -55,5 +59,22 @@ public class AllenamentoRepository {
     public List<ComposizioneCustom> getEserciziCustom(int id){
         String sql = "SELECT * FROM ESERCIZI WHERE programmaType = ? ";
         return jdbc.query(sql,new EsercizioMapper(),id);
+    }
+
+    public List<Map<String, Object>> getAdminStatistics() {
+        String sql = """
+            SELECT
+                a.authority,
+                AVG(u.count_training0) AS full_body,
+                AVG(u.count_training1) AS push_pull_legs,
+                AVG(u.count_training2) AS cardio,
+                AVG(u.count_training3) AS strength
+            FROM USERDATA u
+            JOIN AUTHORITIES a ON u.username = a.username
+            WHERE a.authority IN ('ROLE_USER_BASIC', 'ROLE_USER_PRO')
+            GROUP BY a.authority
+            ORDER BY a.authority
+            """;
+        return jdbc.queryForList(sql);
     }
 }

@@ -1,4 +1,4 @@
-package exam_project.main_webapp.Proxy;
+package exam_project.main_webapp.proxies;
 
 import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.Programma;

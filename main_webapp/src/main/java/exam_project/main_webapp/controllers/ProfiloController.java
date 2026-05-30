@@ -1,27 +1,26 @@
 package exam_project.main_webapp.controllers;
 
 import exam_project.main_webapp.pojos.User;
-import exam_project.main_webapp.repositories.UserRepository;
+import exam_project.main_webapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfiloController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public ProfiloController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ProfiloController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/profilo")
     public String profilo(Authentication authentication, Model model) {
-        User user = userRepository.findUserByUsername(authentication.getName());
+        String username = authentication.getName();
+        User user = userService.findUserByUsername(username);
         model.addAttribute("user", user);
         return ("profilo");
     }

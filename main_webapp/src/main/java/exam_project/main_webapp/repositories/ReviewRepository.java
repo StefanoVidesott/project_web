@@ -20,31 +20,28 @@ public class ReviewRepository {
     }
 
     public List<Review> findAll() {
-        String sql = "SELECT * FROM REVIEWS ORDER BY created_at DESC";
+        String sql = "SELECT * FROM REVIEWS";
         RowMapper<Review> mapper = (rs, rowNum) -> {
             Review r = new Review();
             r.setId(rs.getInt("id"));
             r.setUsername(rs.getString("username"));
             r.setContent(rs.getString("content"));
-            r.setCreatedAt(rs.getTimestamp("created_at"));
             return r;
         };
         return jdbc.query(sql, mapper);
     }
 
     public Review save(String username, String content) {
-        Timestamp now = Timestamp.valueOf(LocalDateTime.now());
-        String sql = "INSERT INTO REVIEWS (username, content, created_at) VALUES (?, ?, ?)";
-        jdbc.update(sql, username, content, now);
+        String sql = "INSERT INTO REVIEWS (username, content) VALUES (?, ?)";
+        jdbc.update(sql, username, content);
 
         // Last saved review to send to frontend
-        String sqlLast = "SELECT * FROM REVIEWS WHERE username = ? ORDER BY created_at DESC LIMIT 1";
+        String sqlLast = "SELECT * FROM REVIEWS WHERE username = ? ORDER BY id DESC LIMIT 1";
         RowMapper<Review> mapper = (rs, rowNum) -> {
             Review r = new Review();
             r.setId(rs.getInt("id"));
             r.setUsername(rs.getString("username"));
             r.setContent(rs.getString("content"));
-            r.setCreatedAt(rs.getTimestamp("created_at"));
             return r;
         };
         return jdbc.queryForObject(sqlLast, mapper, username);
