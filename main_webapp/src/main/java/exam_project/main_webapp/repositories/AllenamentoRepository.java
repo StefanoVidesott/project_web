@@ -2,7 +2,7 @@ package exam_project.main_webapp.repositories;
 
 import exam_project.main_webapp.mappers.EsercizioMapper;
 import exam_project.main_webapp.mappers.ProgrammaMapper;
-import exam_project.main_webapp.Proxy.ProgrammiProxy;
+import exam_project.main_webapp.proxies.ProgrammiProxy;
 import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.ComposizioneCustom;
 import exam_project.main_webapp.pojos.Programma;

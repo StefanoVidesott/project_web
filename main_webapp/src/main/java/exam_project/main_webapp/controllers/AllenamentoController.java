@@ -1,7 +1,7 @@
 package exam_project.main_webapp.controllers;
 
 import exam_project.main_webapp.EserciziDTO;
-import exam_project.main_webapp.Proxy.ProgrammiProxy;
+import exam_project.main_webapp.proxies.ProgrammiProxy;
 import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.ComposizioneCustom;
 import exam_project.main_webapp.pojos.Programma;
