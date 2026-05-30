@@ -6,6 +6,7 @@ import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.ComposizioneCustom;
 import exam_project.main_webapp.pojos.Programma;
 import exam_project.main_webapp.repositories.AllenamentoRepository;
+import exam_project.main_webapp.repositories.TrainingRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,12 @@ import java.util.List;
 public class AllenamentoController {
     private final ProgrammiProxy programmiProxy;
     private final AllenamentoRepository allenamentoRepository;
+    private final TrainingRepository trainingRepository;
 
-    public AllenamentoController(ProgrammiProxy programmiProxy,AllenamentoRepository allenamentoRepository){
+    public AllenamentoController(ProgrammiProxy programmiProxy,AllenamentoRepository allenamentoRepository,TrainingRepository trainingRepository){
         this.programmiProxy = programmiProxy;
         this.allenamentoRepository = allenamentoRepository;
+        this.trainingRepository = trainingRepository;
     }
 
     @GetMapping("/allenamenti")
@@ -72,13 +75,19 @@ public class AllenamentoController {
         return "allenamentoCustom";
     }
 
+    @PostMapping("/completaAllenamento")
+    public String completaAllenamento(Authentication authentication,@RequestParam int code){
+        this.trainingRepository.registerTraining(authentication.getName(),code);
+        if(this.trainingRepository.countTrainingsByUsername(authentication.getName()) == 3){
+            return "logout";
+        }
+        return "dashboard";
+    }
+
     @PostMapping("/allenamentoCustomSend")
     public String allenamentoCustomSend(Authentication authentication,String nomeProgramma, EserciziDTO esercizi){
-       // Programma pC = new Programma();
-       // pC.setNome(nomeProgramma);
         List<Composizione> es = esercizi.getEsercizi();
         allenamentoRepository.addAllenamento(authentication.getName(),nomeProgramma,es);
-
         return "allenamentoCustomSend";
     }
 }

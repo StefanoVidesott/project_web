@@ -20,8 +20,16 @@
     <tbody>
     <tr th:each="allenamento : ${allenamenti}">
 
+
+
         <td th:text="${allenamento.nome}"> P </td>
         <td th:text="${allenamento.kcal}"> P </td>
+
+        <td>
+            <form th:action="@{/completaAllenamento}" method="post" >
+                <button type="submit" name="code" th:value="${allenamento.id}"> Completa la scheda </button>
+            </form>
+        </td>
 
         <td>
                 <form th:action="@{/composizione}" method="get" >
@@ -41,6 +49,12 @@
 
         <td th:text="${allenamentoCustom.nome}"> P </td>
         <td th:text="${allenamentoCustom.kcal}"> P </td>
+
+        <td>
+            <form th:action="@{/completaAllenamento}" method="post" >
+                <button type="submit" name="code" th:value="${allenamentoCustom.id}"> Completa la scheda </button>
+            </form>
+        </td>
 
         <td>
             <form th:action="@{/composizioneCustom}" method="get" >
