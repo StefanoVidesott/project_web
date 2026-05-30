@@ -16,7 +16,7 @@
                     <p class="mb-0" th:text="${error}"></p>
                 </div>
                 <div class="alert alert-success" role="alert" th:if="${success}">
-                    <p class="mb-0">Upgrade effettuato con successo a <strong th:text="${currentPlan}"></strong>!</p>
+                    <p class="mb-0">Upgrade effettuato con successo a <strong th:text="${newPlan}"></strong>!</p>
                     <p>Effettua il logout e accedi nuovamente per attivare il nuovo piano.</p>
                     <form class="nav-item" th:action="@{/perform_logout}" method="post">
                         <button type="submit" class="btn btn-danger">Logout</button>

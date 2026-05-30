@@ -1,7 +1,7 @@
 package exam_project.main_webapp.controllers;
 
-import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.PlanService;
+import exam_project.main_webapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,12 +15,12 @@ import java.util.Objects;
 
 @Controller
 public class UpgradeController {
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final PlanService planService;
 
     @Autowired
-    public UpgradeController(UserRepository userRepository, PlanService planService) {
-        this.userRepository = userRepository;
+    public UpgradeController(UserService userService, PlanService planService) {
+        this.userService = userService;
         this.planService = planService;
     }
 
@@ -33,22 +33,21 @@ public class UpgradeController {
     }
 
     @PostMapping("/upgrade")
-    public String upgrade(Authentication authentication,
-                          @RequestParam String newPlan,
-                          Model model) {
+    public String upgrade(Authentication authentication, @RequestParam String newPlan, Model model) {
+        String username = authentication.getName();
         String currentAuthority = authentication.getAuthorities().iterator().next().getAuthority();
         model.addAttribute("currentAuthority", currentAuthority);
         model.addAttribute("currentPlan", planService.getPlanName(currentAuthority));
 
+        // Verifica per evitare role escalation
         if (!planService.isValidUpgrade(newPlan)) {
             model.addAttribute("error", "Piano non valido.");
             return "upgrade";
         }
 
-        userRepository.upgradeUser(authentication.getName(), newPlan);
+        userService.upgradeUser(username, newPlan);
         model.addAttribute("success", true);
-        model.addAttribute("currentAuthority", newPlan);
-        model.addAttribute("currentPlan", planService.getPlanName(newPlan));
+        model.addAttribute("newPlan", planService.getPlanName(newPlan));
         return "upgrade";
     }
 }

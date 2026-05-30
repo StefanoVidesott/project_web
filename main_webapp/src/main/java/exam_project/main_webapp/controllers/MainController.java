@@ -1,10 +1,10 @@
 package exam_project.main_webapp.controllers;
 
 import exam_project.main_webapp.pojos.User;
-import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.CheckUserService;
 import exam_project.main_webapp.services.PasswordValidationService;
 import exam_project.main_webapp.services.TrainingService;
+import exam_project.main_webapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,17 +18,17 @@ import java.sql.Date;
 
 @Controller
 public class MainController {
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final CheckUserService checkUserService;
     private final PasswordValidationService passwordValidationService;
     private final TrainingService trainingService;
 
     @Autowired
-    public MainController(UserRepository userRepository,
+    public MainController(UserService userService,
                           CheckUserService checkUserService,
                           PasswordValidationService passwordValidationService,
                           TrainingService trainingService) {
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.checkUserService = checkUserService;
         this.passwordValidationService = passwordValidationService;
         this.trainingService = trainingService;
@@ -87,8 +87,7 @@ public class MainController {
             return "signup";
         }
 
-        userRepository.addUser(new User(firstName, lastName, email, username, password, plan, Date.valueOf(birthDate), null));
-
+        userService.addUser(new User(firstName, lastName, email, username, password, plan, Date.valueOf(birthDate), null));
         model.addAttribute("username", username);
         return "signupSuccess";
     }
@@ -110,30 +109,34 @@ public class MainController {
     // Admin Dashboard
     @GetMapping("/adminDashboard")
     public String adminDashboard(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
+        String username = authentication.getName();
+        model.addAttribute("name", username);
         return "adminDashboard";
     }
 
     // Prova User Dashboard
     @GetMapping("/provaUserDashboard")
     public String provaUserDashboard(Authentication authentication, Model model) {
-        String name = authentication.getName();
-        model.addAttribute("name", name);
-        model.addAttribute("trainingsCount", trainingService.getDefaultTrainingsCount(name));
+        String username = authentication.getName();
+        int trainingsCount = trainingService.getDefaultTrainingsCount(username);
+        model.addAttribute("name", username);
+        model.addAttribute("trainingsCount", trainingsCount);
         return "provaUserDashboard";
     }
 
     // basic User Dashboard
     @GetMapping("/basicUserDashboard")
     public String basicUserDashboard(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
+        String username = authentication.getName();
+        model.addAttribute("name", username);
         return "basicUserDashboard";
     }
 
     // Pro User Dashboard
     @GetMapping("/proUserDashboard")
     public String proUserDashboard(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
+        String username = authentication.getName();
+        model.addAttribute("name", username);
         return "proUserDashboard";
     }
 }

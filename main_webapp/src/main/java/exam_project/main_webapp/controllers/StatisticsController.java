@@ -1,7 +1,5 @@
 package exam_project.main_webapp.controllers;
 
-import exam_project.main_webapp.pojos.User;
-import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -88,7 +88,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public int removeDisabledProvaUsers() {
+    public int deleteDisabledProvaUsers() {
         String sqlFind = "SELECT u.username FROM USERS u JOIN AUTHORITIES a ON u.username = a.username WHERE u.enabled = 0 AND a.authority = 'ROLE_USER_PROVA'";
         List<String> usersToRemove = jdbc.queryForList(sqlFind, String.class);
 

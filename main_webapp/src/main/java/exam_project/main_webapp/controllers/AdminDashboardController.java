@@ -1,7 +1,8 @@
 package exam_project.main_webapp.controllers;
 
-import exam_project.main_webapp.repositories.UserRepository;
+import exam_project.main_webapp.pojos.User;
 import exam_project.main_webapp.services.StatisticsService;
+import exam_project.main_webapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,36 +10,47 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
 public class AdminDashboardController {
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final StatisticsService statisticsService;
 
     @Autowired
-    public AdminDashboardController(UserRepository userRepository, StatisticsService statisticsService) {
-        this.userRepository = userRepository;
+    public AdminDashboardController(UserService userService, StatisticsService statisticsService) {
+        this.userService = userService;
         this.statisticsService = statisticsService;
     }
 
     @GetMapping("/adminListaUtenti")
     public String listaUtenti(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
-        model.addAttribute("users", userRepository.findAllUsers());
+        String username = authentication.getName();
+        List<User> usersList = userService.findAllUsers();
+
+        model.addAttribute("name", username);
+        model.addAttribute("users", usersList);
         return "adminDashboard";
     }
 
     @PostMapping("/rimuoviScaduti")
     public String rimuoviScaduti(Authentication authentication, Model model) {
-        int removed = userRepository.removeDisabledProvaUsers();
-        model.addAttribute("name", authentication.getName());
-        model.addAttribute("removed", removed);
+        String username = authentication.getName();
+        int removedUsers = userService.deleteDisabledProvaUsers();
+
+        model.addAttribute("name", username);
+        model.addAttribute("removed", removedUsers);
         return "adminDashboard";
     }
 
     @GetMapping("/adminStatistiche")
     public String statistiche(Authentication authentication, Model model) {
-        model.addAttribute("name", authentication.getName());
-        model.addAttribute("statistics", statisticsService.getAdminStatistics());
+        String username = authentication.getName();
+        List<Map<String, Object>> adminStatistics = statisticsService.getAdminStatistics();
+
+        model.addAttribute("name", username);
+        model.addAttribute("statistics", adminStatistics);
         return "adminDashboard";
     }
 }
