@@ -7,14 +7,14 @@ DELETE FROM AUTHORITIES;
 DELETE FROM USERS;
 
 INSERT INTO USERS (username, password, enabled) VALUES
-    ('admin#07', '$2a$10$Yw2oRKktnyJPPSdBCJ3slOg/AzoXjNHmkIATa3n21YxVRfXBpuuku', 1),
-    ('basic#07', '$2a$10$QPUP9UQu2af39luCl32Pp.ki/LFwDsBhG2BTbn4sMpBL0e0iO7tWO', 1),
-    ('pro#07', '$2a$10$cDGeQY57lzax0.rRufKT7.E0MHOOlMwuLlrk4qwvS73JtoV2Pc0em', 1),
-    ('prova#1#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 1),
-    ('prova#2#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 1),
-    ('prova#3#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 0),
-    ('prova#4#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 0),
-    ('prova#5#07', '$2a$10$VkC.v783OrhGMZP3HbKFm.FdoRG38F4Fm9bIynJSlqAbtvq0ie2uK', 1);
+    ('admin#07', '$2a$10$YiAOkG/.iH38LhnGSWRWMuxZog8IBsOsT4gOhfuNxkIGGJqX743pG', 1),
+    ('basic#07', '$2a$10$IWmpI5gtvC959a1jZ8WRe.xT3Iqi3nHLUptGa.HAEerJaZ3Zq2LGO', 1),
+    ('pro#07', '$2a$10$wJcF3GHtE2a3mo1B7hulA.wnnNQgjTJfiVBO94DzFHWk1ml0l8Exu', 1),
+    ('prova#1#07', '$2a$10$fqL.CWpKFNz9ACh0x4it4ezy7TKZa4Tzx3PMLcWIwFbvDpntGlnUW', 1),
+    ('prova#2#07', '$2a$10$fqL.CWpKFNz9ACh0x4it4ezy7TKZa4Tzx3PMLcWIwFbvDpntGlnUW', 1),
+    ('prova#3#07', '$2a$10$fqL.CWpKFNz9ACh0x4it4ezy7TKZa4Tzx3PMLcWIwFbvDpntGlnUW', 0),
+    ('prova#4#07', '$2a$10$fqL.CWpKFNz9ACh0x4it4ezy7TKZa4Tzx3PMLcWIwFbvDpntGlnUW', 0),
+    ('prova#5#07', '$2a$10$fqL.CWpKFNz9ACh0x4it4ezy7TKZa4Tzx3PMLcWIwFbvDpntGlnUW', 1);
 
 INSERT INTO AUTHORITIES (username, authority) VALUES
     ('admin#07', 'ROLE_ADMIN'),
@@ -51,7 +51,7 @@ INSERT INTO REVIEWS (username, content) VALUES
 
 -- Per avere l'hash delle passwords
 -- BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
--- System.out.println("adm: " + encoder.encode("adm_id_07"));
--- System.out.println("bsc: " + encoder.encode("bsc_id_07"));
--- System.out.println("pro: " + encoder.encode("pro_id_07"));
--- System.out.println("prv: " + encoder.encode("prv_id_07"));
+-- System.out.println("adm: " + encoder.encode("ad_id_07"));
+-- System.out.println("bsc: " + encoder.encode("bs_id_07"));
+-- System.out.println("pro: " + encoder.encode("pr_id_07"));
+-- System.out.println("prv: " + encoder.encode("pv_id_07"));

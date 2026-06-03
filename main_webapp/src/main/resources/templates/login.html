@@ -23,8 +23,7 @@
                     </div>
                     <div id="errorContainer" class="alert alert-danger" role="alert" th:style="${error} ? 'display:block' : 'display:none'" th:text="${error}">
                     </div>
-                    <!-- <form class="login-form" th:action="@{/login}" method="post" onsubmit="return validateLoginForm()"> -->
-                    <form class="login-form" th:action="@{/login}" method="post">
+                    <form class="login-form" th:action="@{/login}" method="post" onsubmit="return validateLoginForm()">
                         <div class="row mb-3">
                             <div class="col">
                                 <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="username" required>
