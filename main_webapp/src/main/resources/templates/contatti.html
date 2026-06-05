@@ -3,22 +3,23 @@
 <head th:replace="~{bases/head.html}"></head>
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
-    <h1>Contatti</h1>
-    <!-- TODO: cambiare il feedback dell'invio come invio review -->
+
+    <h1 class="fw-light" >Contattaci pure qui sotto!</h1>
+
     <form>
 
         <div class="mb-3">
             <label for="nomeUtente" class="form-label">Email address</label>
-            <input type="text" class="form-control" id="nomeUtente" placeholder="Nome">
+            <input type="text" class="form-control" id="nomeUtente" placeholder="Nome" required>
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Indirizzo email</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="@qualcosa.com">
+            <label for="emailUtente" class="form-label">Indirizzo email</label>
+            <input type="email" class="form-control" id="emailUtente" placeholder="@qualcosa.com" required>
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Digita qui la tua problematica</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="Lamentela" class="form-label">Digita qui la tua problematica</label>
+            <textarea class="form-control" id="Lamentela" rows="3" required></textarea>
         </div>
 
         <div class="col">
@@ -30,9 +31,11 @@
     <footer th:replace="~{bases/footer.html}"></footer>
     <script>
         function invioFittizio(){
-            alert("Form inviato con successo!")
-            return;
-        }
+    alert("Form inviato con successo!");
+    return;
+    }
+
+    }
     </script>
     <script th:replace="~{bases/scripts.html}"></script>
 </body>

@@ -3,10 +3,10 @@ DELETE FROM Programmi;
 DELETE FROM Esercizi;
 
 -- Inserimento dei nomi dei programmi predefiniti
-INSERT INTO Programmi (nome) VALUES ('Full Body');
-INSERT INTO Programmi (nome) VALUES ('Push/Pull/Legs');
-INSERT INTO Programmi (nome) VALUES ('Cardio');
-INSERT INTO Programmi (nome) VALUES ('Strength');
+INSERT INTO Programmi (id,nome) VALUES (0,'Full Body');
+INSERT INTO Programmi (id,nome) VALUES (1,'Push/Pull/Legs');
+INSERT INTO Programmi (id,nome) VALUES (2,'Cardio');
+INSERT INTO Programmi (id,nome) VALUES (3,'Strength');
 
 -- Inserimento esercizi con le kcal associate
 INSERT INTO Esercizi (nome,unit) VALUES

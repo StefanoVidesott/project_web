@@ -26,15 +26,6 @@ public class MainController {
     public List<String> getSoloNomi(){ return this.programmiRepository.getSoloNomi(); }
 
     @PostMapping("/kcal")
-    public double getKcal(@RequestBody List<Composizione> composizioni){
-
-        System.out.println("---- DEBUG RICEZIONE DATI ----");
-        System.out.println("Numero esercizi ricevuti: " + composizioni.size());
-        if(!composizioni.isEmpty()) {
-            System.out.println("Nome primo esercizio: " + composizioni.get(0).getNome_esercizio());
-        }
-        System.out.println("------------------------------");
-
-        return programmiRepository.getKcal(composizioni); }
+    public double getKcal(@RequestBody List<Composizione> composizioni){ return programmiRepository.getKcal(composizioni); }
 
 }

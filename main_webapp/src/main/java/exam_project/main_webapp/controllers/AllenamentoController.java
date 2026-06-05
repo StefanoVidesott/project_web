@@ -1,6 +1,6 @@
 package exam_project.main_webapp.controllers;
 
-import exam_project.main_webapp.EserciziDTO;
+import exam_project.main_webapp.pojos.EserciziDTO;
 import exam_project.main_webapp.proxies.ProgrammiProxy;
 import exam_project.main_webapp.pojos.Composizione;
 import exam_project.main_webapp.pojos.ComposizioneCustom;
@@ -9,6 +9,7 @@ import exam_project.main_webapp.repositories.AllenamentoRepository;
 import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.TrainingService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,12 +33,28 @@ public class AllenamentoController {
     }
 
     @GetMapping("/allenamenti")
-    public String allenamenti(Model model){
+    public String allenamenti(Authentication authentication){
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_PRO"))) {
+            return "forward:allenamentiPro";
+        } else return "forward:allenamentiStandard";
+    }
+
+    @GetMapping("/allenamentiPro")
+    public String getAllenamentiPro(Model model,Authentication authentication){
         List<Programma> programmi = this.programmiProxy.getProgrammi();
-        List<Programma> programmiCustom = this.allenamentoRepository.getProgrammiCustom();
+        this.allenamentoRepository.addKcalPredefinit(programmi);
+        List<Programma> programmiCustom = this.allenamentoRepository.getProgrammiCustom(authentication.getName());
         model.addAttribute("allenamenti",programmi);
         model.addAttribute("allenamentiCustom",programmiCustom);
-        return "allenamento";
+        return "allenamentiPro";
+    }
+
+    @GetMapping("/allenamentiStandard")
+    public String getAllenamentiStandard(Model model){
+        List<Programma> programmi = this.programmiProxy.getProgrammi();
+        this.allenamentoRepository.addKcalPredefinit(programmi);
+        model.addAttribute("allenamenti",programmi);
+        return "allenamentiStandard";
     }
 
     @GetMapping("/composizione")
@@ -55,23 +72,31 @@ public class AllenamentoController {
     }
 
     @GetMapping("/allenamentoCustom")
-    public String allenamentoCustom(){
+    public String allenamentoCustom(Model model){
+        List<String> nomi = this.programmiProxy.getSoloNomi();
+        model.addAttribute("nomiEsercizi",nomi);
         return "allenamentoCustom";
     }
 
-    @PostMapping("/allenamentoCustomSend")
-    public String allenamentoCustomSend(Authentication authentication, String nomeProgramma, EserciziDTO esercizi, Model model){
-       // Programma pC = new Programma();
-       // pC.setNome(nomeProgramma);
-        String username = authentication.getName();
-        List<Composizione> es = esercizi.getEsercizi();
-        allenamentoRepository.addAllenamento(username, nomeProgramma,es);
+ /*   @PostMapping("/completaAllenamento")
+    public String completaAllenamento(Authentication authentication,@RequestParam int code){
+        this.trainin.registerTraining(authentication.getName(),code);
+        if(this.trainingRepository.countTrainingsByUsername(authentication.getName()) == 3){
+            return "logout";
+        }
+        return "dashboard";
+    }*/
 
+    @PostMapping("/allenamentoCustomSend")
+    public String allenamentoCustomSend(Authentication authentication,String nomeProgramma, EserciziDTO esercizi,Model model){
+        List<Composizione> es = esercizi.getEsercizi();
+        boolean result = allenamentoRepository.addAllenamento(authentication.getName(),nomeProgramma,es);
+        if(!result){model.addAttribute("error","Programma con lo stesso nome");}
         return "allenamentoCustomSend";
     }
 
     @PostMapping("/completato")
-    public String completato(@RequestParam int trainingId, @RequestParam boolean isDefault, Authentication authentication, Model model) {
+    public String completato(@RequestParam int trainingId, @RequestParam boolean isDefault, Authentication authentication) {
         String username = authentication.getName();
         String role = authentication.getAuthorities().iterator().next().getAuthority();
 

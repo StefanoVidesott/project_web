@@ -1,16 +1,37 @@
+<!-- References
+    https://stackoverflow.com/questions/42388989/bootstrap-centering-elements-vertically-and-horizontally
+-->
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>GymBros Center</title>
-
-</head>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{bases/head.html}"></head>
 <body>
+<nav th:replace="~{bases/navbar.html}"></nav>
+<div class="container p-5">
+    <div class="box">
+        <div class="row justify-content-center">
+            <div class="text-center my-5" th:if="${error == null}">
+                <h1>Scheda di allenamento inserita con successo.</h1>
+                <p class="text-muted">Torna alla dashboard per vedere la scheda nei tuoi allenamenti!</p>
+            </div>
+            <div class="text-center my-5 text-danger" th:if="${error != null}">
+                <h1>Errore nell'inserimento della scheda di allenamento.</h1>
+                <p class="text-muted" th:text="${error}"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-auto mb-5">
+                    <a th:href="@{/dashboard}" class="btn btn-primary">
+                        Torna alla dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>Scheda inserita con successo !</h1>
+
 <div th:replace="~{bases/footer.html}"></div>
-    <div th:replace="~{bases/scripts.html}"></div>
+<div th:replace="~{bases/scripts.html}"></div>
 </body>
-
 </html>

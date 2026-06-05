@@ -6,6 +6,7 @@ DELETE FROM USERDATA;
 DELETE FROM AUTHORITIES;
 DELETE FROM USERS;
 
+
 INSERT INTO USERS (username, password, enabled) VALUES
     ('admin#07', '$2a$10$YiAOkG/.iH38LhnGSWRWMuxZog8IBsOsT4gOhfuNxkIGGJqX743pG', 1),
     ('basic#07', '$2a$10$IWmpI5gtvC959a1jZ8WRe.xT3Iqi3nHLUptGa.HAEerJaZ3Zq2LGO', 1),

@@ -2,7 +2,6 @@ let contatore = 1;
 
 function aggiungiEsercizio() {
     const container = document.getElementById("listaEsercizi");
-
     const selectOriginale = document.querySelector('select[name="esercizi[0].nome_esercizio"]');
 
     const newForm = document.createElement('div');
@@ -10,7 +9,12 @@ function aggiungiEsercizio() {
     newForm.style.marginTop = "15px";
 
     newForm.innerHTML = `
-        <hr>
+        <hr class="border border-primary border-3 opacity-75">
+
+
+
+
+
         <label>Nome esercizio</label>
          <select class="form-select" aria-label="Default select example" name="esercizi[${contatore}].nome_esercizio" required>
                      ${selectOriginale.innerHTML}

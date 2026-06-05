@@ -2,14 +2,16 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
 <body>
+<nav th:replace="~{bases/navbar.html}"></nav>
 
-<h1>Inserimento esercizi nel tuo nuovo programma!</h1>
+<h1>Inserisci gli esercizi nel tuo nuovo programma!</h1>
 
 <form th:action="@{/allenamentoCustomSend}" method="post">
 
-    <label>Nome programma</label> <br>
-    <input type="text" name="nomeProgramma" required> <br><br>
-
+    <div class="mb-3">
+        <label for="ProgrammaName" class="form-label">Nome programma</label>
+        <input type="text" class="form-control" id="ProgrammaName" name="nomeProgramma" placeholder="Workout...">
+    </div>
 
     <div id="listaEsercizi">
 
@@ -18,22 +20,24 @@
             <select class="form-select" aria-label="Default select example" name="esercizi[0].nome_esercizio" required>
                 <option value="" disabled selected>Scegli un esercizio</option>
                     <option th:each="nomeEsercizio : ${nomiEsercizi}" th:value="${nomeEsercizio}" th:text="${nomeEsercizio}">
-
                     </option>
             </select>
 
-            <label>Numero ripetizioni</label>
-            <input type="number" name="esercizi[0].numero_ripetizioni" placeholder="Numero ripetizioni..." required>
+            <div class="mb-3">
+            <label for="numRipetizioni" class="form-label">Numero ripetizioni</label>
+            <input type="number" id="numRipetizioni" name="esercizi[0].numero_ripetizioni" placeholder="Numero ripetizioni..." required>
+            </div>
 
-            <label>Numero serie</label>
-            <input type="number" name="esercizi[0].numero_serie" placeholder="Numero serie..." required>
+            <div class="mb-3">
+            <label for="numSerie" class="form-label">Numero serie</label>
+            <input type="number" id="numSerie" name="esercizi[0].numero_serie" placeholder="Numero serie..." required>
+             </div>
         </div>
-
     </div>
 
     <br>
-    <button type="button" onclick="aggiungiEsercizio()">Aggiungi un esercizio</button>
-    <button type="submit">Salva scheda</button>
+    <button type="button" class="btn btn-secondary" onclick="aggiungiEsercizio()">Aggiungi un esercizio</button>
+    <button type="submit" class="btn btn-primary">Salva scheda</button>
 
 </form>
 

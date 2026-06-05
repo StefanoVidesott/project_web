@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class AllenamentoRepository {
@@ -32,30 +33,34 @@ public class AllenamentoRepository {
     }
 
     @Transactional
-    public void addAllenamento(String username, String pC, List<Composizione> esercizi){
+    public boolean addAllenamento(String username, String pC, List<Composizione> esercizi){
+
+        List<Programma> ProgrammiCustom = this.getProgrammiCustom(username);
+        for(Programma P : ProgrammiCustom){
+            if(Objects.equals(P.getNome(), pC)){ return false; }
+        }
 
         String sqlProgrammi ="INSERT INTO PROGRAMMICUSTOM (nome,kcal,username) VALUES ( ?, ?, ?)";
         jdbc.update(sqlProgrammi,pC,programmiProxy.getKcal(esercizi),username);
 
         String sqlId = "SELECT MAX(id) FROM PROGRAMMICUSTOM WHERE nome = ?";
-       // Programma idObject = jdbc.queryForObject(sqlId,new ProgrammaMapper(),pC.getNome());
         Long idProgrammaNuovo = jdbc.queryForObject(sqlId, Long.class, pC);
 
         String sqlCounter = "INSERT INTO CUSTOM_TRAININGS_COUNTER (username, trainingId, count) VALUES ( ?, ?, 0)";
         jdbc.update(sqlCounter, username, idProgrammaNuovo);
 
         for (Composizione e: esercizi){
-
             String sqlEsercizi = "INSERT INTO ESERCIZI (nome_esercizio,numero_serie,numero_ripetizioni,programmaType) VALUES (? ,? ,? ,?) ";
             jdbc.update(sqlEsercizi,e.getNome_esercizio(),e.getNumero_serie(),e.getNumero_ripetizioni(),idProgrammaNuovo);
 
         }
 
+        return true;
     }
 
-    public List<Programma> getProgrammiCustom(){
-        String sql = "SELECT * FROM PROGRAMMICUSTOM";
-        return jdbc.query(sql,new ProgrammaMapper());
+    public List<Programma> getProgrammiCustom(String username){
+        String sql = "SELECT * FROM PROGRAMMICUSTOM WHERE username = ?";
+        return jdbc.query(sql,new ProgrammaMapper(),username);
     }
 
     public List<ComposizioneCustom> getEserciziCustom(int id){

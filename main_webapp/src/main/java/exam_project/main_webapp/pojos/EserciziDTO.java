@@ -1,6 +1,4 @@
-package exam_project.main_webapp;
-
-import exam_project.main_webapp.pojos.Composizione;
+package exam_project.main_webapp.pojos;
 
 import java.util.ArrayList;
 import java.util.List;
