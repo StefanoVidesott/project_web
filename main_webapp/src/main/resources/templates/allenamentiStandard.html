@@ -2,47 +2,48 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{bases/head.html}"></head>
 <body>
-<nav th:replace="~{bases/navbar.html}"></nav>
+    <nav th:replace="~{bases/navbar.html}"></nav>
 
-<h1>Programmi di allenamento!</h1>
+    <h1>Programmi di allenamento!</h1>
 
-<table class="table">
-    <thead>
+    <table class="table">
+        <thead>
 
-        <tr>
-            <th scope="col">Nome Programma</th>
-            <th scope="col">Kcal</th>
-            <th scope="col">Completamento</th>
-            <th scope="col">Visualizzazione</th>
+            <tr>
+                <th scope="col">Nome Programma</th>
+                <th scope="col">Kcal</th>
+                <th scope="col">Completamento</th>
+                <th scope="col">Visualizzazione</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+        <tr th:each="allenamento : ${allenamenti}">
+
+            <td th:text="${allenamento.nome}"> P </td>
+            <td th:text="${allenamento.kcal}"> P </td>
+
+            <td>
+                <form th:action="@{/completato}" method="post" >
+                    <input type="hidden" name="isDefault" th:value="true">
+                    <button class="btn btn-primary" type="submit" name="trainingId" th:value="${allenamento.id}"> Completa la scheda </button>
+                </form>
+            </td>
+
+
+            <td>
+                <form th:action="@{/composizione}" method="get" >
+                    <button class="btn btn-info" type="submit" name="code" th:value="${allenamento.nome}"> Visualizza la scheda </button>
+                </form>
+            </td>
+
         </tr>
+        </tbody>
 
-    </thead>
+    </table>
 
-    <tbody>
-    <tr th:each="allenamento : ${allenamenti}">
-
-        <td>
-            <form th:action="@{/completato}" method="post" >
-                <input type="hidden" name="isDefault" th:value="true">
-                <button class="btn btn-primary" type="submit" name="trainingId" th:value="${allenamento.id}"> Completa la scheda </button>
-            </form>
-        </td>
-
-        <td th:text="${allenamento.nome}"> P </td>
-        <td th:text="${allenamento.kcal}"> P </td>
-
-        <td>
-            <form th:action="@{/composizione}" method="get" >
-                <button class="btn btn-info" type="submit" name="code" th:value="${allenamento.nome}"> Visualizza la scheda </button>
-            </form>
-        </td>
-
-    </tr>
-    </tbody>
-
-</table>
-
-<div th:replace="~{bases/footer.html}"></div>
-<div th:replace="~{bases/scripts.html}"></div>
+    <div th:replace="~{bases/footer.html}"></div>
+    <div th:replace="~{bases/scripts.html}"></div>
 </body>
 </html>
