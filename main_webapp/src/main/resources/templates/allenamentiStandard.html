@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>GymBros Center</title>
-</head>
+<head th:replace="~{bases/head.html}"></head>
 <body>
+<nav th:replace="~{bases/navbar.html}"></nav>
 
 <h1>Programmi di allenamento!</h1>
 
 <table class="table">
     <thead>
 
-    <tr>
-        <th>Nome Programma</th>
-    </tr>
+        <tr>
+            <th scope="col">Nome Programma</th>
+            <th scope="col">Kcal</th>
+            <th scope="col">Completamento</th>
+            <th scope="col">Visualizzazione</th>
+        </tr>
 
     </thead>
 
@@ -21,8 +22,9 @@
     <tr th:each="allenamento : ${allenamenti}">
 
         <td>
-            <form th:action="@{/completaAllenamento}" method="post" >
-                <button type="submit" name="code" th:value="${allenamento.id}"> Completa la scheda </button>
+            <form th:action="@{/completato}" method="post" >
+                <input type="hidden" name="isDefault" th:value="true">
+                <button class="btn btn-primary" type="submit" name="trainingId" th:value="${allenamento.id}"> Completa la scheda </button>
             </form>
         </td>
 
@@ -31,7 +33,7 @@
 
         <td>
             <form th:action="@{/composizione}" method="get" >
-                <button type="submit" name="code" th:value="${allenamento.nome}"> Visualizza la scheda </button>
+                <button class="btn btn-info" type="submit" name="code" th:value="${allenamento.nome}"> Visualizza la scheda </button>
             </form>
         </td>
 
@@ -40,5 +42,7 @@
 
 </table>
 
+<div th:replace="~{bases/footer.html}"></div>
+<div th:replace="~{bases/scripts.html}"></div>
 </body>
 </html>

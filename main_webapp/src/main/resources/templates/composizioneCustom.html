@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GymBros Center</title>
-</head>
+<head th:replace="~{bases/head.html}"></head>
 <body>
+<nav th:replace="~{bases/navbar.html}"></nav>
 
 <table class="table">
     <thead>
 
     <tr>
         <th>Esercizi</th>
+    </tr>
+
+    <tr>
+        <th scope="col">Nome esercizio</th>
+        <th scope="col">Numero delle serie</th>
+        <th scope="col">Numero delle ripetizioni</th>
     </tr>
 
     </thead>

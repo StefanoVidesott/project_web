@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>GymBros Center</title>
-</head>
+<head th:replace="~{bases/head.html}"></head>
 <body>
-
+<nav th:replace="~{bases/navbar.html}"></nav>
     <h1>Programmi di allenamento!</h1>
 
 <table class="table">
     <thead>
 
     <tr>
-        <th>Nome Programma</th>
+        <th scope="col">Nome Programma</th>
+        <th scope="col">Kcal</th>
+        <th scope="col">Completamento</th>
+        <th scope="col">Visualizzazione</th>
     </tr>
 
     </thead>
@@ -20,53 +20,53 @@
     <tbody>
     <tr th:each="allenamento : ${allenamenti}">
 
-
-
         <td th:text="${allenamento.nome}"> P </td>
         <td th:text="${allenamento.kcal}"> P </td>
 
         <td>
-            <form th:action="@{/completaAllenamento}" method="post" >
-                <button type="submit" name="code" th:value="${allenamento.id}"> Completa la scheda </button>
+            <form th:action="@{/completato}" method="post" >
+
+                <input type="hidden" name="isDefault" th:value="true">
+                <button class="btn btn-primary" type="submit" name="trainingId" th:value="${allenamento.id}"> Completa la scheda </button>
             </form>
         </td>
 
         <td>
                 <form th:action="@{/composizione}" method="get" >
-                        <button type="submit" name="code" th:value="${allenamento.nome}"> Visualizza la scheda </button>
+                        <button class="btn btn-info" type="submit" name="code" th:value="${allenamento.nome}"> Visualizza la scheda </button>
                 </form>
         </td>
 
     </tr>
-    </tbody>
-</table>
-
-    <div th:if="${not#lists.isEmpty(allenamentiCustom)}">
-
-        <table>
-            <tbody>
-    <tr th:each="allenamentoCustom : ${allenamentiCustom}">
-
-        <td th:text="${allenamentoCustom.nome}"> P </td>
-        <td th:text="${allenamentoCustom.kcal}"> P </td>
-
-        <td>
-            <form th:action="@{/completaAllenamento}" method="post" >
-                <button type="submit" name="code" th:value="${allenamentoCustom.id}"> Completa la scheda </button>
-            </form>
-        </td>
-
-        <td>
-            <form th:action="@{/composizioneCustom}" method="get" >
-                <button type="submit" name="id" th:value="${allenamentoCustom.id}"> Visualizza la scheda </button>
-            </form>
-        </td>
-
-                </tr>
-            </tbody>
-       </table>
-    </div>
 
 
+    <!--< div th:if="${not#lists.isEmpty(allenamentiCustom)}"> -->
+            <tr th:each="allenamentoCustom : ${allenamentiCustom}">
+
+                <td th:text="${allenamentoCustom.nome}"> P </td>
+                <td th:text="${allenamentoCustom.kcal}"> P </td>
+
+                <td>
+                    <form th:action="@{/completato}" method="post" >
+                        <input type="hidden" name="isDefault" th:value="false">
+                        <button class="btn btn-primary" type="submit" name="trainingId" th:value="${allenamentoCustom.id}"> Completa la scheda </button>
+                    </form>
+                </td>
+
+                <td>
+                    <form th:action="@{/composizioneCustom}" method="get" >
+                        <button class="btn btn-info" type="submit" name="id" th:value="${allenamentoCustom.id}"> Visualizza la scheda </button>
+                    </form>
+                </td>
+
+            </tr>
+
+        </tbody>
+            </table>
+
+
+
+    <div th:replace="~{bases/footer.html}"></div>
+    <div th:replace="~{bases/scripts.html}"></div>
 </body>
 </html>

@@ -9,6 +9,7 @@ import exam_project.main_webapp.repositories.AllenamentoRepository;
 import exam_project.main_webapp.repositories.UserRepository;
 import exam_project.main_webapp.services.TrainingService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,24 +78,25 @@ public class AllenamentoController {
         return "allenamentoCustom";
     }
 
-    @PostMapping("/completaAllenamento")
+ /*   @PostMapping("/completaAllenamento")
     public String completaAllenamento(Authentication authentication,@RequestParam int code){
-        this.trainingRepository.registerTraining(authentication.getName(),code);
+        this.trainin.registerTraining(authentication.getName(),code);
         if(this.trainingRepository.countTrainingsByUsername(authentication.getName()) == 3){
             return "logout";
         }
         return "dashboard";
-    }
+    }*/
 
     @PostMapping("/allenamentoCustomSend")
-    public String allenamentoCustomSend(Authentication authentication,String nomeProgramma, EserciziDTO esercizi){
+    public String allenamentoCustomSend(Authentication authentication,String nomeProgramma, EserciziDTO esercizi,Model model){
         List<Composizione> es = esercizi.getEsercizi();
-        allenamentoRepository.addAllenamento(authentication.getName(),nomeProgramma,es);
+        boolean result = allenamentoRepository.addAllenamento(authentication.getName(),nomeProgramma,es);
+        if(!result){model.addAttribute("error","Programma con lo stesso nome");}
         return "allenamentoCustomSend";
     }
 
     @PostMapping("/completato")
-    public String completato(@RequestParam int trainingId, @RequestParam boolean isDefault, Authentication authentication, Model model) {
+    public String completato(@RequestParam int trainingId, @RequestParam boolean isDefault, Authentication authentication) {
         String username = authentication.getName();
         String role = authentication.getAuthorities().iterator().next().getAuthority();
 

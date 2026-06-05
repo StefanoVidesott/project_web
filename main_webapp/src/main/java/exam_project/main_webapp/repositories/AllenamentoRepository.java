@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class AllenamentoRepository {
@@ -32,7 +33,12 @@ public class AllenamentoRepository {
     }
 
     @Transactional
-    public void addAllenamento(String username, String pC, List<Composizione> esercizi){
+    public boolean addAllenamento(String username, String pC, List<Composizione> esercizi){
+
+        List<Programma> ProgrammiCustom = this.getProgrammiCustom(username);
+        for(Programma P : ProgrammiCustom){
+            if(Objects.equals(P.getNome(), pC)){ return false; }
+        }
 
         String sqlProgrammi ="INSERT INTO PROGRAMMICUSTOM (nome,kcal,username) VALUES ( ?, ?, ?)";
         jdbc.update(sqlProgrammi,pC,programmiProxy.getKcal(esercizi),username);
@@ -49,6 +55,7 @@ public class AllenamentoRepository {
 
         }
 
+        return true;
     }
 
     public List<Programma> getProgrammiCustom(String username){
