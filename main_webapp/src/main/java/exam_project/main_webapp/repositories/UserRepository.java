@@ -128,7 +128,7 @@ public class UserRepository {
             jdbc.update(sql, username);
         }
         else {
-            String sql = "UPDATE CUSTOM_TRAININGS_COUNTER SET counter  = counter + 1 WHERE username = ? AND trainingID = ?";
+            String sql = "UPDATE CUSTOM_TRAININGS_COUNTER SET count  = count + 1 WHERE username = ? AND trainingID = ?";
             jdbc.update(sql, username, trainingId);
         }
     }
