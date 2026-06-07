@@ -9,19 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ProfiloController {
+public class ProfileController {
     private final UserService userService;
 
     @Autowired
-    public ProfiloController(UserService userService) {
+    public ProfileController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/profilo")
-    public String profilo(Authentication authentication, Model model) {
+    @GetMapping("/profile")
+    public String profile(Authentication authentication, Model model) {
         String username = authentication.getName();
         User user = userService.findUserByUsername(username);
         model.addAttribute("user", user);
-        return ("profilo");
+        return "profile";
     }
 }

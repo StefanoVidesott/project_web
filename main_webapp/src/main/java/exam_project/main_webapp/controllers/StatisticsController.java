@@ -18,12 +18,12 @@ public class StatisticsController {
         this.statisticsService = statisticsService;
     }
 
-    @GetMapping("/statistiche")
-    public String statistiche(Authentication authentication, Model model) {
+    @GetMapping("/statistics")
+    public String statistics(Authentication authentication, Model model) {
         String username = authentication.getName();
         Map<String, Integer> stats = statisticsService.getTrainingsCountersByUsername(username);
         model.addAttribute("name", authentication.getName());
         model.addAttribute("statistics", stats);
-        return "statistiche";
+        return "statistics";
     }
 }

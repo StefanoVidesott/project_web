@@ -21,18 +21,18 @@ public class PasswordController {
         this.passwordValidationService = passwordValidationService;
     }
 
-    @GetMapping("/cambioPassword")
-    public String cambioPasswordPage() {
-        return "cambioPassword";
+    @GetMapping("/change-password")
+    public String changePasswordPage() {
+        return "changePassword";
     }
 
-    @PostMapping("/cambioPassword")
-    public String cambioPassword(Authentication authentication, @RequestParam String oldPassword, @RequestParam String newPassword, Model model) {
+    @PostMapping("/change-password")
+    public String changePassword(Authentication authentication, @RequestParam String oldPassword, @RequestParam String newPassword, Model model) {
 
-        // Verifiche aggiuntiva lato backend su formato password
+        // Verifica aggiuntiva lato backend su formato password
         if (!passwordValidationService.isValid(newPassword)) {
             model.addAttribute("error", "La password deve essere lunga 8 caratteri e contenere 'id_07'.");
-            return "cambioPassword";
+            return "changePassword";
         }
 
         String username = authentication.getName();
@@ -45,6 +45,6 @@ public class PasswordController {
             model.addAttribute("error", "La vecchia password non è corretta.");
         }
 
-        return "cambioPassword";
+        return "changePassword";
     }
 }

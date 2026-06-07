@@ -88,7 +88,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public int deleteDisabledProvaUsers() {
+    public int deleteExpiredTrialUsers() {
         String sqlFind = "SELECT u.username FROM USERS u JOIN AUTHORITIES a ON u.username = a.username WHERE u.enabled = 0 AND a.authority = 'ROLE_USER_PROVA'";
         List<String> usersToRemove = jdbc.queryForList(sqlFind, String.class);
 
@@ -165,13 +165,13 @@ public class UserRepository {
 
         // Custom programs
         String sqlCustomCounters = """
-            SELECT pc.nome, cts.count
-            FROM CUSTOM_TRAININGS_COUNTER cts
-            JOIN PROGRAMMICUSTOM pc ON cts.trainingId = pc.id
-            WHERE cts.username = ?
+            SELECT ct.name, ctc.count
+            FROM CUSTOM_TRAININGS_COUNTER ctc
+            JOIN CUSTOM_TRAININGS ct ON ctc.trainingId = ct.id
+            WHERE ctc.username = ?
             """;
         jdbc.query(sqlCustomCounters, (rs) -> {
-            result.put(rs.getString("nome"), rs.getInt("count"));
+            result.put(rs.getString("name"), rs.getInt("count"));
         }, username);
 
         return result;

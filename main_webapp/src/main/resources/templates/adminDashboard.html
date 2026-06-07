@@ -18,19 +18,19 @@
 
         <div class="row mb-5">
             <div class="col-auto">
-                <a th:href="@{/adminListaUtenti}" class="btn btn-primary">
+                <a th:href="@{/admin/users}" class="btn btn-primary">
                     Visualizza Lista Utenti
                 </a>
             </div>
             <div class="col-auto">
-                <form th:action="@{/rimuoviScaduti}" method="post">
+                <form th:action="@{/admin/remove-expired}" method="post">
                     <button type="submit" class="btn btn-warning">
                         Rimuovi utenti scaduti
                     </button>
                 </form>
             </div>
             <div class="col-auto">
-                <a th:href="@{/adminStatistiche}" class="btn btn-info">
+                <a th:href="@{/admin/statistics}" class="btn btn-info">
                     Statistiche
                 </a>
             </div>

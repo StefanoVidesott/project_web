@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{bases/head.html}"></head>
+<body>
+    <nav th:replace="~{bases/navbar.html}"></nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Esercizi</th>
+            </tr>
+            <tr>
+                <th scope="col">Nome esercizio</th>
+                <th scope="col">Numero delle serie</th>
+                <th scope="col">Numero delle ripetizioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="exercise : ${customComposition}">
+                <td th:text="${exercise.exerciseName}"> P </td>
+                <td th:text="${exercise.sets}"> P </td>
+                <td th:text="${exercise.reps}"> P </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div th:replace="~{bases/footer.html}"></div>
+    <div th:replace="~{bases/scripts.html}"></div>
+</body>
+</html>

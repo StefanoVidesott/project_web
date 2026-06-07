@@ -56,9 +56,9 @@ public class MainController {
     }
 
     // Contact page
-    @GetMapping("/contatti")
+    @GetMapping("/contacts")
     public String contacts() {
-        return "contatti";
+        return "contacts";
     }
 
     // Signing up
@@ -83,7 +83,7 @@ public class MainController {
         }
 
         if (!passwordValidationService.isValid(password)) {
-            model.addAttribute("error", "La password deve essere lunga almeno 8 caratteri e contenere 'id_07'.");
+            model.addAttribute("error", "La password deve essere lunga 8 caratteri e contenere 'id_07'.");
             return "signup";
         }
 
@@ -96,18 +96,18 @@ public class MainController {
     @GetMapping("/dashboard")
     public String dashboard(Authentication authentication) {
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return "forward:adminDashboard";
+            return "forward:/dashboard/admin";
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_PROVA"))) {
-            return "forward:provaUserDashboard";
+            return "forward:/dashboard/trial";
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER_BASIC"))) {
-            return "forward:basicUserDashboard";
+            return "forward:/dashboard/basic";
         } else {
-            return "forward:proUserDashboard";
+            return "forward:/dashboard/pro";
         }
     }
 
     // Admin Dashboard
-    @GetMapping("/adminDashboard")
+    @GetMapping("/dashboard/admin")
     public String adminDashboard(Authentication authentication, Model model) {
         String username = authentication.getName();
         model.addAttribute("name", username);
@@ -115,17 +115,17 @@ public class MainController {
     }
 
     // Prova User Dashboard
-    @GetMapping("/provaUserDashboard")
-    public String provaUserDashboard(Authentication authentication, Model model) {
+    @GetMapping("/dashboard/trial")
+    public String trialUserDashboard(Authentication authentication, Model model) {
         String username = authentication.getName();
         int trainingsCount = trainingService.getDefaultTrainingsCount(username);
         model.addAttribute("name", username);
         model.addAttribute("trainingsCount", trainingsCount);
-        return "provaUserDashboard";
+        return "trialUserDashboard";
     }
 
-    // basic User Dashboard
-    @GetMapping("/basicUserDashboard")
+    // Basic User Dashboard
+    @GetMapping("/dashboard/basic")
     public String basicUserDashboard(Authentication authentication, Model model) {
         String username = authentication.getName();
         model.addAttribute("name", username);
@@ -133,7 +133,7 @@ public class MainController {
     }
 
     // Pro User Dashboard
-    @GetMapping("/proUserDashboard")
+    @GetMapping("/dashboard/pro")
     public String proUserDashboard(Authentication authentication, Model model) {
         String username = authentication.getName();
         model.addAttribute("name", username);

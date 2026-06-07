@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{bases/head.html}"></head>
+
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
 
@@ -15,13 +17,13 @@
 
         <div class="row mb-5">
             <div class="col-auto">
-                <a th:href="@{/profilo}" class="btn btn-primary">
+                <a th:href="@{/profile}" class="btn btn-primary">
                     Visualizza Profilo
                 </a>
             </div>
             <div class="col-auto">
-                <a th:href="@{/cambioPassword}" class="btn btn-warning">
-                    Cambia cambioPassword
+                <a th:href="@{/change-password}" class="btn btn-warning">
+                    Cambia Password
                 </a>
             </div>
             <div class="col-auto">
@@ -31,7 +33,7 @@
             </div>
 
             <div class="col-auto">
-                <a th:href="@{/allenamenti}" class="btn btn-dark">
+                <a th:href="@{/trainings}" class="btn btn-dark">
                     Vedi allenamenti
                 </a>
             </div>
@@ -44,4 +46,5 @@
     <footer th:replace="~{bases/footer.html}"></footer>
     <script th:replace="~{bases/scripts.html}"></script>
 </body>
+
 </html>

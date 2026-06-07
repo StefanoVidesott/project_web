@@ -1,9 +1,8 @@
 package org.example.restlike.Controllers;
 
-import org.example.restlike.Pojos.Composizione;
-import org.example.restlike.Pojos.Esercizio;
-import org.example.restlike.Pojos.Programma;
-import org.example.restlike.Repository.ProgrammiRepository;
+import org.example.restlike.Pojos.Composition;
+import org.example.restlike.Pojos.Training;
+import org.example.restlike.Repository.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,21 +10,30 @@ import java.util.List;
 
 @RestController
 public class MainController {
-    private final ProgrammiRepository programmiRepository;
+    private final TrainingRepository trainingRepository;
 
     @Autowired
-    public MainController(ProgrammiRepository programmiRepository){this.programmiRepository = programmiRepository;}
+    public MainController(TrainingRepository trainingRepository) {
+        this.trainingRepository = trainingRepository;
+    }
 
-    @GetMapping("/programmiDEF")
-    public List<Programma> getProgrammi(){return programmiRepository.getProgrammi(); }
+    @GetMapping("/trainings")
+    public List<Training> getDefaultTrainings() {
+        return trainingRepository.getDefaultTrainings();
+    }
 
-    @GetMapping("/esercizi")
-    public List<Composizione> getEsercizi(@RequestParam String code){return programmiRepository.getEsercizi(code); }
+    @GetMapping("/exercises")
+    public List<Composition> getExercisesByTrainingName(@RequestParam String name) {
+        return trainingRepository.getExercisesByTrainingName(name);
+    }
 
-    @GetMapping("/soloNomi")
-    public List<String> getSoloNomi(){ return this.programmiRepository.getSoloNomi(); }
+    @GetMapping("/exercise-names")
+    public List<String> getExerciseNames() {
+        return trainingRepository.getExerciseNames();
+    }
 
     @PostMapping("/kcal")
-    public double getKcal(@RequestBody List<Composizione> composizioni){ return programmiRepository.getKcal(composizioni); }
-
+    public double getKcal(@RequestBody List<Composition> compositions) {
+        return trainingRepository.getKcal(compositions);
+    }
 }

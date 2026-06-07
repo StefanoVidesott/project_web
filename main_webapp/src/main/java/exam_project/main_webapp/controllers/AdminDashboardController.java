@@ -24,8 +24,8 @@ public class AdminDashboardController {
         this.statisticsService = statisticsService;
     }
 
-    @GetMapping("/adminListaUtenti")
-    public String listaUtenti(Authentication authentication, Model model) {
+    @GetMapping("/admin/users")
+    public String listUsers(Authentication authentication, Model model) {
         String username = authentication.getName();
         List<User> usersList = userService.findAllUsers();
 
@@ -34,18 +34,18 @@ public class AdminDashboardController {
         return "adminDashboard";
     }
 
-    @PostMapping("/rimuoviScaduti")
-    public String rimuoviScaduti(Authentication authentication, Model model) {
+    @PostMapping("/admin/remove-expired")
+    public String removeExpiredUsers(Authentication authentication, Model model) {
         String username = authentication.getName();
-        int removedUsers = userService.deleteDisabledProvaUsers();
+        int removedUsers = userService.deleteExpiredTrialUsers();
 
         model.addAttribute("name", username);
         model.addAttribute("removed", removedUsers);
         return "adminDashboard";
     }
 
-    @GetMapping("/adminStatistiche")
-    public String statistiche(Authentication authentication, Model model) {
+    @GetMapping("/admin/statistics")
+    public String adminStatistics(Authentication authentication, Model model) {
         String username = authentication.getName();
         List<Map<String, Object>> adminStatistics = statisticsService.getAdminStatistics();
 

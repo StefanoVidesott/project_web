@@ -1,5 +1,5 @@
-DELETE FROM ESERCIZI;
-DELETE FROM PROGRAMMICUSTOM;
+DELETE FROM EXERCISES;
+DELETE FROM CUSTOM_TRAININGS;
 DELETE FROM CUSTOM_TRAININGS_COUNTER;
 DELETE FROM REVIEWS;
 DELETE FROM USERDATA;
@@ -37,7 +37,7 @@ INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDat
     ('prova#4#07', 'Prova', 'Ferrari', 'prova4@fitapp.it', '1990-01-01', '2025-06-23', 0, 0, 0, 0),
     ('prova#5#07', 'Prova', 'Romano', 'prova5@fitapp.it', '1990-01-01', '2025-06-08', 0, 0, 0, 0);
 
-INSERT INTO PROGRAMMICUSTOM (username, nome, kcal) VALUES
+INSERT INTO CUSTOM_TRAININGS (username, name, kcal) VALUES
     ('pro#07', 'programma_custom_1', 0),
     ('pro#07', 'programma_custom_2', 0);
 

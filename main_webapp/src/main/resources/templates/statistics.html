@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{bases/head.html}"></head>
+
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
 
@@ -8,7 +10,6 @@
         <div class="row mb-3">
             <div class="col">
                 <h1>Visualizzazione statistiche</h1>
-                <!-- <p class="text-muted"></p> -->
             </div>
         </div>
 
@@ -29,9 +30,9 @@
     <script th:inline="javascript">
         const ctx = document.getElementById('statisticsChart');
 
-        const statisticsData = /*[[${statistics}]]*/ [];
+        const statisticsData = /*[[${statistics}]]*/[];
         const labels = Object.keys(statisticsData);
-        const counts  = Object.values(statisticsData);
+        const counts = Object.values(statisticsData);
 
         new Chart(ctx, {
             type: 'bar',
@@ -53,4 +54,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -20,8 +20,8 @@ public class UserService {
         return userRepository.findAllUsers();
     }
 
-    public int deleteDisabledProvaUsers() {
-        return userRepository.deleteDisabledProvaUsers();
+    public int deleteExpiredTrialUsers() {
+        return userRepository.deleteExpiredTrialUsers();
     }
 
     public void addUser(User user) {

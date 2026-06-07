@@ -9,7 +9,7 @@
     <form>
 
         <div class="mb-3">
-            <label for="nomeUtente" class="form-label">Email address</label>
+            <label for="nomeUtente" class="form-label">Nome e cognome</label>
             <input type="text" class="form-control" id="nomeUtente" placeholder="Nome" required>
         </div>
 
@@ -18,19 +18,19 @@
             <input type="email" class="form-control" id="emailUtente" placeholder="@qualcosa.com" required>
         </div>
         <div class="mb-3">
-            <label for="Lamentela" class="form-label">Digita qui la tua problematica</label>
+            <label for="Lamentela" class="form-label">Digita qui il tuo messaggio</label>
             <textarea class="form-control" id="Lamentela" rows="3" required></textarea>
         </div>
 
         <div class="col">
-            <button class="form-control btn btn-dark" type="submit" onclick="invioFittizio()">Invia</button>
+            <button class="form-control btn btn-dark" type="submit" onclick="mockSubmit()">Invia</button>
         </div>
 
     </form>
 
     <footer th:replace="~{bases/footer.html}"></footer>
     <script>
-        function invioFittizio(){
+        function mockSubmit(){
     alert("Form inviato con successo!");
     return;
     }
