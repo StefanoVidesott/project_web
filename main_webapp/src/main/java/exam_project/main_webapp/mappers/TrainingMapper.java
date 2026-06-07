@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TrainingMapper implements RowMapper<Training> {
+    @Override
     public Training mapRow(ResultSet r, int i) throws SQLException {
         Training t = new Training();
         t.setId(r.getInt("id"));

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ExerciseMapper implements RowMapper<CustomComposition> {
+    @Override
     public CustomComposition mapRow(ResultSet r, int i) throws SQLException {
         CustomComposition c = new CustomComposition();
         c.setId(r.getInt("id"));

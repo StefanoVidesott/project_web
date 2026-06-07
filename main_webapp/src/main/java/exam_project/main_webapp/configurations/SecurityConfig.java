@@ -38,9 +38,9 @@ public class SecurityConfig {
 
         // Authentication
         http.formLogin(c -> c
-                .loginPage("/login")
-                .defaultSuccessUrl("/dashboard")
-                .failureUrl("/login?loginError")
+            .loginPage("/login")
+            .defaultSuccessUrl("/dashboard")
+            .failureUrl("/login?loginError")
         );
 
         // Authorization
@@ -69,8 +69,8 @@ public class SecurityConfig {
 
         // Logout
         http.logout(c -> c
-                .logoutUrl("/perform_logout")
-                .logoutSuccessUrl("/logout")
+            .logoutUrl("/perform_logout")
+            .logoutSuccessUrl("/logout")
         );
 
         // TO DISABLE CSRF PROTECTION
