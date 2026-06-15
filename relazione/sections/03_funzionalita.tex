@@ -4,77 +4,65 @@
 \section{Funzionalità}
 
 \subsection{Descrizione della funzionalità selezionata}
-
-% Scegliete UNA funzionalità significativa da descrivere nel dettaglio.
-[Descrivere qui la funzionalità scelta, il suo scopo e il contesto d'uso all'interno dell'applicazione.]
+La funzionalità descritta è la \textbf{registrazione di un nuovo utente} (\textit{signup}), scelta perché tocca più strati del sistema: validazione JavaScript lato client, più service layer distinti sul backend, creazione di record in più tabelle e gestione degli errori.
 
 \subsection{Interazione utente}
-
-Dal punto di vista dell'utente, la funzionalità si articola nei seguenti passi:
+Dal lato utente, i passi sono i seguenti:
 
 \begin{enumerate}
-  \item Passo 1: descrivere l'azione dell'utente.
-  \item Passo 2: descrivere la risposta del sistema.
-  \item Passo 3: eventuale feedback o esito finale.
+  \item L'utente non autenticato accede a \texttt{/signup}, dove trova un form
+    con nome, cognome, data di nascita, email, username e password, più un set
+    di card con radio button per la selezione del piano (Prova, Basic o Pro).
+  \item Prima dell'invio, JavaScript valida il formato della data di nascita, la maggiore età e il formato della password lato client.
+  \item Il form invia una richiesta \texttt{POST /addUser} al server.
+  \item Se lo username è già in uso, il backend restituisce un errore e ripropone il form.
+  \item Il backend ripete la validazione della password e verifica che il piano selezionato sia consentito. In caso di irregolarità restituisce un errore.
+  \item Se tutti i controlli hanno esito positivo, l'utente viene creato e viene mostrata la pagina di conferma.
 \end{enumerate}
 
 \subsection{Flusso interno al sistema}
 
-La Figura~\ref{fig:sequenza} mostra il diagramma di sequenza relativo all'esecuzione della funzionalità, evidenziando i componenti coinvolti e i messaggi scambiati.
-
 \begin{figure}[H]
-  \centering
-  % --- Diagramma di sequenza con TikZ ---
-  \begin{tikzpicture}[
-      actor/.style  = {draw, thick, fill=primary!10, minimum width=2.2cm,
-                       minimum height=0.7cm, rounded corners=3pt,
-                       font=\small\bfseries, align=center},
-      lifeline/.style = {draw, dashed, thick, color=secondary!60},
-      msg/.style    = {-Stealth, thick, color=primary!80},
-      retmsg/.style = {-Stealth, dashed, thick, color=secondary},
-      lbl/.style    = {font=\scriptsize, fill=white, inner sep=1pt},
-    ]
-
-    % --- Attori (asse X) ---
-    \def\xBrowser{0}
-    \def\xCtrl{3.5}
-    \def\xModel{7}
-    \def\xDB{10.5}
-
-    \node[actor] (A) at (\xBrowser, 0) {Browser};
-    \node[actor] (B) at (\xCtrl,    0) {Controller};
-    \node[actor] (C) at (\xModel,   0) {Model};
-    \node[actor] (D) at (\xDB,      0) {Database};
-
-    % --- Lifelines ---
-    \foreach \x in {\xBrowser, \xCtrl, \xModel, \xDB}{
-      \draw[lifeline] (\x, -0.35) -- (\x, -5.8);
-    }
-
-    % --- Messaggi (asse Y scende) ---
-    % 1. Request
-    \draw[msg] (\xBrowser,-0.8) -- node[lbl,above]{1. HTTP Request} (\xCtrl,-0.8);
-    % 2. validate & fetch
-    \draw[msg] (\xCtrl,-1.4) -- node[lbl,above]{2. [validate] fetch()} (\xModel,-1.4);
-    % 3. query
-    \draw[msg] (\xModel,-2.0) -- node[lbl,above]{3. SQL query} (\xDB,-2.0);
-    % 4. result set
-    \draw[retmsg] (\xDB,-2.6) -- node[lbl,above]{4. result set} (\xModel,-2.6);
-    % 5. domain object
-    \draw[retmsg] (\xModel,-3.2) -- node[lbl,above]{5. domain object} (\xCtrl,-3.2);
-    % 6. render view
-    \draw[msg] (\xCtrl,-3.8) -- node[lbl,above]{6. render(view, data)} (\xBrowser+0.3,-3.8);
-    % piccola freccia interna al controller per indicare passaggio alla view
-    \draw[msg] (\xCtrl,-4.4) -- node[lbl,above]{7. View populated} (\xCtrl+0.01,-4.4);
-    % 8. HTTP Response
-    \draw[retmsg] (\xCtrl,-5.2) -- node[lbl,above]{8. HTTP Response (HTML)} (\xBrowser,-5.2);
-
-  \end{tikzpicture}
-  \caption{Diagramma di sequenza della funzionalità selezionata.}
-  \label{fig:sequenza}
+\centering
+\begin{tikzpicture}[
+actor/.style = {draw, thick, fill=primary!10, minimum width=2.2cm,
+minimum height=0.7cm, rounded corners=3pt,
+font=\small\bfseries, align=center},
+lifeline/.style = {draw, dashed, thick, color=secondary!60},
+msg/.style = {-Stealth, thick, color=primary!80},
+retmsg/.style = {-Stealth, dashed, thick, color=secondary},
+lbl/.style = {font=\scriptsize, fill=white, inner sep=1pt},
+]
+\def\xBrowser{0}
+\def\xCtrl{3}
+\def\xVal{6}
+\def\xSvc{9}
+\def\xDB{12}
+\node[actor] (A) at (\xBrowser, 0) {Browser};
+\node[actor] (B) at (\xCtrl, 0) {Main\\Controller};
+\node[actor] (C) at (\xVal, 0) {Servizi di\\Validazione};
+\node[actor] (D) at (\xSvc, 0) {User\\Service};
+\node[actor] (E) at (\xDB, 0) {Database};
+\foreach \x in {\xBrowser, \xCtrl, \xVal, \xSvc, \xDB}{
+    \draw[lifeline] (\x, -0.35) -- (\x, -11.4);
+}
+\draw[msg]    (\xBrowser,-0.9) -- node[lbl,above]{1. POST /addUser}              (\xCtrl,-0.9);
+\draw[msg]    (\xCtrl,-1.7)    -- node[lbl,above]{2. userExists(username)}        (\xVal,-1.7);
+\draw[retmsg] (\xVal,-2.5)     -- node[lbl,above]{3. false}                       (\xCtrl,-2.5);
+\draw[msg]    (\xCtrl,-3.3)    -- node[lbl,above]{4. isAllowedUserPlan(plan)}        (\xVal,-3.3);
+\draw[retmsg] (\xVal,-4.1)     -- node[lbl,above]{5. true}                        (\xCtrl,-4.1);
+\draw[msg]    (\xCtrl,-4.9)    -- node[lbl,above]{6. isValid(password)}           (\xVal,-4.9);
+\draw[retmsg] (\xVal,-5.7)     -- node[lbl,above]{7. true}                        (\xCtrl,-5.7);
+\draw[msg]    (\xCtrl,-6.5)    -- node[lbl,above]{8. addUser(user)}               (\xSvc,-6.5);
+\draw[msg]    (\xSvc,-7.3)     -- node[lbl,above]{9. INSERT INTO USERDATA}        (\xDB,-7.3);
+\draw[msg]    (\xSvc,-8.1)     -- node[lbl,above]{10. createUser (USERS + AUTHORITIES)} (\xDB,-8.1);
+\draw[retmsg] (\xDB,-8.9)      -- node[lbl,above]{11. OK}                         (\xSvc,-8.9);
+\draw[retmsg] (\xSvc,-9.7)     -- node[lbl,above]{12. OK}                         (\xCtrl,-9.7);
+\draw[retmsg] (\xCtrl,-10.5)   -- node[lbl,above]{13. redirect /signupSuccess}    (\xBrowser,-10.5);
+\end{tikzpicture}
+% \caption{Diagramma di sequenza per la registrazione di un nuovo utente. I ``Servizi di Validazione'' includono \texttt{CheckUserService} (passi~2--3), \texttt{PlanService} (passi~4--5) e \texttt{PasswordValidationService} (passi~6--7).}
+\label{fig:sequenza}
 \end{figure}
 
-\subsection{Funzionalità non implementate}
-
-% Descrivere eventuali funzionalità previste ma non realizzate, con motivazione.
-[Elencare e motivare le funzionalità che non è stato possibile implementare, specificando se si tratta di vincoli temporali, tecnici o di altra natura.]
+% \subsection{Funzionalità non implementate}
+% Tutto ciò che la specifica richiedeva è stato implementato.

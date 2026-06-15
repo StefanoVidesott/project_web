@@ -4,17 +4,24 @@
 \section{Introduzione}
 
 \subsection{Obiettivo del progetto}
+L'obiettivo del progetto è realizzare una web app per il centro fitness e benessere \textit{GymBros Centre}, che permetta ai clienti e al personale amministrativo di gestire abbonamenti e sessioni di allenamento. L'applicazione supporta quattro ruoli: amministratore, utente Prova, utente Basic e utente Pro, ciascuno con funzionalità diverse in base al piano sottoscritto.
 
-% Descrivete il problema assegnato e l'obiettivo da raggiungere.
-% Esempio: "Il progetto consiste nella realizzazione di un'applicazione web per la gestione di..."
-[Descrivere qui il problema/obiettivo assegnato dal progetto.]
-
-\subsection{Scelte architetturali iniziali}
-
-% Spiegate come avete impostato le cose e perché.
-[Illustrare le scelte iniziali per la definizione dell'architettura, motivando le principali decisioni progettuali.]
+\subsection{Scelte architetturali}
+Come base abbiamo usato l'esempio fornitoci della professoressa (\texttt{esempio\_security}) per impostare il pattern MVC con Spring Boot, Spring Security e Thymeleaf. Da lì abbiamo applicato in tutta la webapp principale il pattern \textbf{controller $\to$ service $\to$ repository}: ogni controller delega la logica ai service dedicati, che accedono ai dati tramite repository. Separare questi tre strati consente di modificare ciascuno senza toccare gli altri.
 
 \subsection{Soluzioni alternative considerate}
 
-% Riportare eventuali approcci valutati e poi scartati, con le relative motivazioni.
-[Descrivere eventuali soluzioni alternative che sono state prese in considerazione e le ragioni per cui sono state poi abbandonate.]
+\paragraph{Conteggio degli allenamenti completati.}
+Inizialmente avevamo una tabella separata come log, condivisa tra programmi default e personalizzati. Rileggendo la consegna ci siamo resi conto che non era consentito; abbiamo quindi usato quattro colonne in \texttt{USERDATA} per i programmi predefiniti e una tabella \texttt{CUSTOM\_TRAININGS\_COUNTER} per quelli custom.
+
+\paragraph{Selezione del piano in fase di registrazione.}
+La selezione del piano avveniva tramite dropdown. Per mostrare le informazioni descrittive e i costi di ciascun piano lo abbiamo sostituito con un set di \textit{card} dotate di radio button.
+
+\paragraph{Endpoint aggiuntivo nel REST service.}
+Per la creazione di programmi personalizzati abbiamo aggiunto \texttt{GET /exercise-names}, che restituisce solo i nomi degli esercizi per consentire la selezione tramite dropdown ed evitare errori di battitura.
+
+\paragraph{Navbar duale.}
+Inizialmente avevamo due componenti navbar distinti. La libreria \texttt{thymeleaf-extras-springsecurity6} ha risolto il problema: con \texttt{sec:authorize=}\\\texttt{"isAnonymous()"} e \texttt{sec:authorize="isAuthenticated()"} si gestisce la visibilità di ogni elemento nel template con un solo componente.
+
+\paragraph{Schema del database del REST service.}
+La struttura del database ha subito più revisioni. Aggiungere un identificatore numerico ai programmi predefiniti ha semplificato il collegamento con i contatori in \texttt{USERDATA} e l'implementazione delle statistiche per tipo di allenamento.

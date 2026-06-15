@@ -2,24 +2,32 @@
 %  SEZIONE 5 — Contributo dei componenti del gruppo
 % ============================================================
 \section{Contributo di ogni componente del gruppo}
-
-La Tabella~\ref{tab:contributi} riassume le attività svolte da ciascun componente del team.
+% La Tabella~\ref{tab:contributi} riassume le attività svolte da ciascun
+% componente del team.
 
 \begin{table}[H]
-  \centering
-  \caption{Ripartizione del lavoro tra i membri del team.}
-  \label{tab:contributi}
-  \renewcommand{\arraystretch}{1.3}
-  \begin{tabularx}{\linewidth}{l X}
-    \toprule
-    \textbf{Componente} & \textbf{Attività svolte} \\
-    \midrule
-    \textbf{[Nome 1]} & [Descrivere le parti ...] \\
-    \textbf{[Nome 2]} & [Descrivere le parti ...] \\
-    \textbf{[Nome 3]} & [Descrivere le parti ...] \\
-    \bottomrule
-  \end{tabularx}
+\centering
+% \caption{Ripartizione del lavoro tra i membri del team.}
+\label{tab:contributi}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{l X}
+\toprule
+\textbf{Componente} & \textbf{Attività svolte} \\
+\midrule
+\textbf{Stefano Videsott} &
+  Architettura iniziale della web app principale; Spring Security,
+  controller, service layer e repository; parte del frontend frontend (relativo alle parti sviluppate), autenticazione e registrazione, dahsboards con alcune delle funzionalità, logica legata alle recensioni con
+  \texttt{fetch}/\texttt{async}/\texttt{await}; statistiche Chart.js;
+  refactoring completo finale della codebase per
+  uniformare i contributi di entrambi i membri (nomi di classi,
+  metodi, variabili, tabelle e colonne DB rinominati in inglese con
+  convenzioni coerenti). \\
+\textbf{Alessandro Como} &
+  Realizzazione della homepage e della pagina di contatto. Progettazione e sviluppo del REST service: controller, repository,
+  schema SQL e dati di test; integrazione con OpenFeign REST;
+  buisness logic e view relative alla visualizzazione e al completamento degli allenamenti e delle parti collegate. \\
+\bottomrule
+\end{tabularx}
 \end{table}
 
-% Se necessario, aggiungere ulteriori dettagli narrativi.
-[Eventuali precisazioni o attività svolte congiuntamente dall'intero gruppo.]
+La prima parte di ideazione e modellazione dello schema del database è stata fatta insieme.

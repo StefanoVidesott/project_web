@@ -4,16 +4,42 @@
 \section{Lezioni apprese}
 
 \subsection{Aspetti tecnici}
-
-% Cosa avete imparato sul piano tecnico: linguaggi, framework, strumenti.
-[Descrivere le competenze tecniche acquisite durante il progetto: nuovi framework, pattern di programmazione, strumenti di sviluppo, ecc.]
+Abbiamo innanzitutto imparato le basi di Spring, un framework che nessuno di noi due aveva mai utilizzato; abbiamo imparato ad impostare correttamente la parte di secuirity per gestire correttamente authorization e authentication. Abbiamo inoltre consolidato concetti della programmazione asincrona, che avevamo già visto nel corso di \textit{Ingegneria del Software} e che in questo corso abbiamo capito davvero.
 
 \subsection{Aspetti progettuali}
-
-% Cosa avete imparato sul piano della gestione del progetto: divisione del lavoro, versionamento, comunicazione.
-[Descrivere le lezioni apprese in termini di organizzazione del team, gestione delle attività, uso del version control e metodologie di sviluppo.]
+Sviluppare in parallelo sulla stessa applicazione ci ha permesso, al termine del lavoro, di renderci conto che è utile concordare dei pattern di sviluppo e delle convenzioni di naming, senza le quali ci si trova ad avere del codice eterogeneo e dispersivo.
 
 \subsection{Cosa rifaremmo diversamente}
+Avremmo definito lo schema del database e le convenzioni di naming prima di iniziare: ogni modifica a progetto completato ha richiesto tempo per la comprenzione e adeguare il codice in modo uniforme, operazione ripetuta troppe volte nella fase di refactor che ha richiesto diverse ore. Per il frontend useremmo una libreria differente per avere un frontend meno vincolato dalla logica dei dati oppure quantomeno Tailwind CSS al posto di Bootstrap, per avere un look più moderno e facile da scrivere.
 
-% Riflessione critica: se poteste ricominciare, cosa cambiereste?
-[Indicare con spirito critico le scelte che, alla luce dell'esperienza acquisita, verrebbero riviste: architettura, tecnologie, organizzazione del lavoro, ecc.]
+\subsection{Risorse aggiuntive}
+Nel corso del progetto sono state consultate diverse risorse esterne,
+in particolare per la realizzazione del frontend. Le principali sono:
+
+\begin{itemize}
+  \item Baeldung, textit{thymeleaf-extras-springsecurity6}:
+    \url{https://www.baeldung.com/spring-security-thymeleaf}
+
+  \item Documentazione ufficiale Bootstrap~5: componenti carousel, navbar,
+    tabelle, alert, radio toggle buttons, layout dei form e utility di
+    sizing e spacing @
+    \url{https://getbootstrap.com/docs/5.3/}
+
+  \item W3Schools, Bootstrap navbar e form @
+    \url{https://www.w3schools.com/bootstrap5/bootstrap_navbar.php},
+    \url{https://www.w3schools.com/bootstrap/bootstrap_forms.asp}
+
+  \item Colorlib, template login di riferimento per il layout delle
+    pagine di accesso @
+    \url{https://colorlib.com/wp/template/login-form-11/}
+
+  \item MDN Web Docs, template literals JavaScript @
+    \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals}
+
+  \item Stack Overflow, formattazione decimali in Thymeleaf e
+    centratura elementi con Bootstrap @
+    \url{https://stackoverflow.com/questions/52132580},
+    \url{https://stackoverflow.com/questions/42388989}
+
+  \item chart.js @ \url{https://www.chartjs.org/}
+\end{itemize}

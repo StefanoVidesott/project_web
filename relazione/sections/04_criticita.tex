@@ -4,21 +4,30 @@
 \section{Criticità della soluzione e sviluppi futuri}
 
 \subsection{Problemi incontrati durante lo sviluppo}
-
-% Descrivere i principali ostacoli tecnici o organizzativi affrontati.
-[Descrivere i principali problemi incontrati nel corso dello sviluppo, specificando le cause e come sono stati affrontati.]
+H2 persiste su disco tra un avvio e l'altro, quindi le modifiche allo schema non venivano applicate perché \texttt{CREATE TABLE IF NOT EXISTS} lasciava le tabelle esistenti. Abbiamo risolto aggiungendo \texttt{DROP TABLE} e \texttt{DELETE} all'inizio di \texttt{schema.sql} e \texttt{data.sql}. Secondo problema: Spring Security mantiene il ruolo nella sessione corrente, quindi aggiornare \texttt{AUTHORITIES} dopo un upgrade non ha effetto immediato; l'utente deve fare logout e login per attivarlo.
 
 \subsection{Limiti della soluzione attuale}
 
-% Indicare in modo onesto i limiti tecnici o funzionali dell'applicazione consegnata.
-[Illustrare i limiti noti della soluzione, ad esempio in termini di scalabilità, sicurezza, copertura dei casi d'uso o qualità del codice.]
+\begin{itemize}
+  \item L'amministratore non ha un'interfaccia per aggiungere o modificare programmi predefiniti. Per farlo è necessario modificare i file SQL del REST manipolandone li database.
+
+  \item Le statistiche sono contatori cumulativi, non log. Non ci sono timestamp per sessione, quindi non è possibile analizzare la frequenza degli allenamenti nel tempo.
+
+  \item Non abbiamo integrato un gateway di pagamento reale né implementato i requisiti GDPR.
+
+  \item Il form dei contatti non invia nulla al centro.
+
+  \item H2 embedded non è adatto alla produzione: poche connessioni concorrenti e persistenza legata al filesystem locale.
+\end{itemize}
 
 \subsection{Possibili miglioramenti futuri}
 
-Tra i possibili sviluppi futuri si identificano:
-
 \begin{itemize}
-  \item Miglioramento 1: descrivere brevemente.
-  \item Miglioramento 2: descrivere brevemente.
-  \item Miglioramento 3: descrivere brevemente.
+  \item Sostituire H2 con PostgreSQL o MySQL.
+
+  % \item Introdurre Redis per le sessioni, con invalidazione automatica dopo un upgrade.
+
+  \item Collegare un gateway di pagamento e implementare la conformità GDPR.
+
+  \item Aggiungere timestamp alle sessioni completate per abilitare statistiche temporali.
 \end{itemize}
