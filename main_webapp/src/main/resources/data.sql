@@ -31,10 +31,10 @@ INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDat
     ('admin#07', 'Admin', 'System', 'admin@fitapp.it', '1990-01-01', '2025-01-01', 0, 0, 0, 0),
     ('basic#07', 'Stefano', 'Videsott', 'basic@fitapp.it', '1990-01-01', '2025-01-02', 0, 0, 0, 0),
     ('pro#07', 'Alessandro', 'Como', 'pro@fitapp.it', '1990-01-01', '2025-01-03', 6, 10, 3, 3),
-    ('prova#1#07', 'Giovanna', 'Varni', 'prova1@fitapp.it', '1990-01-01', '2025-06-07', 2, 2, 2, 2),
-    ('prova#2#07', 'Prova', 'Bianchi', 'prova2@fitapp.it', '1990-01-01', '2025-06-09', 0, 1, 3, 3),
-    ('prova#3#07', 'Prova',  'Esposito', 'prova3@fitapp.it', '1990-01-01', '2025-06-21', 6, 3, 6, 1),
-    ('prova#4#07', 'Prova', 'Ferrari', 'prova4@fitapp.it', '1990-01-01', '2025-06-23', 0, 0, 0, 0),
+    ('prova#1#07', 'Giovanna', 'Varni', 'prova1@fitapp.it', '1990-01-01', '2025-06-07', 1, 0, 0, 0),
+    ('prova#2#07', 'Prova', 'Bianchi', 'prova2@fitapp.it', '1990-01-01', '2025-06-09', 0, 1, 0, 1),
+    ('prova#3#07', 'Prova',  'Esposito', 'prova3@fitapp.it', '1990-01-01', '2025-06-21', 0, 0, 2, 1),
+    ('prova#4#07', 'Prova', 'Ferrari', 'prova4@fitapp.it', '1990-01-01', '2025-06-23', 3, 0, 0, 0),
     ('prova#5#07', 'Prova', 'Romano', 'prova5@fitapp.it', '1990-01-01', '2025-06-08', 0, 0, 0, 0);
 
 INSERT INTO CUSTOM_TRAININGS (username, name, kcal) VALUES
