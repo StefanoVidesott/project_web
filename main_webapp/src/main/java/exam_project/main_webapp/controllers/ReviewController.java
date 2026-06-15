@@ -21,12 +21,12 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/recensioni")
+    @GetMapping("/reviews")
     public List<Review> getReviews() {
         return reviewService.getAllReviews();
     }
 
-    @PostMapping("/recensioni")
+    @PostMapping("/reviews")
     public Review addReview(@RequestParam String content, Authentication authentication) {
         String username = authentication.getName();
         return reviewService.saveReview(username, content);

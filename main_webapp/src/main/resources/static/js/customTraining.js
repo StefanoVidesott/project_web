@@ -12,9 +12,9 @@ function addExercise() {
         <hr class="border border-primary border-3 opacity-75">
 
         <label>Nome esercizio</label>
-         <select class="form-select" aria-label="Default select example" name="exercises[${counter}].exerciseName" required>
-                     ${originalSelect.innerHTML}
-                 </select>
+        <select class="form-select mb-2" aria-label="Default select example" name="exercises[${counter}].exerciseName" required>
+            ${originalSelect.innerHTML}
+        </select>
 
         <label>Numero ripetizioni</label>
         <input type="number" name="exercises[${counter}].reps" placeholder="Numero ripetizioni..." required>

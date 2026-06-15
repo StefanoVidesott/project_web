@@ -39,6 +39,9 @@ public class UserRepository {
 
     @Transactional
     public void addUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDetailsManager.createUser(new SecurityUser(user));
+
         String sql = "INSERT INTO USERDATA (username, firstName, lastName, email, birthDate, signupDate, count_training0, count_training1, count_training2, count_training3) VALUES (?, ?, ?, ?, ?, ?, 0, 0, 0, 0)";
         jdbc.update(sql,
                 user.getUsername(),
@@ -48,9 +51,6 @@ public class UserRepository {
                 user.getBirthDate(),
                 Date.valueOf(LocalDate.now())
         );
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDetailsManager.createUser(new SecurityUser(user));
     }
 
     public User findUserByUsername(String username) {

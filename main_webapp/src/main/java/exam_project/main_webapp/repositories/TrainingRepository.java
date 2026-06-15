@@ -83,4 +83,9 @@ public class TrainingRepository {
             """;
         return jdbc.queryForList(sql);
     }
+
+    public Training getCustomTrainingById(int id) {
+        String sql = "SELECT * FROM CUSTOM_TRAININGS WHERE id = ?";
+        return jdbc.queryForObject(sql, new TrainingMapper(), id);
+    }
 }

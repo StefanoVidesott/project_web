@@ -4,29 +4,31 @@
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
 
-    <h1 class="fw-light" >Contattaci pure qui sotto!</h1>
+    <div class="box p-4 m-5">
+        <h1 class="fw-light" >Contattaci pure qui sotto!</h1>
 
-    <form>
+        <form class="form">
 
-        <div class="mb-3">
-            <label for="nomeUtente" class="form-label">Nome e cognome</label>
-            <input type="text" class="form-control" id="nomeUtente" placeholder="Nome" required>
-        </div>
+            <div class="mb-3">
+                <label for="nomeUtente" class="form-label">Nome e cognome</label>
+                <input type="text" class="form-control" id="nomeUtente" placeholder="Nome" required>
+            </div>
 
-        <div class="mb-3">
-            <label for="emailUtente" class="form-label">Indirizzo email</label>
-            <input type="email" class="form-control" id="emailUtente" placeholder="@qualcosa.com" required>
-        </div>
-        <div class="mb-3">
-            <label for="Lamentela" class="form-label">Digita qui il tuo messaggio</label>
-            <textarea class="form-control" id="Lamentela" rows="3" required></textarea>
-        </div>
+            <div class="mb-3">
+                <label for="emailUtente" class="form-label">Indirizzo email</label>
+                <input type="email" class="form-control" id="emailUtente" placeholder="@qualcosa.com" required>
+            </div>
+            <div class="mb-3">
+                <label for="Lamentela" class="form-label">Digita qui il tuo messaggio</label>
+                <textarea class="form-control" id="Lamentela" rows="3" required></textarea>
+            </div>
 
-        <div class="col">
-            <button class="form-control btn btn-dark" type="submit" onclick="mockSubmit()">Invia</button>
-        </div>
+            <div class="col">
+                <button class="form-control btn btn-dark" type="submit" onclick="mockSubmit()">Invia</button>
+            </div>
 
-    </form>
+        </form>
+    </div>
 
     <footer th:replace="~{bases/footer.html}"></footer>
     <script>

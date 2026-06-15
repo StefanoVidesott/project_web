@@ -21,13 +21,11 @@ import java.util.List;
 @Controller
 public class TrainingController {
     private final TrainingsProxy trainingsProxy;
-    private final TrainingRepository trainingRepository;
     private final UserRepository userRepository;
     private final TrainingService trainingService;
 
-    public TrainingController(TrainingsProxy trainingsProxy, TrainingRepository trainingRepository, UserRepository userRepository, TrainingService trainingService) {
+    public TrainingController(TrainingsProxy trainingsProxy, UserRepository userRepository, TrainingService trainingService) {
         this.trainingsProxy = trainingsProxy;
-        this.trainingRepository = trainingRepository;
         this.userRepository = userRepository;
         this.trainingService = trainingService;
     }
@@ -45,8 +43,8 @@ public class TrainingController {
     public String getProTrainings(Model model, Authentication authentication) {
         String username = authentication.getName();
         List<Training> trainings = trainingsProxy.getDefaultTrainings();
-        List<Training> customTrainings = trainingRepository.getCustomTrainingsByUsername(username);
-        trainingRepository.enrichTrainingsWithKcal(trainings);
+        List<Training> customTrainings = trainingService.getCustomTrainingsByUsername(username);
+        trainingService.enrichTrainingsWithKcal(trainings);
         model.addAttribute("trainings", trainings);
         model.addAttribute("customTrainings", customTrainings);
         return "proTrainings";
@@ -55,7 +53,7 @@ public class TrainingController {
     @GetMapping("/trainings/default")
     public String getDefaultTrainings(Model model) {
         List<Training> trainings = trainingsProxy.getDefaultTrainings();
-        trainingRepository.enrichTrainingsWithKcal(trainings);
+        trainingService.enrichTrainingsWithKcal(trainings);
         model.addAttribute("trainings", trainings);
         return "defaultTrainings";
     }
@@ -63,13 +61,16 @@ public class TrainingController {
     @GetMapping("/composition")
     public String getComposition(@RequestParam String trainingName, Model model) {
         List<Composition> composition = trainingsProxy.getExercisesByTrainingName(trainingName);
+        model.addAttribute("trainingName", trainingName);
         model.addAttribute("composition", composition);
         return "composition";
     }
 
     @GetMapping("/composition/custom")
     public String getCustomComposition(@RequestParam int id, Model model) {
-        List<CustomComposition> customComposition = trainingRepository.getCustomExercisesByTrainingId(id);
+        Training training = trainingService.getCustomTrainingById(id);
+        List<CustomComposition> customComposition = trainingService.getCustomExercisesByTrainingId(id);
+        model.addAttribute("trainingName", training.getName());
         model.addAttribute("customComposition", customComposition);
         return "customComposition";
     }
@@ -84,7 +85,7 @@ public class TrainingController {
     @PostMapping("/training/custom/save")
     public String saveCustomTraining(Authentication authentication, String trainingName, ExerciseDTO exercises, Model model) {
         String username = authentication.getName();
-        boolean result = trainingRepository.addCustomTraining(username, trainingName, exercises.getExercises());
+        boolean result = trainingService.addCustomTraining(username, trainingName, exercises.getExercises());
         if (!result) {
             model.addAttribute("error", "A training with the same name already exists.");
         }

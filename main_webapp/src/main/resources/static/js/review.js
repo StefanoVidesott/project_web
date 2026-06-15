@@ -12,7 +12,7 @@ async function sendReview() {
         const formData = new FormData();
         formData.append('content', content);
 
-        const response = await fetch('/recensioni', {
+        const response = await fetch('/reviews', {
             method: 'POST',
             body: formData
         });

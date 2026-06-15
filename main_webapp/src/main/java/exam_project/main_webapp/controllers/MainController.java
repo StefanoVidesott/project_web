@@ -1,10 +1,7 @@
 package exam_project.main_webapp.controllers;
 
 import exam_project.main_webapp.pojos.User;
-import exam_project.main_webapp.services.CheckUserService;
-import exam_project.main_webapp.services.PasswordValidationService;
-import exam_project.main_webapp.services.TrainingService;
-import exam_project.main_webapp.services.UserService;
+import exam_project.main_webapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,16 +19,19 @@ public class MainController {
     private final CheckUserService checkUserService;
     private final PasswordValidationService passwordValidationService;
     private final TrainingService trainingService;
+    private final PlanService planService;
 
     @Autowired
     public MainController(UserService userService,
                           CheckUserService checkUserService,
                           PasswordValidationService passwordValidationService,
-                          TrainingService trainingService) {
+                          TrainingService trainingService,
+                          PlanService planService) {
         this.userService = userService;
         this.checkUserService = checkUserService;
         this.passwordValidationService = passwordValidationService;
         this.trainingService = trainingService;
+        this.planService = planService;
     }
 
     // Home page
@@ -46,7 +46,7 @@ public class MainController {
         if (error != null) {
             model.addAttribute("error", "#07: That user is not authenticated!");
         }
-        return "login"; // Spring Security Login (lezione 06/05)
+        return "login"; // Login gestito da Spring Security (lezione 06/05)
     }
 
     // Logout Page
@@ -79,6 +79,11 @@ public class MainController {
 
         if (checkUserService.userExists(username)) {
             model.addAttribute("error", String.format("Username %s già esistente, sceglierne un altro.", username));
+            return "signup";
+        }
+
+        if (!planService.isAllowedUserPlan(plan)) {
+            model.addAttribute("error", "Piano non valido.");
             return "signup";
         }
 

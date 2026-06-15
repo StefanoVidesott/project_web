@@ -1,6 +1,6 @@
 async function loadReviews() {
     try {
-        const response = await fetch('/recensioni');
+        const response = await fetch('/reviews');
         if (!response.ok) {
             throw new Error('Errore HTTP: ' + response.status);
         }
@@ -21,7 +21,6 @@ async function loadReviews() {
 
         const shuffled = reviews.sort(() => Math.random() - 0.5);
 
-        /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals */
         shuffled.forEach((rec, index) => {
             const slide = document.createElement('div');
             slide.className = 'carousel-item' + (index === 0 ? ' active' : '');

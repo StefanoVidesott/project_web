@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Objects;
-
 @Controller
 public class UpgradeController {
     private final UserService userService;
@@ -40,7 +37,7 @@ public class UpgradeController {
         model.addAttribute("currentPlan", planService.getPlanName(currentAuthority));
 
         // Verifica per evitare role escalation
-        if (!planService.isValidUpgrade(newPlan)) {
+        if (!planService.isAllowedUserPlan(newPlan)) {
             model.addAttribute("error", "Piano non valido.");
             return "upgrade";
         }

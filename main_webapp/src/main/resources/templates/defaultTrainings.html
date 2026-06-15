@@ -6,45 +6,54 @@
 <body>
     <nav th:replace="~{bases/navbar.html}"></nav>
 
-    <h1>Programmi di allenamento!</h1>
+    <div class="box m-5 p-4">
+        <h1>Programmi di allenamento!</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
 
-            <tr>
-                <th scope="col">Nome Programma</th>
-                <th scope="col">Kcal</th>
-                <th scope="col">Completamento</th>
-                <th scope="col">Visualizzazione</th>
-            </tr>
+                <tr>
+                    <th scope="col">Nome Programma</th>
+                    <th scope="col">Kcal</th>
+                    <th scope="col">Completamento</th>
+                    <th scope="col">Visualizzazione</th>
+                </tr>
 
-        </thead>
+            </thead>
 
-        <tbody>
-            <tr th:each="training : ${trainings}">
+            <tbody>
+                <tr th:each="training : ${trainings}">
 
-                <td th:text="${training.name}"> P </td>
-                <td th:text="${training.kcal}"> P </td>
+                    <td th:text="${training.name}"> P </td>
+                    <td th:text="${training.kcal}"> P </td>
 
-                <td>
-                    <form th:action="@{/training/complete}" method="post">
-                        <input type="hidden" name="isDefault" th:value="true">
-                        <button class="btn btn-primary" type="submit" name="trainingId" th:value="${training.id}">
-                            Completa la scheda </button>
-                    </form>
-                </td>
+                    <td>
+                        <form th:action="@{/training/complete}" method="post">
+                            <input type="hidden" name="isDefault" th:value="true">
+                            <button class="btn btn-primary" type="submit" name="trainingId" th:value="${training.id}">
+                                Completa la scheda </button>
+                        </form>
+                    </td>
 
-                <td>
-                    <form th:action="@{/composition}" method="get">
-                        <button class="btn btn-info" type="submit" name="trainingName" th:value="${training.name}">
-                            Visualizza la scheda </button>
-                    </form>
-                </td>
+                    <td>
+                        <form th:action="@{/composition}" method="get">
+                            <button class="btn btn-info" type="submit" name="trainingName" th:value="${training.name}">
+                                Visualizza la scheda </button>
+                        </form>
+                    </td>
 
-            </tr>
-        </tbody>
+                </tr>
+            </tbody>
 
-    </table>
+        </table>
+    </div>
+    <div class="row mx-4">
+        <div class="col-auto">
+            <a th:href="@{/dashboard}" class="btn btn-primary">
+                Torna alla Dashboard
+            </a>
+        </div>
+    </div>
 
     <div th:replace="~{bases/footer.html}"></div>
     <div th:replace="~{bases/scripts.html}"></div>
