@@ -2,6 +2,7 @@
     <div class="box p-5">
         <h5 class="mb-3">Inserisci una Recensione</h5>
         <div id="reviewMsg"></div>
+        <p id="postReviewEndpoint" th:text="@{/reviews}" style="display:none"></p>
         <div class="mb-3">
             <textarea id="reviewContent" class="form-control" rows="3" placeholder="Scrivi la tua Recensione..." maxlength="512"></textarea>
         </div>

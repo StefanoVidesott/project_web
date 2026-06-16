@@ -12,8 +12,8 @@ async function sendReview() {
         const formData = new FormData();
         formData.append('content', content);
 
-        const reviewEndpoint = document.getElementById('reviewEndpoint').textContent.trim();
-        const response = await fetch(reviewEndpoint, {
+        const postReviewEndpoint = document.getElementById('postReviewEndpoint').textContent.trim();
+        const response = await fetch(postReviewEndpoint, {
             method: 'POST',
             body: formData
         });
