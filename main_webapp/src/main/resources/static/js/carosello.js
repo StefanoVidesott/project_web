@@ -1,6 +1,7 @@
 async function loadReviews() {
     try {
-        const response = await fetch('/reviews');
+        const reviewEndpoint = document.getElementById('reviewEndpoint').textContent.trim();
+        const response = await fetch(reviewEndpoint);
         if (!response.ok) {
             throw new Error('Errore HTTP: ' + response.status);
         }
