@@ -11,7 +11,7 @@
     <groupId>exam_project</groupId>
     <artifactId>main_webapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <!-- <packaging>war</packaging>-->
     <name>main_webapp</name>
     <description>main_webapp</description>
     <url/>
